@@ -20,6 +20,13 @@ export const onRequestPost = rota(async ({ request, env }) => {
 
   // corpoTexto força string: `{"password": 123}` tem length undefined e passaria
   // pelo mínimo de caracteres, gravando uma senha de 3 dígitos.
+  // Lê o corpo cru antes: `corpoTexto` transforma não-string em "", e "" cai no
+  // ramo "só troca o e-mail" — devolvendo 200 sem ter trocado a senha nenhuma.
+  const cru = await request.clone().json().catch(() => ({}));
+  if (cru?.password !== undefined && typeof cru.password !== "string") {
+    return bad("A nova senha precisa ser um texto.");
+  }
+
   const { currentPassword, email, password } = await corpoTexto(request, [
     "currentPassword",
     "email",

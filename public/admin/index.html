@@ -145,7 +145,6 @@
     <header class="topo">
       <h2 id="titulo-secao"></h2>
       <span class="estado" id="estado">Carregando…</span>
-      <button class="btn ghost pequeno" id="btn-restaurar" type="button">Restaurar padrão</button>
       <button class="btn" id="btn-publicar" type="button" disabled>Publicar alterações</button>
     </header>
     <div class="conteudo">
@@ -176,6 +175,25 @@
 // =====================================================================
 
 const $ = (sel) => document.querySelector(sel);
+/**
+ * Endereço da página a partir do nome. Mesma regra do `slugify` de
+ * lib/validate.js — o servidor recusa qualquer coisa fora de [a-z0-9-].
+ * O sufixo numérico evita dois itens disputando a mesma URL.
+ */
+function slugUnico(texto, usados = []) {
+  const base =
+    String(texto)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "item";
+  if (!usados.includes(base)) return base;
+  let n = 2;
+  while (usados.includes(`${base}-${n}`)) n += 1;
+  return `${base}-${n}`;
+}
+
 const el = (tag, props = {}, filhos = []) => {
   const node = Object.assign(document.createElement(tag), props);
   for (const filho of [].concat(filhos)) if (filho) node.append(filho);
@@ -243,12 +261,12 @@ $("#form-login").addEventListener("submit", async (evento) => {
 $("#btn-esqueci").addEventListener("click", () => {
   abrirModal({
     titulo: "Recuperar senha",
-    texto: "Informe o e-mail cadastrado. Enviaremos uma senha nova para ele — a atual deixa de valer.",
+    texto: "Informe o e-mail cadastrado. Enviaremos uma senha provisória, válida por 30 minutos. Sua senha atual continua funcionando.",
     campos: [{ id: "email", label: "E-mail cadastrado", type: "email" }],
     confirmar: "Enviar",
     async acao(valores) {
       await api("recover", { method: "POST", body: JSON.stringify({ email: valores.email }) });
-      aviso("#login-aviso", "ok", "Se o e-mail estiver cadastrado, a nova senha chegará em instantes.");
+      aviso("#login-aviso", "ok", "Se o e-mail estiver cadastrado, a senha provisória chegará em instantes.");
     },
   });
 });
@@ -671,13 +689,14 @@ function secaoServicos() {
   return [
     bloco(
       "Serviços",
-      "Cada serviço vira um card na home e uma página própria. O endereço da página é criado a partir do nome e não muda depois.",
+      "Cada serviço vira um card na home e uma página própria. O endereço da página é criado a partir do nome no momento em que você adiciona o serviço, e não muda depois — renomear o serviço não muda o endereço.",
       [
         ...itens,
         botaoAdicionar("Adicionar serviço", () =>
+          const titulo = "Novo serviço";
           lista.push({
-            slug: `servico-${Date.now().toString(36)}`,
-            title: "Novo serviço",
+            slug: slugUnico(titulo, lista.map((x) => x.slug)),
+            title: titulo,
             icon: "Wrench",
             short: "Manutenção, limpeza, instalação e reparos",
             description: "Descreva aqui o que está incluído neste serviço.",
@@ -715,8 +734,13 @@ function secaoProdutos() {
     bloco("Produtos", "Aparecem na vitrine da página Produtos. O botão de compra abre o WhatsApp.", [
       ...itens,
       botaoAdicionar("Adicionar produto", () => {
-        const id = `produto-${Date.now().toString(36)}`;
-        lista.push({ id, name: "Novo produto", price: 0, image: lista[0]?.image || "/images/products/ar-completo.webp" });
+        const nome = "Novo produto";
+        lista.push({
+          id: slugUnico(nome, lista.map((x) => x.id)),
+          name: nome,
+          price: 0,
+          image: lista[0]?.image || "/images/products/ar-completo.webp",
+        });
       }),
     ]),
   ];
@@ -849,12 +873,17 @@ function secaoUsuario() {
   const atual = el("input", { type: "password", autocomplete: "current-password" });
   const email = el("input", { type: "email", autocomplete: "username", value: estado.email || "" });
   const nova = el("input", { type: "password", autocomplete: "new-password" });
+  const confirma = el("input", { type: "password", autocomplete: "new-password" });
   const salvar = el("button", { type: "button", className: "btn", textContent: "Salvar acesso" });
   const retorno = el("div");
 
   salvar.addEventListener("click", async () => {
-    salvar.disabled = true;
     retorno.innerHTML = "";
+    if (nova.value && nova.value !== confirma.value) {
+      retorno.append(el("div", { className: "aviso erro", textContent: "As duas senhas novas não são iguais." }));
+      return;
+    }
+    salvar.disabled = true;
     try {
       const resultado = await api("account", {
         method: "POST",
@@ -864,6 +893,7 @@ function secaoUsuario() {
       $("#usuario-logado").textContent = resultado.email;
       atual.value = "";
       nova.value = "";
+      confirma.value = "";
       retorno.append(el("div", { className: "aviso ok", textContent: "Dados de acesso atualizados." }));
     } catch (erro) {
       retorno.append(el("div", { className: "aviso erro", textContent: erro.message }));
@@ -884,6 +914,11 @@ function secaoUsuario() {
         el("label", { textContent: "Nova senha" }),
         nova,
         el("p", { className: "dica", textContent: "Deixe vazio para manter a senha atual. Mínimo de 8 caracteres." }),
+      ]),
+      el("div", { className: "campo" }, [
+        el("label", { textContent: "Repita a nova senha" }),
+        confirma,
+        el("p", { className: "dica", textContent: "Confere se não houve erro de digitação." }),
       ]),
     ]),
     salvar,
@@ -995,8 +1030,6 @@ async function acompanharDeploy(commit) {
   setTimeout(verificar, 12000);
 }
 
-$("#btn-restaurar").addEventListener("click", restaurar);
-
 function restaurar() {
   abrirModal({
     titulo: "Restaurar padrão de fábrica",
@@ -1044,7 +1077,7 @@ async function iniciar() {
     desenharSecao();
     if (dados.pending) {
       atualizarEstado("publicando", "Publicação em andamento");
-      acompanharDeploy();
+      acompanharDeploy(dados.pendingCommit);
     } else {
       atualizarEstado("pronto", "Site em dia");
     }

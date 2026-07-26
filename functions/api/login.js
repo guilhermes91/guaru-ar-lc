@@ -22,7 +22,9 @@ export const onRequestPost = rota(async ({ request, env }) => {
     return bad("E-mail ou senha incorretos.", 401);
   }
 
-  await env.ADMIN_KV.delete(key);
+  // put em vez de delete: o KV é eventualmente consistente e um delete pode
+  // demorar a propagar, deixando o cliente com 429 mesmo após acertar a senha.
+  await env.ADMIN_KV.put(key, "0", { expirationTtl: 60 });
   const token = await createSession(env, user.email);
   return json({ email: user.email }, 200, { "set-cookie": sessionCookie(token) });
 });

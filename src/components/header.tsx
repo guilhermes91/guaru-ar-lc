@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Logo, WhatsAppIcon } from "./logo";
 import { services, site } from "@/data/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [servicos, setServicos] = useState(false);
+  const botaoServicos = useRef<HTMLButtonElement>(null);
   const close = () => {
     setOpen(false);
     setServicos(false);
@@ -30,10 +31,15 @@ export function Header() {
               if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicos(false);
             }}
             onKeyDown={(e) => {
-              if (e.key === "Escape") setServicos(false);
+              if (e.key !== "Escape") return;
+              setServicos(false);
+              // Tirar o foco de dentro do submenu é o que realmente fecha:
+              // o CSS o mantém aberto enquanto :focus-within casar.
+              botaoServicos.current?.focus();
             }}
           >
             <button
+              ref={botaoServicos}
               type="button"
               aria-expanded={open || servicos}
               aria-controls="submenu-servicos"

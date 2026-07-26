@@ -51,7 +51,10 @@ export const onRequestPost = rota(async ({ request, env }) => {
         ].join("\n"),
       });
     } catch (error) {
-      return bad(`Não consegui enviar o e-mail: ${error.message}`, 502);
+      // Devolver 502 aqui diria "esse e-mail existe" — o caminho do e-mail
+      // errado responde 200. E `error.message` traz o corpo da API de e-mail.
+      console.error("recover: falha ao enviar", error?.message);
+      return json({ ok: true });
     }
 
     // Só grava depois que o e-mail saiu: se o envio falhar, nada muda.

@@ -50,7 +50,8 @@ clientes e as perguntas frequentes.
 
 **Marcas atendidas** — os logos que aparecem na página de assistência.
 
-**Usuário** — trocar seu e-mail e senha de acesso.
+**Usuário** — trocar seu e-mail e senha de acesso (a nova senha é digitada duas
+vezes, para evitar erro de digitação), e restaurar o padrão de fábrica.
 
 ## Regras que o painel aplica sozinho
 
@@ -80,7 +81,7 @@ Em cada item das listas: **↑ ↓** mudam a ordem em que aparecem no site,
 
 ## Restaurar padrão de fábrica
 
-Em **Usuário**, ou no botão no topo. Devolve todo o conteúdo do site
+Em **Usuário**, no fim da página. Devolve todo o conteúdo do site
 exatamente como foi entregue — textos, produtos, serviços, bairros e imagens.
 
 Use se algo sair muito do lugar. **As alterações atuais são perdidas.** O

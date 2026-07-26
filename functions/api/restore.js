@@ -35,8 +35,9 @@ export const onRequestPost = rota(async ({ request, env }) => {
       message: `conteudo: restauracao para o padrao de fabrica (${session.email})`,
       sha: published.sha,
     });
-    await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString() });
-    return json({ ok: true, content, commit: result.commit.sha.slice(0, 7) });
+    const commit = result.commit.sha.slice(0, 7);
+    await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString(), commit });
+    return json({ ok: true, content, commit });
   } catch (error) {
     return bad(`Não consegui restaurar: ${error.message}`, 502);
   }

@@ -35,6 +35,9 @@ export const onRequestGet = rota(async ({ request, env }) => {
     content: pendente ? rascunho.content : published.content,
     sha: published.sha,
     pending: pendente,
+    // Commit da publicação em andamento: sem ele, um painel recarregado no meio
+    // do deploy aceitaria qualquer run concluído e diria "Site atualizado" cedo.
+    pendingCommit: pendente ? rascunho.commit : undefined,
   });
 });
 
@@ -65,8 +68,9 @@ export const onRequestPost = rota(async ({ request, env }) => {
       message: `conteudo: atualizacao pelo painel (${session.email})`,
       sha: published.sha,
     });
-    await draft.put(env, { sha: result.content.sha, content: conteudo, at: new Date().toISOString() });
-    return json({ ok: true, commit: result.commit.sha.slice(0, 7) });
+    const commit = result.commit.sha.slice(0, 7);
+    await draft.put(env, { sha: result.content.sha, content: conteudo, at: new Date().toISOString(), commit });
+    return json({ ok: true, commit });
   } catch (error) {
     return bad(`Não consegui publicar: ${error.message}`, 502);
   }
