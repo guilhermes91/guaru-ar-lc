@@ -10,14 +10,14 @@
     "hours": "Segunda a Sábado, das 8h às 18h",
     "whatsappMessage": "Olá! Vim pelo site da Guaru Ar LC e gostaria de solicitar um orçamento.",
     "social": {
-      "facebook": "https://www.facebook.com/Guaruarcondicionados",
+      "facebook": "",
       "instagram": "https://www.instagram.com/guaruarcondicionado/"
     }
   },
   "texts": {
     "heroTitle": "Climatização, aquecimento e piscinas no Guarujá",
     "heroHighlight": "Guarujá",
-    "heroSubtitle": "Conforto, segurança e cuidado em todos os ambientes.",
+    "heroSubtitle": "Conforto QA3 estado-real antes da fabrica.",
     "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
     "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
     "footerDescription": "Climatização, aquecimento e piscinas no Guarujá com qualidade, segurança e atendimento que você confia.",
@@ -472,5 +472,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-26T22:52:12.827Z"
+  "updatedAt": "2026-07-26T22:57:41.928Z"
 }
