@@ -1,5 +1,123 @@
-import type { Metadata } from "next"; import Link from "next/link"; import { notFound } from "next/navigation"; import { MessageCircle } from "lucide-react"; import { neighborhoods, services, site } from "@/data/site";
-const slug=(x:string)=>x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ /g,'-');
-export function generateStaticParams(){return neighborhoods.map(bairro=>({bairro:slug(bairro)}))}
-export async function generateMetadata({params}:{params:Promise<{bairro:string}>}):Promise<Metadata>{const {bairro}=await params;const name=neighborhoods.find(n=>slug(n)===bairro);return name?{title:`Ar-condicionado, aquecedores e piscinas em ${name}`,description:`Manutenção, limpeza, instalação e reparos em ${name}, Guarujá. Atendimento local Guaru Ar LC.`}:{}}
-export default async function Neighborhood({params}:{params:Promise<{bairro:string}>}){const {bairro}=await params;const name=neighborhoods.find(n=>slug(n)===bairro);if(!name)notFound();return <><section className="page-hero"><div className="container"><div className="breadcrumbs">Início / Guarujá / {name}</div><h1>Serviços Guaru Ar LC em {name}</h1><p>Manutenção, limpeza, instalação e reparos em ar-condicionado, aquecedores e piscinas com atendimento em {name}, Guarujá.</p><a className="btn whatsapp" href={site.whatsapp(`Olá! Estou em ${name}, Guarujá, e gostaria de um orçamento.`)} target="_blank"><MessageCircle/> Pedir orçamento em {name}</a></div></section><section className="section"><article className="container content"><h2>Atendimento técnico em {name}</h2><p>A Guaru Ar LC atende residências, condomínios e empresas no bairro {name}. Trabalhamos com avaliação prévia, orçamento transparente e orientação para aumentar a durabilidade dos equipamentos no ambiente litorâneo.</p><h2>Serviços disponíveis</h2><ul>{services.map(s=><li key={s.slug}><Link href={`/servicos/${s.slug}`}><strong>{s.title}:</strong> {s.description}</Link></li>)}</ul><h2>Solicite uma avaliação</h2><p>Informe seu bairro, o tipo de equipamento e o problema encontrado. Fotos e vídeos pelo WhatsApp ajudam nossa equipe a entender melhor a necessidade antes da visita.</p></article></section></>}
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { MessageCircle } from "lucide-react";
+import { guarujaNeighborhoodGroups } from "@/data/brands";
+import { neighborhoods, services, site, slugBairro as slug } from "@/data/site";
+import { metaDaPagina } from "@/app/seo";
+
+export function generateStaticParams() {
+  return neighborhoods.map((bairro) => ({ bairro: slug(bairro) }));
+}
+
+// Sem isto, as 41 páginas de bairro seriam o mesmo texto com o nome trocado —
+// exatamente o padrão de "doorway page" que o Google despriorizou. O texto varia
+// pela região a que o bairro pertence, que é dado que já existe no painel.
+const PORREGIAO: Record<string, string> = {
+  "Região I":
+    "Na faixa das praias urbanizadas, os equipamentos convivem com maresia constante e uso intenso na temporada. Limpeza periódica e checagem de vedação evitam a corrosão que aparece primeiro nas serpentinas.",
+  "Região II":
+    "Na parte continental do Guarujá, o atendimento costuma envolver casas e comércios de uso o ano inteiro, com prioridade para manutenção preventiva e reparo rápido, sem depender da temporada.",
+  "Região III":
+    "Região de casas de veraneio e condomínios: boa parte dos chamados é de reativação de equipamento que ficou meses parado — aquecedor, bomba de piscina e ar-condicionado pedem revisão antes do primeiro uso.",
+  "Região IV":
+    "Área mais afastada da orla, com imóveis maiores e acesso por estrada. A visita é agendada com antecedência para levar peças e ferramentas na primeira ida, evitando um segundo deslocamento.",
+};
+
+const PADRAO =
+  "O atendimento começa por uma avaliação no local, com orçamento antes de qualquer execução e orientação de conservação para o ambiente litorâneo.";
+
+/** Bairro + região dele + vizinhos da mesma região. */
+function contexto(nome: string) {
+  const grupo = guarujaNeighborhoodGroups.find((g) => g.neighborhoods.includes(nome));
+  return {
+    regiao: grupo?.region,
+    vizinhos: (grupo?.neighborhoods || []).filter((n) => n !== nome),
+  };
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ bairro: string }> }): Promise<Metadata> {
+  const { bairro } = await params;
+  const nome = neighborhoods.find((n) => slug(n) === bairro);
+  if (!nome) return {};
+  const { regiao } = contexto(nome);
+  return metaDaPagina({
+    title: `Ar-condicionado, aquecedores e piscinas em ${nome}`,
+    description: `Manutenção, limpeza, instalação e reparos em ${nome}${
+      regiao ? ` (${regiao})` : ""
+    }, Guarujá. Atendimento local Guaru Ar LC, com orçamento antes da execução.`,
+  });
+}
+
+export default async function Neighborhood({ params }: { params: Promise<{ bairro: string }> }) {
+  const { bairro } = await params;
+  const nome = neighborhoods.find((n) => slug(n) === bairro);
+  if (!nome) notFound();
+
+  const { regiao, vizinhos } = contexto(nome);
+  const proximos = vizinhos.slice(0, 6);
+
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumbs">Início / Guarujá / {nome}</div>
+          <h1>Serviços Guaru Ar LC em {nome}</h1>
+          <p>
+            Manutenção, limpeza, instalação e reparos em ar-condicionado, aquecedores e piscinas com
+            atendimento em {nome}
+            {regiao ? `, na ${regiao} da nossa cobertura no Guarujá` : ", Guarujá"}.
+          </p>
+          <a
+            className="btn whatsapp"
+            href={site.whatsapp(`Olá! Estou em ${nome}, Guarujá, e gostaria de um orçamento.`)}
+            target="_blank"
+            rel="noopener"
+          >
+            <MessageCircle /> Pedir orçamento em {nome}
+          </a>
+        </div>
+      </section>
+
+      <section className="section">
+        <article className="container content">
+          <h2>Atendimento técnico em {nome}</h2>
+          <p>
+            A Guaru Ar LC atende residências, condomínios e empresas em {nome}. {(regiao && PORREGIAO[regiao]) || PADRAO}
+          </p>
+
+          <h2>Serviços disponíveis em {nome}</h2>
+          <ul>
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link href={`/servicos/${s.slug}/`}>
+                  <strong>{s.title}:</strong> {s.description}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {proximos.length > 0 && (
+            <>
+              <h2>Bairros vizinhos que também atendemos</h2>
+              <p>
+                {proximos.map((vizinho, i) => (
+                  <span key={vizinho}>
+                    {i > 0 && " · "}
+                    <Link href={`/guaruja/${slug(vizinho)}/`}>{vizinho}</Link>
+                  </span>
+                ))}
+              </p>
+            </>
+          )}
+
+          <h2>Solicite uma avaliação</h2>
+          <p>
+            Informe seu endereço em {nome}, o tipo de equipamento e o problema encontrado. Fotos e
+            vídeos pelo WhatsApp ajudam nossa equipe a entender melhor a necessidade antes da visita.
+          </p>
+        </article>
+      </section>
+    </>
+  );
+}

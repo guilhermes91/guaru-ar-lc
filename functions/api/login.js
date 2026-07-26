@@ -1,10 +1,10 @@
-import { bad, checkPassword, createSession, getUser, json, sessionCookie } from "../../lib/admin.js";
+import { bad, checkPassword, corpoTexto, createSession, getUser, json, rota, sessionCookie } from "../../lib/admin.js";
 
 const MAX_ATTEMPTS = 8;
 const WINDOW = 60 * 10; // 10 minutos
 
-export async function onRequestPost({ request, env }) {
-  const { email = "", password = "" } = await request.json().catch(() => ({}));
+export const onRequestPost = rota(async ({ request, env }) => {
+  const { email, password } = await corpoTexto(request, ["email", "password"]);
 
   const ip = request.headers.get("cf-connecting-ip") || "desconhecido";
   const key = `login-attempts:${ip}`;
@@ -25,4 +25,4 @@ export async function onRequestPost({ request, env }) {
   await env.ADMIN_KV.delete(key);
   const token = await createSession(env, user.email);
   return json({ email: user.email }, 200, { "set-cookie": sessionCookie(token) });
-}
+});

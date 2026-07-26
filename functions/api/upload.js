@@ -1,4 +1,4 @@
-import { bad, commitFile, json, requireSession } from "../../lib/admin.js";
+import { bad, commitFile, json, requireSession, rota } from "../../lib/admin.js";
 import { slugify } from "../../lib/validate.js";
 
 const MAX_BYTES = 3 * 1024 * 1024; // 3 MB
@@ -18,7 +18,7 @@ function assinatura(bytes) {
   return null;
 }
 
-export async function onRequestPost({ request, env }) {
+export const onRequestPost = rota(async ({ request, env }) => {
   const session = await requireSession(request, env);
   if (session instanceof Response) return session;
 
@@ -55,4 +55,4 @@ export async function onRequestPost({ request, env }) {
 
   // O site serve /public como raiz — o caminho usado no conteúdo não leva "public".
   return json({ ok: true, path: path.replace(/^public/, "") });
-}
+});

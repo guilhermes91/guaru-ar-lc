@@ -6,13 +6,14 @@ import {
   fetchContent,
   json,
   requireSession,
+  rota,
   toBase64,
 } from "../../lib/admin.js";
-import { validateContent } from "../../lib/validate.js";
+import { limparConteudo, validateContent } from "../../lib/validate.js";
 
 const PATH = "src/data/content.json";
 
-export async function onRequestGet({ request, env }) {
+export const onRequestGet = rota(async ({ request, env }) => {
   const session = await requireSession(request, env);
   if (session instanceof Response) return session;
 
@@ -35,14 +36,16 @@ export async function onRequestGet({ request, env }) {
     sha: published.sha,
     pending: pendente,
   });
-}
+});
 
-export async function onRequestPost({ request, env }) {
+export const onRequestPost = rota(async ({ request, env }) => {
   const session = await requireSession(request, env);
   if (session instanceof Response) return session;
 
   const body = await request.json().catch(() => null);
-  if (!body || typeof body.content !== "object") return bad("Nada para salvar.");
+  if (!body || typeof body.content !== "object" || Array.isArray(body.content)) {
+    return bad("Nada para salvar.");
+  }
 
   const errors = validateContent(body.content);
   if (errors.length) return json({ error: "Corrija antes de publicar:", details: errors }, 422);
@@ -52,7 +55,7 @@ export async function onRequestPost({ request, env }) {
 
   // Carimba quando o conteúdo mudou de verdade: é isso que vira <lastmod> no
   // sitemap, em vez da data do build (que muda a cada deploy sem motivo).
-  const conteudo = { ...body.content, updatedAt: new Date().toISOString() };
+  const conteudo = { ...limparConteudo(body.content), updatedAt: new Date().toISOString() };
 
   const text = JSON.stringify(conteudo, null, 2) + "\n";
   try {
@@ -67,4 +70,4 @@ export async function onRequestPost({ request, env }) {
   } catch (error) {
     return bad(`Não consegui publicar: ${error.message}`, 502);
   }
-}
+});

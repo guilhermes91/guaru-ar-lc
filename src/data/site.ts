@@ -15,6 +15,20 @@ export const site = {
 export const contentUpdatedAt: string =
   (content as { updatedAt?: string }).updatedAt || "2026-07-26T00:00:00.000Z";
 
+/**
+ * Nome de bairro → segmento de URL. Precisa ser idêntico ao `slugify` de
+ * lib/validate.js: é ele que valida o nome no painel, e é este que gera a rota,
+ * o link do card e a entrada do sitemap. Duas cópias divergentes = link 404.
+ */
+export function slugBairro(nome: string): string {
+  return String(nome)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export const texts = content.texts;
 
 export const services = content.services;

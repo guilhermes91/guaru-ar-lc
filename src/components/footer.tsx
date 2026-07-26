@@ -22,8 +22,12 @@ export function Footer() {
             <Logo />
             <p className="desc">{texts.footerDescription}</p>
             <div className="socials">
-              <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram da Guaru Ar LC"><InstagramIcon /></a>
-              <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook da Guaru Ar LC"><FacebookIcon /></a>
+              {site.social.instagram && (
+                <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram da Guaru Ar LC"><InstagramIcon /></a>
+              )}
+              {site.social.facebook && (
+                <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook da Guaru Ar LC"><FacebookIcon /></a>
+              )}
               <a href={site.whatsapp()} target="_blank" rel="noopener" aria-label="WhatsApp"><WhatsAppIcon /></a>
             </div>
           </div>

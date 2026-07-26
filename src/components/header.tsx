@@ -12,6 +12,7 @@ export function Header() {
     setOpen(false);
     setServicos(false);
   };
+
   return (
     <header className="header">
       <div className="container nav">
@@ -19,12 +20,28 @@ export function Header() {
         <nav className={open ? "navlinks open" : "navlinks"}>
           <Link href="/" onClick={close}>Início</Link>
           {/* Botão, não span: no desktop o submenu abre no :hover e no :focus-within,
-              então quem navega por teclado alcança os serviços pelo Tab. */}
-          <div className="drop">
-            <button type="button" aria-expanded={servicos} onClick={() => setServicos(!servicos)}>
+              então quem navega por teclado alcança os serviços pelo Tab.
+              No mobile o CSS deixa a lista sempre visível — por isso o aria-expanded
+              considera o menu aberto, senão o leitor de tela anunciaria "recolhido"
+              com os links à mostra. */}
+          <div
+            className="drop"
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicos(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setServicos(false);
+            }}
+          >
+            <button
+              type="button"
+              aria-expanded={open || servicos}
+              aria-controls="submenu-servicos"
+              onClick={() => setServicos(!servicos)}
+            >
               Serviços <ChevronDown size={15} />
             </button>
-            <div className="drop-menu" data-aberto={servicos ? "sim" : undefined}>
+            <div id="submenu-servicos" className="drop-menu" data-aberto={servicos ? "sim" : undefined}>
               {services.map((s) => (
                 <Link key={s.slug} href={`/servicos/${s.slug}`} onClick={close}>{s.title}</Link>
               ))}
@@ -44,7 +61,12 @@ export function Header() {
           <a className="wa-btn" href={site.whatsapp()} target="_blank" rel="noopener" aria-label="WhatsApp">
             <WhatsAppIcon />
           </a>
-          <button className="burger" aria-label="Abrir menu" onClick={() => setOpen(!open)}>
+          <button
+            className="burger"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
             {open ? <X /> : <Menu />}
           </button>
         </div>

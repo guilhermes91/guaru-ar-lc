@@ -4,12 +4,13 @@ import { BadgeCheck, ShieldCheck, Sparkles, Wrench } from "lucide-react";
 import { WhatsAppIcon } from "@/components/logo";
 import { airConditioningBrands, guarujaNeighborhoodGroups, heatingBrands, serviceAreaGroups } from "@/data/brands";
 import { site } from "@/data/site";
+import { metaDaPagina } from "@/app/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = metaDaPagina({
   title: "Assistência técnica especializada multimarcas",
   description:
     "Assistência técnica especializada em ar-condicionado e aquecedores das principais marcas. Atendimento de Peruíbe a Ilhabela, SP Capital e bairros do Guarujá.",
-};
+});
 
 const highlights = [
   {

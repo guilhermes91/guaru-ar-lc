@@ -112,8 +112,11 @@ troque `ADMIN_PASSWORD` no Cloudflare, apague a chave `user` do KV `ADMIN_KV` e
 dispare um deploy. O próximo login volta a nascer do ambiente.
 
 `Esqueci minha senha` **não devolve a senha antiga** — ela é um hash e não tem
-volta. O e-mail traz uma senha provisória sorteada na hora, que passa a valer
-imediatamente.
+volta. O e-mail traz uma senha provisória sorteada na hora, válida por 30
+minutos, que passa a valer **ao lado** da senha atual. A senha atual continua
+funcionando: se a troca fosse imediata, qualquer visitante anônimo derrubaria o
+acesso do cliente só chamando a rota. Definir uma senha nova no painel encerra
+a provisória.
 
 > Enquanto o domínio não estiver apontado, `MAIL_FROM` usa o remetente de teste
 > do Resend (`onboarding@resend.dev`), que **só entrega no e-mail dono da conta

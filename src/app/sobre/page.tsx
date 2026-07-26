@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { site, texts } from "@/data/site";
+import { metaDaPagina } from "@/app/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = metaDaPagina({
   title: "Sobre nós",
   description: `Quem é a ${site.name}: atendimento local em ar-condicionado, aquecedores e piscinas no Guarujá, com orçamento antes da execução.`,
-};
+});
 
 export default function About() {
   return (

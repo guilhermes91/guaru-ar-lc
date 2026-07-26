@@ -355,6 +355,24 @@ function campoPreco({ label, obj, chave, dica }) {
   ]);
 }
 
+/** Campo de escolha entre opções fixas. */
+function campoOpcao({ label, obj, chave, opcoes, dica }) {
+  const id = `opcao-${Math.random().toString(36).slice(2, 9)}`;
+  const selecao = el("select", { id });
+  for (const [valor, texto] of opcoes) {
+    selecao.append(el("option", { value: valor, textContent: texto, selected: obj[chave] === valor }));
+  }
+  selecao.addEventListener("change", () => {
+    obj[chave] = selecao.value;
+    marcarSujo();
+  });
+  return el("div", { className: "campo" }, [
+    el("label", { htmlFor: id, textContent: label }),
+    selecao,
+    ...(dica ? [el("p", { className: "dica", textContent: dica })] : []),
+  ]);
+}
+
 // Cada lugar do site tem um espaço fixo para a imagem. O painel recorta e
 // redimensiona no navegador antes de enviar, então o cliente pode escolher
 // qualquer foto: o site sempre recebe o tamanho e a proporção certos.
@@ -620,6 +638,15 @@ function secaoTextos() {
   ];
 }
 
+// Precisa bater com ICONES em lib/validate.js e com o mapa de
+// src/components/service-card.tsx: são os únicos que o site sabe desenhar.
+const ICONES_SERVICO = [
+  ["Snowflake", "Floco de neve (ar-condicionado)"],
+  ["Flame", "Chama (aquecedores)"],
+  ["Waves", "Ondas (piscinas)"],
+  ["Wrench", "Chave inglesa (geral)"],
+];
+
 function secaoServicos() {
   const lista = estado.conteudo.services;
   const itens = lista.map((servico, i) =>
@@ -628,6 +655,13 @@ function secaoServicos() {
       el("div", { className: "grade" }, [
         campo({ label: "Nome do serviço", obj: servico, chave: "title", max: 40 }),
         campoPreco({ label: "Preço a partir de (R$)", obj: servico, chave: "price" }),
+        campoOpcao({
+          label: "Ícone do card",
+          obj: servico,
+          chave: "icon",
+          opcoes: ICONES_SERVICO,
+          dica: "Aparece no círculo colorido sobre a foto, na página inicial.",
+        }),
       ]),
       campo({ label: "Resumo curto", obj: servico, chave: "short", max: 60 }),
       campo({ label: "Descrição", obj: servico, chave: "description", max: 300, area: true }),
@@ -922,10 +956,10 @@ $("#btn-publicar").addEventListener("click", async () => {
   atualizarEstado("publicando", "Publicando…");
 
   try {
-    await api("content", { method: "POST", body: JSON.stringify({ content: estado.conteudo }) });
+    const publicado = await api("content", { method: "POST", body: JSON.stringify({ content: estado.conteudo }) });
     estado.sujo = false;
     aviso("#aviso", "ok", "Alterações enviadas. O site é atualizado em cerca de 2 minutos.");
-    acompanharDeploy();
+    acompanharDeploy(publicado.commit);
   } catch (erro) {
     aviso("#aviso", "erro", erro.message, erro.detalhes);
     atualizarEstado("falhou", "Não publicado");
@@ -935,14 +969,20 @@ $("#btn-publicar").addEventListener("click", async () => {
   }
 });
 
-async function acompanharDeploy() {
+/**
+ * Acompanha o deploy. Quando recebe o `commit` da publicação, só aceita o run
+ * que tem esse commit no topo: sem isso, um run anterior já concluído faria o
+ * painel anunciar "Site atualizado" com o site ainda mostrando o conteúdo velho.
+ */
+async function acompanharDeploy(commit) {
   atualizarEstado("publicando", "Atualizando o site…");
   const inicio = Date.now();
   const verificar = async () => {
     if (Date.now() - inicio > 6 * 60 * 1000) return atualizarEstado("pendente", "Publicado — verifique o site");
     try {
       const { run } = await api("status");
-      if (run?.status === "completed") {
+      const eDesteCommit = !commit || (run?.headSha || "").startsWith(commit);
+      if (run?.status === "completed" && eDesteCommit) {
         return run.conclusion === "success"
           ? atualizarEstado("pronto", "Site atualizado")
           : atualizarEstado("falhou", "Falha ao atualizar o site");
@@ -973,7 +1013,7 @@ function restaurar() {
       $("#btn-publicar").disabled = true;
       desenharSecao();
       aviso("#aviso", "ok", "Conteúdo restaurado. O site volta ao original em cerca de 2 minutos.");
-      acompanharDeploy();
+      acompanharDeploy(resultado.commit);
     },
   });
 }

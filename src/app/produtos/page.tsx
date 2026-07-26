@@ -5,11 +5,13 @@ import Link from "next/link";
 import { WhatsAppIcon } from "@/components/logo";
 import { ProductsGrid } from "@/components/products-grid";
 import { products, site, type Product } from "@/data/site";
+import { metaDaPagina } from "@/app/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = metaDaPagina({
   title: "Produtos — ar-condicionado, aquecedores e piscinas",
-  description: "Vitrine Guaru Ar LC no Guarujá: ar-condicionado, condensadoras, evaporadoras, aquecedores a gás, bombas, filtros e acessórios. Consulte modelos e disponibilidade pelo WhatsApp.",
-};
+  description:
+    "Vitrine Guaru Ar LC no Guarujá: ar-condicionado, condensadoras, evaporadoras, aquecedores a gás, bombas, filtros e acessórios. Consulte modelos e disponibilidade pelo WhatsApp.",
+});
 
 // No build (export estático), só inclui a foto "em uso" se o arquivo existir de fato,
 // evitando frames quebrados. Ao adicionar as imagens -emuso.webp, a troca liga sozinha.
@@ -36,6 +38,7 @@ export default function Products() {
 
       <section className="section">
         <div className="container">
+          <h2 className="sr-only">Vitrine de produtos</h2>
           <ProductsGrid items={items} />
           <p className="product-note">
             Valores a partir de, sujeitos a alteração conforme modelo, disponibilidade, frete e instalação.

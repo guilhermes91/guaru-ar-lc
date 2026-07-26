@@ -1,11 +1,11 @@
-import { bad, commitFile, draft, fetchContent, json, requireSession, toBase64 } from "../../lib/admin.js";
+import { bad, commitFile, draft, fetchContent, json, requireSession, rota, toBase64 } from "../../lib/admin.js";
 
 // Restaura o site para a base de fábrica (src/data/content.default.json).
 // Esse arquivo nunca é escrito pelo painel — é a referência imutável.
 const PATH = "src/data/content.json";
 const DEFAULT_PATH = "src/data/content.default.json";
 
-export async function onRequestPost({ request, env }) {
+export const onRequestPost = rota(async ({ request, env }) => {
   const session = await requireSession(request, env);
   if (session instanceof Response) return session;
 
@@ -40,4 +40,4 @@ export async function onRequestPost({ request, env }) {
   } catch (error) {
     return bad(`Não consegui restaurar: ${error.message}`, 502);
   }
-}
+});

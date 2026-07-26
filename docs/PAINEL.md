@@ -6,8 +6,9 @@ Endereço: **https://guaruarguaruja.com.br/admin/**
 
 Use o e-mail e a senha do painel. Se esquecer a senha, clique em
 **Esqueci minha senha** e informe o e-mail cadastrado: em alguns minutos chega
-por e-mail uma **senha nova**, já valendo. A senha anterior deixa de funcionar.
-Entre com a provisória e defina uma sua em **Usuário**.
+por e-mail uma **senha provisória**, válida por 30 minutos. Sua senha antiga
+continua funcionando nesse período. Entre com a provisória e defina uma sua em
+**Usuário** — isso encerra a provisória.
 
 A senha é guardada embaralhada, sem volta — nem quem administra o servidor
 consegue ler a sua. Por isso o e-mail traz uma senha nova, e não a antiga.
@@ -34,7 +35,8 @@ horário de atendimento e redes sociais. Muda em todo o site de uma vez.
 **Textos do site** — o título grande da página inicial, a frase de apoio, o
 texto "sobre a empresa" e a chamada final.
 
-**Serviços** — nome, resumo, descrição, preço e imagem de cada serviço.
+**Serviços** — nome, resumo, descrição, preço, ícone e imagem de cada serviço.
+O preço aparece no card da página inicial e na página do serviço.
 
 **Produtos** — nome, preço e fotos. Cada produto pode ter uma foto de estúdio
 e uma foto em uso; quando as duas existem, o card alterna entre elas. A foto de

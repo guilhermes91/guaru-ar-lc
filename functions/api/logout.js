@@ -1,6 +1,6 @@
-import { clearedCookie, destroySession, json } from "../../lib/admin.js";
+import { clearedCookie, destroySession, json, rota } from "../../lib/admin.js";
 
-export async function onRequestPost({ request, env }) {
+export const onRequestPost = rota(async ({ request, env }) => {
   await destroySession(request, env);
   return json({ ok: true }, 200, { "set-cookie": clearedCookie() });
-}
+});

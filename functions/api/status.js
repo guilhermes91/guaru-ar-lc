@@ -1,6 +1,6 @@
-import { bad, json, latestWorkflowRun, requireSession } from "../../lib/admin.js";
+import { bad, json, latestWorkflowRun, requireSession, rota } from "../../lib/admin.js";
 
-export async function onRequestGet({ request, env }) {
+export const onRequestGet = rota(async ({ request, env }) => {
   const session = await requireSession(request, env);
   if (session instanceof Response) return session;
 
@@ -9,4 +9,4 @@ export async function onRequestGet({ request, env }) {
   } catch (error) {
     return bad(error.message, 502);
   }
-}
+});

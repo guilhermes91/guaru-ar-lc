@@ -8,7 +8,7 @@ import { ServiceCard } from "@/components/service-card";
 import { BeforeAfter } from "@/components/before-after";
 import { WhatsAppIcon } from "@/components/logo";
 import { guarujaNeighborhoodGroups, serviceAreaGroups } from "@/data/brands";
-import { areaPhotos, faqs, neighborhoods, reviews, services, site, stats, texts } from "@/data/site";
+import { areaPhotos, faqs, neighborhoods, reviews, services, site, slugBairro as slug, stats, texts } from "@/data/site";
 import { HighlightedTitle } from "@/components/highlighted-title";
 
 const trust = [
@@ -157,7 +157,8 @@ export default function Home() {
                 <div className="stars">★★★★★</div>
                 <blockquote>{r.text}</blockquote>
                 <div className="who">
-                  <img src={r.avatar} alt={r.name} />
+                  {/* 44x44 no CSS: as medidas evitam o pulo de layout enquanto carrega. */}
+                  <img src={r.avatar} alt={r.name} width="44" height="44" loading="lazy" decoding="async" />
                   <span><b>{r.name}</b><span>{r.area}</span></span>
                 </div>
               </div>
@@ -243,6 +244,3 @@ export default function Home() {
   );
 }
 
-function slug(s: string) {
-  return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ /g, "-");
-}

@@ -9,6 +9,9 @@
 }
 
 *{box-sizing:border-box}
+/* Título de seção que existe para o leitor de tela e para a hierarquia de
+   headings, sem aparecer no layout aprovado. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 html{scroll-behavior:smooth}
 body{margin:0;color:var(--ink);font-family:var(--font-geist-sans),Arial,Helvetica,sans-serif;background:#fff;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
@@ -39,12 +42,12 @@ footer .logo-name{background:#ffffff18;border-color:#ffffff2b;color:#fff;box-sha
 .nav{height:78px;display:flex;align-items:center;gap:30px}
 .navlinks{display:flex;align-items:center;gap:22px;margin-left:auto;font-size:14.5px;font-weight:600;color:#173a5e}
 .navlinks a,.navlinks .drop>button{cursor:pointer;font:inherit;color:inherit;background:none;border:0;display:inline-flex;align-items:center;gap:5px;padding:6px 0}
-.navlinks a:hover,.navlinks .drop>button:hover,.navlinks .drop>button:focus-visible{color:var(--aqua)}
+.navlinks a:hover,.navlinks .drop>button:hover,.navlinks .drop>button:focus-visible{color:var(--aqua-txt)}
 .drop{position:relative}
 .drop-menu{position:absolute;top:100%;left:-14px;min-width:210px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 20px 40px #0a2b5222;padding:8px;display:none}
 .drop:hover .drop-menu,.drop:focus-within .drop-menu,.drop-menu[data-aberto="sim"]{display:block}
 .drop-menu a{display:block;padding:10px 14px;border-radius:8px;font-weight:600}
-.drop-menu a:hover{background:var(--soft2);color:var(--aqua)}
+.drop-menu a:hover{background:var(--soft2);color:var(--aqua-txt)}
 .nav-cta{margin-left:6px;padding:12px 18px}
 .nav-mobile{display:none;margin-left:auto;align-items:center;gap:12px}
 .nav-mobile .wa-btn{width:46px;height:46px;border-radius:10px;background:var(--green);color:#fff;display:grid;place-items:center;box-shadow:0 8px 18px #16a34a33}
@@ -147,7 +150,7 @@ footer .logo-name{background:#ffffff18;border-color:#ffffff2b;color:#fff;box-sha
 .numbers{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);background:#fff;color:var(--navy);border-radius:16px;box-shadow:0 20px 45px #00000030;margin-top:8px}
 .numbers div{padding:26px;text-align:center;border-right:1px solid var(--line)}
 .numbers div:last-child{border-right:0}
-.numbers b{font-size:34px;display:block;color:var(--aqua);line-height:1}
+.numbers b{font-size:34px;display:block;color:var(--aqua-txt);line-height:1}
 .numbers span{font-size:13.5px;color:var(--muted);display:block;margin-top:6px}
 
 /* ---------- reviews ---------- */
@@ -340,12 +343,6 @@ footer{background:var(--navy);color:#fff;padding:64px 0 22px}
 .contact-neighborhoods>strong{display:block;margin-bottom:14px;color:#fff;font-size:18px}
 .contact-neighborhood-groups{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.product-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 14px 34px #0a2b520d}
-.product-card img{width:100%;height:210px;object-fit:cover}
-.product-card>div{padding:22px}
-.product-card small{color:var(--aqua);font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:1px}
-.product-card h2{font-size:20px;margin:6px 0}
-.product-card p{color:var(--muted);line-height:1.55;font-size:14px}
 .price b{font-size:24px;display:block;margin:4px 0 16px;color:var(--navy)}
 .price small{color:var(--muted);font-weight:400}
 

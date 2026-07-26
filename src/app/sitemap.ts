@@ -1,12 +1,9 @@
 import type { MetadataRoute } from "next";
-import { contentUpdatedAt, neighborhoods, services, site } from "@/data/site";
+import { contentUpdatedAt, neighborhoods, services, site, slugBairro as slug } from "@/data/site";
 
 export const dynamic = "force-static";
 
 const base = site.url.replace(/\/$/, "");
-const slug = (x: string) =>
-  x.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ /g, "-");
-
 // O site é exportado com trailingSlash: /servicos responde 308 para /servicos/.
 // Declarar a URL sem a barra faria o Google seguir um redirect em cada uma das rotas.
 const url = (caminho: string) => `${base}${caminho}/`.replace(/\/{2,}$/, "/");

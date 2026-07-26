@@ -13,7 +13,8 @@ export function LocalBusinessSchema() {
     name: site.legalName,
     url: site.url,
     logo: `${site.url}/logo-guaruar.png`,
-    sameAs: [site.social.facebook, site.social.instagram],
+    // Campo vazio no painel viraria sameAs: [""] — URL inválida no dado estruturado.
+    sameAs: [site.social.facebook, site.social.instagram].filter(Boolean),
     telephone: `+${site.phone}`,
     email: site.email,
     // Endereço vem inteiro do painel: quebrar em campos fixos aqui faria o dado

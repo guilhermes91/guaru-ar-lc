@@ -3,11 +3,13 @@ import { Clock3, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-
 import { FacebookIcon, InstagramIcon, WhatsAppIcon } from "@/components/logo";
 import { guarujaNeighborhoodGroups, serviceAreaGroups } from "@/data/brands";
 import { site } from "@/data/site";
+import { metaDaPagina } from "@/app/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = metaDaPagina({
   title: "Contato",
-  description: "Fale com a Guaru Ar LC pelo WhatsApp, telefone ou redes sociais. Atendimento técnico no Guarujá para ar-condicionado, aquecedores e piscinas.",
-};
+  description:
+    "Fale com a Guaru Ar LC pelo WhatsApp, telefone ou redes sociais. Atendimento técnico no Guarujá para ar-condicionado, aquecedores e piscinas.",
+});
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`;
 
@@ -87,12 +89,20 @@ export default function Contact() {
               <h2>Redes sociais</h2>
               <p>Acompanhe a Guaru Ar LC e fale por onde for mais fácil.</p>
               <div className="socials contact-socials" aria-label="Redes sociais da Guaru Ar LC">
-                <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram da Guaru Ar LC">
+                {site.social.instagram && (
+
+                  <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram da Guaru Ar LC">
                   <InstagramIcon /> Instagram
-                </a>
-                <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook da Guaru Ar LC">
+                  </a>
+
+                )}
+                {site.social.facebook && (
+
+                  <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook da Guaru Ar LC">
                   <FacebookIcon /> Facebook
-                </a>
+                  </a>
+
+                )}
               </div>
               <a className="contact-mail" href={`mailto:${site.email}`}>
                 <Mail /> {site.email}
