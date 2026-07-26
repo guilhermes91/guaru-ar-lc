@@ -45,7 +45,7 @@ footer .logo-name{background:#ffffff18;border-color:#ffffff2b;color:#fff;box-sha
 .navlinks a:hover,.navlinks .drop>button:hover,.navlinks .drop>button:focus-visible{color:var(--aqua-txt)}
 .drop{position:relative}
 .drop-menu{position:absolute;top:100%;left:-14px;min-width:210px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 20px 40px #0a2b5222;padding:8px;display:none}
-.drop:hover .drop-menu,.drop:focus-within .drop-menu,.drop-menu[data-aberto="sim"]{display:block}
+.drop:hover .drop-menu,.drop-menu:focus-within,.drop-menu[data-aberto="sim"]{display:block}
 .drop-menu a{display:block;padding:10px 14px;border-radius:8px;font-weight:600}
 .drop-menu a:hover{background:var(--soft2);color:var(--aqua-txt)}
 .nav-cta{margin-left:6px;padding:12px 18px}

@@ -13,27 +13,19 @@ export function generateStaticParams() {
 // Sem isto, as 41 páginas de bairro seriam o mesmo texto com o nome trocado —
 // exatamente o padrão de "doorway page" que o Google despriorizou. O texto varia
 // pela região a que o bairro pertence, que é dado que já existe no painel.
-// Indexado pela POSIÇÃO do grupo, não pelo nome: o nome da região é texto livre
-// no painel, e renomear "Região I" derrubaria as 41 páginas para o texto padrão
-// sem erro nenhum — de volta ao problema de páginas idênticas.
-const PORREGIAO = [
-  "Na faixa das praias urbanizadas, os equipamentos convivem com maresia constante e uso intenso na temporada. Limpeza periódica e checagem de vedação evitam a corrosão que aparece primeiro nas serpentinas.",
-  "Na parte continental do Guarujá, o atendimento costuma envolver casas e comércios de uso o ano inteiro, com prioridade para manutenção preventiva e reparo rápido, sem depender da temporada.",
-  "Região de casas de veraneio e condomínios: boa parte dos chamados é de reativação de equipamento que ficou meses parado — aquecedor, bomba de piscina e ar-condicionado pedem revisão antes do primeiro uso.",
-  "Área mais afastada da orla, com imóveis maiores e acesso por estrada. A visita é agendada com antecedência para levar peças e ferramentas na primeira ida, evitando um segundo deslocamento.",
-];
+// O texto mora no próprio grupo (campo `seoText`, editável no painel). Derivar
+// do nome quebrava ao renomear; derivar da posição quebrava ao reordenar, e pior
+// — as 41 páginas passariam a descrever a região errada sem erro nenhum.
 
 const PADRAO =
   "O atendimento começa por uma avaliação no local, com orçamento antes de qualquer execução e orientação de conservação para o ambiente litorâneo.";
 
 /** Bairro + região dele + vizinhos da mesma região. */
 function contexto(nome: string) {
-  const indice = guarujaNeighborhoodGroups.findIndex((g) => g.neighborhoods.includes(nome));
-  const grupo = guarujaNeighborhoodGroups[indice];
+  const grupo = guarujaNeighborhoodGroups.find((g) => g.neighborhoods.includes(nome));
   return {
     regiao: grupo?.region,
-    // Grupo além do quarto (o cliente pode criar mais) cai no texto padrão.
-    texto: PORREGIAO[indice] || PADRAO,
+    texto: grupo?.seoText?.trim() || PADRAO,
     vizinhos: (grupo?.neighborhoods || []).filter((n) => n !== nome),
   };
 }

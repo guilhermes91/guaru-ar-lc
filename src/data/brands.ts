@@ -13,6 +13,8 @@ export type ServiceAreaGroup = {
 export type NeighborhoodGroup = {
   region: string;
   neighborhoods: string[];
+  /** Parágrafo próprio da região, usado nas páginas de bairro. Opcional. */
+  seoText?: string;
 };
 
 export const heatingBrands: Brand[] = content.brands.heating;

@@ -245,7 +245,8 @@
         "Pitangueiras",
         "Santo Antônio",
         "Cachoeira"
-      ]
+      ],
+      "seoText": "Na faixa das praias urbanizadas, os equipamentos convivem com maresia constante e uso intenso na temporada. Limpeza periódica e checagem de vedação evitam a corrosão que aparece primeiro nas serpentinas."
     },
     {
       "region": "Região II",
@@ -260,7 +261,8 @@
         "Conceiçãozinha",
         "Bocaina",
         "Vicente de Carvalho"
-      ]
+      ],
+      "seoText": "Na parte continental do Guarujá, o atendimento costuma envolver casas e comércios de uso o ano inteiro, com prioridade para manutenção preventiva e reparo rápido, sem depender da temporada."
     },
     {
       "region": "Região III",
@@ -277,7 +279,8 @@
         "Santo Amaro",
         "Guararú",
         "Jardim Acapulco"
-      ]
+      ],
+      "seoText": "Região de casas de veraneio e condomínios: boa parte dos chamados é de reativação de equipamento que ficou meses parado — aquecedor, bomba de piscina e ar-condicionado pedem revisão antes do primeiro uso."
     },
     {
       "region": "Região IV",
@@ -287,7 +290,8 @@
         "Morrinhos",
         "Vila Zilda",
         "Saco do Funil"
-      ]
+      ],
+      "seoText": "Área mais afastada da orla, com imóveis maiores e acesso por estrada. A visita é agendada com antecedência para levar peças e ferramentas na primeira ida, evitando um segundo deslocamento."
     }
   ],
   "brands": {

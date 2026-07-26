@@ -776,6 +776,14 @@ function secaoBairros() {
           el("div", { className: "item" }, [
             cabecaItem({ titulo: grupo.region || "Região", lista: grupos, indice: i, aoMudar: desenharSecao }),
             campo({ label: "Nome da região", obj: grupo, chave: "region", max: 40 }),
+            campo({
+              label: "Texto desta região",
+              obj: grupo,
+              chave: "seoText",
+              max: 400,
+              area: true,
+              dica: "Aparece na página de cada bairro desta região. Deixe vazio para usar o texto padrão.",
+            }),
             campoLista({ label: "Bairros", lista: grupo.neighborhoods, placeholder: "Digite o bairro e tecle Enter" }),
           ]),
         ),
