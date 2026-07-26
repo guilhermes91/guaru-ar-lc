@@ -54,18 +54,9 @@
     }
   ],
   "stats": [
-    {
-      "value": "+10",
-      "label": "anos de experiência"
-    },
-    {
-      "value": "+2.000",
-      "label": "clientes atendidos"
-    },
-    {
-      "value": "100%",
-      "label": "compromisso com sua satisfação"
-    }
+    { "value": "+10", "label": "anos de experiência" },
+    { "value": "+2.000", "label": "clientes atendidos" },
+    { "value": "100%", "label": "compromisso com sua satisfação" }
   ],
   "reviews": [
     {
@@ -88,34 +79,13 @@
     }
   ],
   "areaPhotos": [
-    {
-      "name": "Enseada",
-      "image": "/images/home-generated/area-enseada.webp"
-    },
-    {
-      "name": "Pitangueiras",
-      "image": "/images/home-generated/area-pitangueiras.webp"
-    },
-    {
-      "name": "Pernambuco",
-      "image": "/images/home-generated/area-pernambuco.webp"
-    },
-    {
-      "name": "Tombo",
-      "image": "/images/home-generated/area-tombo.webp"
-    },
-    {
-      "name": "Astúrias",
-      "image": "/images/home-generated/area-asturias.webp"
-    },
-    {
-      "name": "Jardim Acapulco",
-      "image": "/images/home-generated/area-jardim-acapulco.webp"
-    },
-    {
-      "name": "Vicente de Carvalho",
-      "image": "/images/home-generated/area-vicente-de-carvalho.webp"
-    }
+    { "name": "Enseada", "image": "/images/home-generated/area-enseada.webp" },
+    { "name": "Pitangueiras", "image": "/images/home-generated/area-pitangueiras.webp" },
+    { "name": "Pernambuco", "image": "/images/home-generated/area-pernambuco.webp" },
+    { "name": "Tombo", "image": "/images/home-generated/area-tombo.webp" },
+    { "name": "Astúrias", "image": "/images/home-generated/area-asturias.webp" },
+    { "name": "Jardim Acapulco", "image": "/images/home-generated/area-jardim-acapulco.webp" },
+    { "name": "Vicente de Carvalho", "image": "/images/home-generated/area-vicente-de-carvalho.webp" }
   ],
   "faqs": [
     {
@@ -144,40 +114,19 @@
     }
   ],
   "productCategories": [
-    {
-      "slug": "ar-completo",
-      "label": "Ar completo"
-    },
-    {
-      "slug": "condensadora",
-      "label": "Condensadora"
-    },
-    {
-      "slug": "evaporadora",
-      "label": "Evaporadora"
-    },
-    {
-      "slug": "aquecedor-gas",
-      "label": "Aquecedor a gás"
-    },
-    {
-      "slug": "piscinas",
-      "label": "Piscinas"
-    },
-    {
-      "slug": "filtros",
-      "label": "Filtros"
-    },
-    {
-      "slug": "acessorios",
-      "label": "Acessórios"
-    }
+    { "slug": "ar-completo", "label": "Ar completo" },
+    { "slug": "condensadora", "label": "Condensadora" },
+    { "slug": "evaporadora", "label": "Evaporadora" },
+    { "slug": "aquecedor-gas", "label": "Aquecedor a gás" },
+    { "slug": "piscinas", "label": "Piscinas" },
+    { "slug": "filtros", "label": "Filtros" },
+    { "slug": "acessorios", "label": "Acessórios" }
   ],
   "products": [
     {
       "id": "ar-completo",
       "name": "Ar-condicionado completo",
-      "price": 1234,
+      "price": 1899,
       "image": "/images/products/ar-completo.webp",
       "imageEmUso": "/images/products/ar-completo-emuso.webp"
     },
@@ -225,37 +174,13 @@
     }
   ],
   "serviceAreaGroups": [
-    {
-      "region": "Peruíbe a Mongaguá",
-      "cities": [
-        "Peruíbe",
-        "Itanhaém",
-        "Mongaguá"
-      ]
-    },
+    { "region": "Peruíbe a Mongaguá", "cities": ["Peruíbe", "Itanhaém", "Mongaguá"] },
     {
       "region": "Baixada Santista",
-      "cities": [
-        "Praia Grande",
-        "São Vicente",
-        "Santos",
-        "Guarujá",
-        "Bertioga"
-      ]
+      "cities": ["Praia Grande", "São Vicente", "Santos", "Guarujá", "Bertioga"]
     },
-    {
-      "region": "Litoral Norte até Ilhabela",
-      "cities": [
-        "São Sebastião",
-        "Ilhabela"
-      ]
-    },
-    {
-      "region": "SP Capital",
-      "cities": [
-        "São Paulo"
-      ]
-    }
+    { "region": "Litoral Norte até Ilhabela", "cities": ["São Sebastião", "Ilhabela"] },
+    { "region": "SP Capital", "cities": ["São Paulo"] }
   ],
   "neighborhoodGroups": [
     {
@@ -320,184 +245,52 @@
   ],
   "brands": {
     "heating": [
-      {
-        "name": "Bosch",
-        "image": "/images/brands/logos/aquecedores/bosch.png"
-      },
-      {
-        "name": "Cosmopolitan",
-        "image": "/images/brands/logos/aquecedores/cosmopolitan.png"
-      },
-      {
-        "name": "Cumulus",
-        "image": "/images/brands/logos/aquecedores/cumulus.png"
-      },
-      {
-        "name": "Equibras",
-        "image": "/images/brands/logos/aquecedores/equibras.png"
-      },
-      {
-        "name": "General Heater",
-        "image": "/images/brands/logos/aquecedores/general-heater.png"
-      },
-      {
-        "name": "Harman",
-        "image": "/images/brands/logos/aquecedores/harman.png"
-      },
-      {
-        "name": "Inova",
-        "image": "/images/brands/logos/aquecedores/inova.png"
-      },
-      {
-        "name": "Junkers",
-        "image": "/images/brands/logos/aquecedores/junkers.png"
-      },
-      {
-        "name": "Kent",
-        "image": "/images/brands/logos/aquecedores/kent.png"
-      },
-      {
-        "name": "Komeco",
-        "image": "/images/brands/logos/aquecedores/komeco.png"
-      },
-      {
-        "name": "Lorenzetti",
-        "image": "/images/brands/logos/aquecedores/lorenzetti.png"
-      },
-      {
-        "name": "Nördik",
-        "image": "/images/brands/logos/aquecedores/nordik.png"
-      },
-      {
-        "name": "Orbis do Brasil",
-        "image": "/images/brands/logos/aquecedores/orbis-do-brasil.png"
-      },
-      {
-        "name": "Rheem",
-        "image": "/images/brands/logos/aquecedores/rheem.png"
-      },
-      {
-        "name": "Rinnai",
-        "image": "/images/brands/logos/aquecedores/rinnai.png"
-      },
-      {
-        "name": "Saiar",
-        "image": "/images/brands/logos/aquecedores/saiar.png"
-      },
-      {
-        "name": "Sakura",
-        "image": "/images/brands/logos/aquecedores/sakura.png"
-      },
-      {
-        "name": "Thermotini",
-        "image": "/images/brands/logos/aquecedores/thermotini.png"
-      }
+      { "name": "Bosch", "image": "/images/brands/logos/aquecedores/bosch.png" },
+      { "name": "Cosmopolitan", "image": "/images/brands/logos/aquecedores/cosmopolitan.png" },
+      { "name": "Cumulus", "image": "/images/brands/logos/aquecedores/cumulus.png" },
+      { "name": "Equibras", "image": "/images/brands/logos/aquecedores/equibras.png" },
+      { "name": "General Heater", "image": "/images/brands/logos/aquecedores/general-heater.png" },
+      { "name": "Harman", "image": "/images/brands/logos/aquecedores/harman.png" },
+      { "name": "Inova", "image": "/images/brands/logos/aquecedores/inova.png" },
+      { "name": "Junkers", "image": "/images/brands/logos/aquecedores/junkers.png" },
+      { "name": "Kent", "image": "/images/brands/logos/aquecedores/kent.png" },
+      { "name": "Komeco", "image": "/images/brands/logos/aquecedores/komeco.png" },
+      { "name": "Lorenzetti", "image": "/images/brands/logos/aquecedores/lorenzetti.png" },
+      { "name": "Nördik", "image": "/images/brands/logos/aquecedores/nordik.png" },
+      { "name": "Orbis do Brasil", "image": "/images/brands/logos/aquecedores/orbis-do-brasil.png" },
+      { "name": "Rheem", "image": "/images/brands/logos/aquecedores/rheem.png" },
+      { "name": "Rinnai", "image": "/images/brands/logos/aquecedores/rinnai.png" },
+      { "name": "Saiar", "image": "/images/brands/logos/aquecedores/saiar.png" },
+      { "name": "Sakura", "image": "/images/brands/logos/aquecedores/sakura.png" },
+      { "name": "Thermotini", "image": "/images/brands/logos/aquecedores/thermotini.png" }
     ],
     "airConditioning": [
-      {
-        "name": "Admiral",
-        "image": "/images/brands/logos/ar-condicionado/admiral.png"
-      },
-      {
-        "name": "Agratto",
-        "image": "/images/brands/logos/ar-condicionado/agratto.png"
-      },
-      {
-        "name": "Britânia",
-        "image": "/images/brands/logos/ar-condicionado/britania.png"
-      },
-      {
-        "name": "Comfee",
-        "image": "/images/brands/logos/ar-condicionado/comfee.png"
-      },
-      {
-        "name": "Consul",
-        "image": "/images/brands/logos/ar-condicionado/consul.png"
-      },
-      {
-        "name": "Daikin",
-        "image": "/images/brands/logos/ar-condicionado/daikin.png"
-      },
-      {
-        "name": "Electrolux",
-        "image": "/images/brands/logos/ar-condicionado/electrolux.png"
-      },
-      {
-        "name": "Elgin",
-        "image": "/images/brands/logos/ar-condicionado/elgin.png"
-      },
-      {
-        "name": "Fontaine",
-        "image": "/images/brands/logos/ar-condicionado/fontaine.png"
-      },
-      {
-        "name": "Fujitsu",
-        "image": "/images/brands/logos/ar-condicionado/fujitsu.png"
-      },
-      {
-        "name": "Gree",
-        "image": "/images/brands/logos/ar-condicionado/gree.png"
-      },
-      {
-        "name": "Hitachi",
-        "image": "/images/brands/logos/ar-condicionado/hitachi.png"
-      },
-      {
-        "name": "Komeco",
-        "image": "/images/brands/logos/ar-condicionado/komeco.png"
-      },
-      {
-        "name": "LG",
-        "image": "/images/brands/logos/ar-condicionado/lg.png"
-      },
-      {
-        "name": "Maxiflex",
-        "image": "/images/brands/logos/ar-condicionado/maxiflex.png"
-      },
-      {
-        "name": "Midea",
-        "image": "/images/brands/logos/ar-condicionado/midea.png"
-      },
-      {
-        "name": "Olimpia Splendid",
-        "image": "/images/brands/logos/ar-condicionado/olimpia-splendid.png"
-      },
-      {
-        "name": "Philco",
-        "image": "/images/brands/logos/ar-condicionado/philco.png"
-      },
-      {
-        "name": "Rinetto",
-        "image": "/images/brands/logos/ar-condicionado/rinetto.png"
-      },
-      {
-        "name": "Samsung",
-        "image": "/images/brands/logos/ar-condicionado/samsung.png"
-      },
-      {
-        "name": "Springer",
-        "image": "/images/brands/logos/ar-condicionado/springer.png"
-      },
-      {
-        "name": "Springer Carrier",
-        "image": "/images/brands/logos/ar-condicionado/springer-carrier.png"
-      },
-      {
-        "name": "TCL",
-        "image": "/images/brands/logos/ar-condicionado/tcl.png"
-      },
-      {
-        "name": "Tempstar",
-        "image": "/images/brands/logos/ar-condicionado/tempstar.png"
-      },
-      {
-        "name": "Trane",
-        "image": "/images/brands/logos/ar-condicionado/trane.png"
-      },
-      {
-        "name": "Vogga",
-        "image": "/images/brands/logos/ar-condicionado/vogga.png"
-      }
+      { "name": "Admiral", "image": "/images/brands/logos/ar-condicionado/admiral.png" },
+      { "name": "Agratto", "image": "/images/brands/logos/ar-condicionado/agratto.png" },
+      { "name": "Britânia", "image": "/images/brands/logos/ar-condicionado/britania.png" },
+      { "name": "Comfee", "image": "/images/brands/logos/ar-condicionado/comfee.png" },
+      { "name": "Consul", "image": "/images/brands/logos/ar-condicionado/consul.png" },
+      { "name": "Daikin", "image": "/images/brands/logos/ar-condicionado/daikin.png" },
+      { "name": "Electrolux", "image": "/images/brands/logos/ar-condicionado/electrolux.png" },
+      { "name": "Elgin", "image": "/images/brands/logos/ar-condicionado/elgin.png" },
+      { "name": "Fontaine", "image": "/images/brands/logos/ar-condicionado/fontaine.png" },
+      { "name": "Fujitsu", "image": "/images/brands/logos/ar-condicionado/fujitsu.png" },
+      { "name": "Gree", "image": "/images/brands/logos/ar-condicionado/gree.png" },
+      { "name": "Hitachi", "image": "/images/brands/logos/ar-condicionado/hitachi.png" },
+      { "name": "Komeco", "image": "/images/brands/logos/ar-condicionado/komeco.png" },
+      { "name": "LG", "image": "/images/brands/logos/ar-condicionado/lg.png" },
+      { "name": "Maxiflex", "image": "/images/brands/logos/ar-condicionado/maxiflex.png" },
+      { "name": "Midea", "image": "/images/brands/logos/ar-condicionado/midea.png" },
+      { "name": "Olimpia Splendid", "image": "/images/brands/logos/ar-condicionado/olimpia-splendid.png" },
+      { "name": "Philco", "image": "/images/brands/logos/ar-condicionado/philco.png" },
+      { "name": "Rinetto", "image": "/images/brands/logos/ar-condicionado/rinetto.png" },
+      { "name": "Samsung", "image": "/images/brands/logos/ar-condicionado/samsung.png" },
+      { "name": "Springer", "image": "/images/brands/logos/ar-condicionado/springer.png" },
+      { "name": "Springer Carrier", "image": "/images/brands/logos/ar-condicionado/springer-carrier.png" },
+      { "name": "TCL", "image": "/images/brands/logos/ar-condicionado/tcl.png" },
+      { "name": "Tempstar", "image": "/images/brands/logos/ar-condicionado/tempstar.png" },
+      { "name": "Trane", "image": "/images/brands/logos/ar-condicionado/trane.png" },
+      { "name": "Vogga", "image": "/images/brands/logos/ar-condicionado/vogga.png" }
     ]
   }
 }
