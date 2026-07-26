@@ -1,0 +1,91 @@
+# Guaru Ar LC — guaruarguaruja.com.br
+
+Site institucional e vitrine da Guaru Ar LC, com painel de edição próprio.
+
+- **Site:** https://guaruarguaruja.com.br · https://guaru-ar-lc.pages.dev
+- **Painel:** https://guaruarguaruja.com.br/admin/ (funciona também no endereço `.pages.dev`)
+
+Next.js 16 com exportação estática, publicado no Cloudflare Pages. As rotas do
+painel rodam como Cloudflare Pages Functions (`functions/api/`).
+
+## Como o conteúdo do site é atualizado
+
+Todo o conteúdo editável fica em um único arquivo: **`src/data/content.json`**.
+
+1. O cliente edita no painel `/admin/` e clica em **Publicar alterações**.
+2. A API grava o novo `content.json` no repositório (um commit por publicação).
+3. O push dispara o GitHub Actions (`.github/workflows/deploy.yml`).
+4. O Actions builda o site e publica no Cloudflare Pages.
+
+Leva cerca de 2 minutos entre publicar e o site estar no ar. O painel acompanha
+o andamento e avisa quando termina.
+
+Imagens enviadas pelo painel vão para `public/images/uploads/`, também por commit.
+
+### Restaurar padrão de fábrica
+
+`src/data/content.default.json` é a base original entregue. **O painel nunca
+escreve nesse arquivo.** O botão *Restaurar padrão* copia ele por cima de
+`content.json`, devolvendo o site exatamente ao estado da entrega.
+
+## Seções do painel
+
+| Seção | O que edita |
+| --- | --- |
+| Configurações | Nome, telefone, WhatsApp, e-mail, endereço, horário, redes sociais |
+| Textos do site | Título e frase do topo, bloco "sobre", chamada final, rodapé |
+| Serviços | Nome, resumo, descrição, preço e imagem de cada serviço |
+| Produtos | Nome, preço e fotos dos produtos, além das categorias da vitrine |
+| Bairros e regiões | Bairros em destaque (com foto), todos os bairros e as cidades atendidas |
+| Números, avaliações e FAQ | Provas sociais e perguntas frequentes |
+| Marcas atendidas | Logos de ar-condicionado e aquecedores |
+| Usuário | E-mail e senha de acesso, e restauração de fábrica |
+
+Todos os campos têm limite de caracteres e validação. Preços aceitam só números,
+imagens só entram por upload, e identificadores de página são gerados
+automaticamente — o cliente não consegue quebrar o layout nem as rotas.
+
+## Desenvolvimento
+
+```bash
+npm install
+npm run dev          # http://localhost:3000
+npm run build        # gera ./out
+npx wrangler pages dev   # site + rotas do painel (precisa de .dev.vars)
+```
+
+Para testar o painel local, crie um `.dev.vars` (não versionado):
+
+```
+GITHUB_TOKEN=...
+GITHUB_REPO=guilhermes91/guaru-ar-lc
+GITHUB_BRANCH=main
+RESEND_API_KEY=...
+MAIL_FROM=Guaru Ar LC <no-reply@guaruarguaruja.com.br>
+```
+
+## Infraestrutura
+
+| Item | Onde |
+| --- | --- |
+| Hospedagem | Cloudflare Pages — projeto `guaru-ar-lc` |
+| Dados do painel (usuário, sessões) | Cloudflare KV — binding `ADMIN_KV` |
+| Deploy | GitHub Actions → `wrangler pages deploy` |
+| E-mail de recuperação de senha | Resend |
+
+Segredos necessários no repositório (*Settings → Secrets → Actions*):
+`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+
+Segredos necessários no projeto do Cloudflare Pages:
+`GITHUB_TOKEN`, `RESEND_API_KEY`.
+
+## SEO
+
+- Metadados por página e JSON-LD de negócio local
+- `robots.txt` e `sitemap.xml` gerados no build
+- Página estática por serviço e por bairro atendido
+- `/admin/` e `/api/` ficam fora do índice
+
+## Registro de decisões
+
+Consulte `docs/DECISIONS.md` e `CHANGELOG.md` antes de continuar o trabalho.

@@ -1,0 +1,7 @@
+# O painel grava content.json pela API do GitHub, sempre com LF.
+# Fixar LF evita que cada publicação vire um diff de arquivo inteiro.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary

@@ -1,0 +1,296 @@
+{
+  "site": {
+    "name": "Guaru Ar LC",
+    "legalName": "Guaru Ar LC",
+    "url": "https://guaruarguaruja.com.br",
+    "phoneDisplay": "(13) 97410-4466",
+    "phone": "5513974104466",
+    "email": "contato@guaruarguaruja.com.br",
+    "address": "Av. Rio Amazonas, 397 - Perequê, Guarujá - SP, 11446-131",
+    "hours": "Segunda a Sábado, das 8h às 18h",
+    "whatsappMessage": "Olá! Vim pelo site da Guaru Ar LC e gostaria de solicitar um orçamento.",
+    "social": {
+      "facebook": "https://www.facebook.com/Guaruarcondicionados",
+      "instagram": "https://www.instagram.com/guaruarcondicionado/"
+    }
+  },
+  "texts": {
+    "heroTitle": "Climatização, aquecimento e piscinas no Guarujá",
+    "heroHighlight": "Guarujá",
+    "heroSubtitle": "Conforto, segurança e cuidado em todos os ambientes.",
+    "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
+    "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
+    "footerDescription": "Climatização, aquecimento e piscinas no Guarujá com qualidade, segurança e atendimento que você confia.",
+    "ctaTitle": "Precisa de um serviço profissional e confiável?",
+    "ctaText": "Fale com a Guaru Ar LC e tenha mais conforto, segurança e tranquilidade."
+  },
+  "services": [
+    {
+      "slug": "ar-condicionado",
+      "title": "Ar-condicionado",
+      "icon": "Snowflake",
+      "short": "Manutenção, limpeza, instalação e reparos",
+      "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
+      "image": "/images/home-generated/card-ar-condicionado.webp",
+      "price": 149
+    },
+    {
+      "slug": "aquecedores",
+      "title": "Aquecedores",
+      "icon": "Flame",
+      "short": "Manutenção, limpeza, instalação e reparos",
+      "description": "Instalação, revisão e reparo de aquecedores a gás, elétricos e sistemas de água quente.",
+      "image": "/images/home-generated/card-aquecedor.webp",
+      "price": 179
+    },
+    {
+      "slug": "piscinas",
+      "title": "Piscinas",
+      "icon": "Waves",
+      "short": "Manutenção, limpeza, instalação e reparos",
+      "description": "Limpeza, tratamento, manutenção de equipamentos e recuperação da qualidade da água.",
+      "image": "/images/home-generated/card-piscina.webp",
+      "price": 120
+    }
+  ],
+  "stats": [
+    { "value": "+10", "label": "anos de experiência" },
+    { "value": "+2.000", "label": "clientes atendidos" },
+    { "value": "100%", "label": "compromisso com sua satisfação" }
+  ],
+  "reviews": [
+    {
+      "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
+      "name": "Mariana S.",
+      "area": "Pitangueiras",
+      "avatar": "https://i.pravatar.cc/96?img=45"
+    },
+    {
+      "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
+      "name": "Carlos A.",
+      "area": "Jardim Acapulco",
+      "avatar": "https://i.pravatar.cc/96?img=12"
+    },
+    {
+      "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
+      "name": "Juliana T.",
+      "area": "Enseada",
+      "avatar": "https://i.pravatar.cc/96?img=32"
+    }
+  ],
+  "areaPhotos": [
+    { "name": "Enseada", "image": "/images/home-generated/area-enseada.webp" },
+    { "name": "Pitangueiras", "image": "/images/home-generated/area-pitangueiras.webp" },
+    { "name": "Pernambuco", "image": "/images/home-generated/area-pernambuco.webp" },
+    { "name": "Tombo", "image": "/images/home-generated/area-tombo.webp" },
+    { "name": "Astúrias", "image": "/images/home-generated/area-asturias.webp" },
+    { "name": "Jardim Acapulco", "image": "/images/home-generated/area-jardim-acapulco.webp" },
+    { "name": "Vicente de Carvalho", "image": "/images/home-generated/area-vicente-de-carvalho.webp" }
+  ],
+  "faqs": [
+    {
+      "q": "Vocês cobram visita técnica?",
+      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
+    },
+    {
+      "q": "Quais marcas de equipamentos vocês trabalham?",
+      "a": "Atendemos as principais marcas do mercado de ar-condicionado, aquecedores e piscinas, indicando sempre a melhor solução para cada caso."
+    },
+    {
+      "q": "Quanto tempo leva para executar o serviço?",
+      "a": "Depende do serviço. Manutenções e limpezas costumam ser feitas no mesmo dia; instalações são agendadas conforme disponibilidade."
+    },
+    {
+      "q": "Vocês oferecem garantia?",
+      "a": "Sim. Todo serviço tem garantia informada no orçamento, de acordo com o tipo de serviço e equipamento."
+    },
+    {
+      "q": "Atendem condomínios e empresas?",
+      "a": "Sim, atendemos residências, condomínios e empresas no Guarujá e região, com contratos de manutenção sob medida."
+    },
+    {
+      "q": "Como faço para solicitar um orçamento?",
+      "a": "É só chamar no WhatsApp informando o serviço, o bairro e, se possível, fotos do equipamento. Retornamos rapidinho."
+    }
+  ],
+  "productCategories": [
+    { "slug": "ar-completo", "label": "Ar completo" },
+    { "slug": "condensadora", "label": "Condensadora" },
+    { "slug": "evaporadora", "label": "Evaporadora" },
+    { "slug": "aquecedor-gas", "label": "Aquecedor a gás" },
+    { "slug": "piscinas", "label": "Piscinas" },
+    { "slug": "filtros", "label": "Filtros" },
+    { "slug": "acessorios", "label": "Acessórios" }
+  ],
+  "products": [
+    {
+      "id": "ar-completo",
+      "name": "Ar-condicionado completo",
+      "price": 1899,
+      "image": "/images/products/ar-completo.webp",
+      "imageEmUso": "/images/products/ar-completo-emuso.webp"
+    },
+    {
+      "id": "condensadora",
+      "name": "Condensadora",
+      "price": 1290,
+      "image": "/images/products/condensadora.webp",
+      "imageEmUso": "/images/products/condensadora-emuso.webp"
+    },
+    {
+      "id": "evaporadora",
+      "name": "Evaporadora",
+      "price": 990,
+      "image": "/images/products/evaporadora.webp",
+      "imageEmUso": "/images/products/evaporadora-emuso.webp"
+    },
+    {
+      "id": "aquecedor-gas",
+      "name": "Aquecedor a gás",
+      "price": 1490,
+      "image": "/images/products/aquecedor-gas.webp",
+      "imageEmUso": "/images/products/aquecedor-gas-emuso.webp"
+    },
+    {
+      "id": "piscinas",
+      "name": "Bomba para piscina",
+      "price": 890,
+      "image": "/images/products/piscinas.webp",
+      "imageEmUso": "/images/products/piscinas-emuso.webp"
+    },
+    {
+      "id": "filtros",
+      "name": "Filtro para piscina",
+      "price": 790,
+      "image": "/images/products/filtros.webp",
+      "imageEmUso": "/images/products/filtros-emuso.webp"
+    },
+    {
+      "id": "acessorios",
+      "name": "Acessórios e peças para piscina",
+      "price": 190,
+      "image": "/images/products/acessorios.webp",
+      "imageEmUso": "/images/products/acessorios-emuso.webp"
+    }
+  ],
+  "serviceAreaGroups": [
+    { "region": "Peruíbe a Mongaguá", "cities": ["Peruíbe", "Itanhaém", "Mongaguá"] },
+    {
+      "region": "Baixada Santista",
+      "cities": ["Praia Grande", "São Vicente", "Santos", "Guarujá", "Bertioga"]
+    },
+    { "region": "Litoral Norte até Ilhabela", "cities": ["São Sebastião", "Ilhabela"] },
+    { "region": "SP Capital", "cities": ["São Paulo"] }
+  ],
+  "neighborhoodGroups": [
+    {
+      "region": "Região I",
+      "neighborhoods": [
+        "Barra Grande",
+        "Santa Cruz",
+        "Marinas",
+        "Guaiúba",
+        "Tombo",
+        "Las Palmas",
+        "Santa Rosa",
+        "Vila Lygia",
+        "Astúrias",
+        "Santa Maria",
+        "Helena Maria",
+        "Pitangueiras",
+        "Santo Antônio",
+        "Cachoeira"
+      ]
+    },
+    {
+      "region": "Região II",
+      "neighborhoods": [
+        "Itapema",
+        "Parque Estuário",
+        "Jardim Progresso",
+        "Pae Cará",
+        "Vila Áurea",
+        "Porto de Guarujá",
+        "Boa Esperança",
+        "Conceiçãozinha",
+        "Bocaina"
+      ]
+    },
+    {
+      "region": "Região III",
+      "neighborhoods": [
+        "Enseada",
+        "Cidade Atlântica",
+        "Virgínia",
+        "Pedreira",
+        "Mar e Céu",
+        "Península",
+        "Pernambuco",
+        "Acapulco",
+        "Perequê",
+        "Santo Amaro",
+        "Guararú"
+      ]
+    },
+    {
+      "region": "Região IV",
+      "neighborhoods": [
+        "Retroporto",
+        "Vargem Grande",
+        "Morrinhos",
+        "Vila Zilda",
+        "Saco do Funil"
+      ]
+    }
+  ],
+  "brands": {
+    "heating": [
+      { "name": "Bosch", "image": "/images/brands/logos/aquecedores/bosch.png" },
+      { "name": "Cosmopolitan", "image": "/images/brands/logos/aquecedores/cosmopolitan.png" },
+      { "name": "Cumulus", "image": "/images/brands/logos/aquecedores/cumulus.png" },
+      { "name": "Equibras", "image": "/images/brands/logos/aquecedores/equibras.png" },
+      { "name": "General Heater", "image": "/images/brands/logos/aquecedores/general-heater.png" },
+      { "name": "Harman", "image": "/images/brands/logos/aquecedores/harman.png" },
+      { "name": "Inova", "image": "/images/brands/logos/aquecedores/inova.png" },
+      { "name": "Junkers", "image": "/images/brands/logos/aquecedores/junkers.png" },
+      { "name": "Kent", "image": "/images/brands/logos/aquecedores/kent.png" },
+      { "name": "Komeco", "image": "/images/brands/logos/aquecedores/komeco.png" },
+      { "name": "Lorenzetti", "image": "/images/brands/logos/aquecedores/lorenzetti.png" },
+      { "name": "Nördik", "image": "/images/brands/logos/aquecedores/nordik.png" },
+      { "name": "Orbis do Brasil", "image": "/images/brands/logos/aquecedores/orbis-do-brasil.png" },
+      { "name": "Rheem", "image": "/images/brands/logos/aquecedores/rheem.png" },
+      { "name": "Rinnai", "image": "/images/brands/logos/aquecedores/rinnai.png" },
+      { "name": "Saiar", "image": "/images/brands/logos/aquecedores/saiar.png" },
+      { "name": "Sakura", "image": "/images/brands/logos/aquecedores/sakura.png" },
+      { "name": "Thermotini", "image": "/images/brands/logos/aquecedores/thermotini.png" }
+    ],
+    "airConditioning": [
+      { "name": "Admiral", "image": "/images/brands/logos/ar-condicionado/admiral.png" },
+      { "name": "Agratto", "image": "/images/brands/logos/ar-condicionado/agratto.png" },
+      { "name": "Britânia", "image": "/images/brands/logos/ar-condicionado/britania.png" },
+      { "name": "Comfee", "image": "/images/brands/logos/ar-condicionado/comfee.png" },
+      { "name": "Consul", "image": "/images/brands/logos/ar-condicionado/consul.png" },
+      { "name": "Daikin", "image": "/images/brands/logos/ar-condicionado/daikin.png" },
+      { "name": "Electrolux", "image": "/images/brands/logos/ar-condicionado/electrolux.png" },
+      { "name": "Elgin", "image": "/images/brands/logos/ar-condicionado/elgin.png" },
+      { "name": "Fontaine", "image": "/images/brands/logos/ar-condicionado/fontaine.png" },
+      { "name": "Fujitsu", "image": "/images/brands/logos/ar-condicionado/fujitsu.png" },
+      { "name": "Gree", "image": "/images/brands/logos/ar-condicionado/gree.png" },
+      { "name": "Hitachi", "image": "/images/brands/logos/ar-condicionado/hitachi.png" },
+      { "name": "Komeco", "image": "/images/brands/logos/ar-condicionado/komeco.png" },
+      { "name": "LG", "image": "/images/brands/logos/ar-condicionado/lg.png" },
+      { "name": "Maxiflex", "image": "/images/brands/logos/ar-condicionado/maxiflex.png" },
+      { "name": "Midea", "image": "/images/brands/logos/ar-condicionado/midea.png" },
+      { "name": "Olimpia Splendid", "image": "/images/brands/logos/ar-condicionado/olimpia-splendid.png" },
+      { "name": "Philco", "image": "/images/brands/logos/ar-condicionado/philco.png" },
+      { "name": "Rinetto", "image": "/images/brands/logos/ar-condicionado/rinetto.png" },
+      { "name": "Samsung", "image": "/images/brands/logos/ar-condicionado/samsung.png" },
+      { "name": "Springer", "image": "/images/brands/logos/ar-condicionado/springer.png" },
+      { "name": "Springer Carrier", "image": "/images/brands/logos/ar-condicionado/springer-carrier.png" },
+      { "name": "TCL", "image": "/images/brands/logos/ar-condicionado/tcl.png" },
+      { "name": "Tempstar", "image": "/images/brands/logos/ar-condicionado/tempstar.png" },
+      { "name": "Trane", "image": "/images/brands/logos/ar-condicionado/trane.png" },
+      { "name": "Vogga", "image": "/images/brands/logos/ar-condicionado/vogga.png" }
+    ]
+  }
+}

@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Painel — Guaru Ar LC</title>
+<link rel="icon" href="/favicon.ico" />
+<style>
+  :root{
+    --azul:#0a2b52; --azul-claro:#1565c0; --ok:#0f9d58; --erro:#c62828; --aviso:#b26a00;
+    --borda:#dfe5ec; --fundo:#f4f7fb; --texto:#1b2733;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--fundo);color:var(--texto)}
+  button{font:inherit;cursor:pointer}
+  input,textarea,select{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--borda);border-radius:8px;background:#fff;color:inherit}
+  input:focus,textarea:focus{outline:2px solid #bcd6f5;border-color:var(--azul-claro)}
+  textarea{resize:vertical;min-height:76px}
+  a{color:var(--azul-claro)}
+
+  /* ---------- Login ---------- */
+  .login{min-height:100dvh;display:grid;place-items:center;padding:24px}
+  .card{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:28px;width:100%;max-width:380px;box-shadow:0 8px 30px rgba(10,43,82,.08)}
+  .card h1{margin:0 0 4px;font-size:20px;color:var(--azul)}
+  .card p.sub{margin:0 0 20px;font-size:13px;color:#5c6b7a}
+  .campo{margin-bottom:14px}
+  .campo label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  .campo .dica{font-size:12px;color:#6b7a89;margin-top:4px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:8px;padding:10px 16px;font-weight:600;background:var(--azul);color:#fff}
+  .btn:hover{background:#0d3868}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .btn.full{width:100%}
+  .btn.ghost{background:#fff;color:var(--azul);border:1px solid var(--borda)}
+  .btn.ghost:hover{background:#f0f4f9}
+  .btn.perigo{background:#fff;color:var(--erro);border:1px solid #f0c6c6}
+  .btn.perigo:hover{background:#fdf0f0}
+  .btn.pequeno{padding:6px 11px;font-size:13px;font-weight:500}
+  .link{background:none;border:0;color:var(--azul-claro);padding:0;font-size:13px;text-decoration:underline}
+
+  /* ---------- Layout ---------- */
+  .app{display:none;min-height:100dvh;grid-template-columns:224px 1fr}
+  .app.ativo{display:grid}
+  aside{background:var(--azul);color:#fff;padding:20px 14px;display:flex;flex-direction:column;gap:4px}
+  aside .marca{font-weight:700;font-size:15px;padding:0 8px 16px;letter-spacing:.2px}
+  aside nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#cfe0f2;padding:9px 12px;border-radius:8px;font-size:14px}
+  aside nav button:hover{background:rgba(255,255,255,.09);color:#fff}
+  aside nav button.on{background:#fff;color:var(--azul);font-weight:600}
+  aside .rodape{margin-top:auto;padding-top:16px;font-size:12px;color:#9fbada}
+  aside .rodape button{color:#cfe0f2;background:none;border:0;text-decoration:underline;padding:0;font-size:12px}
+
+  main{padding:0 0 60px;min-width:0}
+  header.topo{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--borda);padding:14px 28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header.topo h2{margin:0;font-size:17px;color:var(--azul);flex:1;min-width:150px}
+  .estado{font-size:13px;padding:5px 11px;border-radius:20px;background:#eef3f9;color:#4a5b6c}
+  .estado.pendente{background:#fff5e0;color:var(--aviso)}
+  .estado.publicando{background:#e6f0fc;color:var(--azul-claro)}
+  .estado.pronto{background:#e6f6ec;color:var(--ok)}
+  .estado.falhou{background:#fdecec;color:var(--erro)}
+
+  .conteudo{padding:24px 28px;max-width:900px}
+  .aviso{border-radius:10px;padding:12px 14px;font-size:14px;margin-bottom:18px;border:1px solid}
+  .aviso.erro{background:#fdecec;border-color:#f4c7c7;color:#8f1d1d}
+  .aviso.ok{background:#e9f7ef;border-color:#bfe6ce;color:#1a6b3c}
+  .aviso ul{margin:8px 0 0;padding-left:18px}
+  .aviso.info{background:#eef4fc;border-color:#c9dcf5;color:#1b4b86}
+
+  .bloco{background:#fff;border:1px solid var(--borda);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+  .bloco > h3{margin:0 0 4px;font-size:15px;color:var(--azul)}
+  .bloco > p.ajuda{margin:0 0 16px;font-size:13px;color:#6b7a89}
+  .grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+
+  .item{border:1px solid var(--borda);border-radius:10px;padding:16px;margin-bottom:12px;background:#fcfdff}
+  .item .cabeca{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .item .cabeca strong{flex:1;font-size:14px;color:var(--azul)}
+  .item .acoes{display:flex;gap:6px}
+  .icone{width:30px;height:30px;border:1px solid var(--borda);background:#fff;border-radius:7px;line-height:1;color:#5c6b7a;font-size:14px;display:grid;place-items:center;padding:0}
+  .icone:hover{background:#f0f4f9;color:var(--azul)}
+  .icone.remover:hover{background:#fdf0f0;color:var(--erro);border-color:#f0c6c6}
+
+  .imagem{display:flex;gap:12px;align-items:flex-start}
+  .imagem .thumb{width:78px;height:78px;flex:none;border-radius:8px;border:1px solid var(--borda);background:#f4f7fb center/cover no-repeat}
+  .imagem .lado{flex:1;min-width:0}
+  .imagem .caminho{font-size:12px;color:#6b7a89;word-break:break-all;margin:6px 0 0}
+
+  .fichas{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .ficha{display:inline-flex;align-items:center;gap:6px;background:#eef3f9;border-radius:16px;padding:5px 6px 5px 12px;font-size:13px}
+  .ficha button{border:0;background:none;color:#8a97a6;font-size:15px;line-height:1;padding:0 3px}
+  .ficha button:hover{color:var(--erro)}
+  .adicionar{display:flex;gap:8px;margin-top:10px}
+  .adicionar input{flex:1}
+
+  .contador{font-size:12px;color:#8a97a6;text-align:right;margin-top:3px}
+  .contador.perto{color:var(--aviso)}
+
+  .modal{position:fixed;inset:0;background:rgba(12,25,40,.55);display:grid;place-items:center;padding:20px;z-index:20}
+  .modal[hidden]{display:none}
+  .modal .card{max-width:440px}
+
+  @media (max-width:760px){
+    .app.ativo{grid-template-columns:1fr}
+    aside{flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}
+    aside .marca{padding:0 8px 0 4px;width:100%;margin-bottom:8px}
+    aside nav{display:flex;flex-wrap:wrap;gap:4px;width:100%}
+    aside .rodape{margin:8px 0 0;width:100%}
+    .conteudo,header.topo{padding-left:16px;padding-right:16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div class="login" id="tela-login">
+  <form class="card" id="form-login">
+    <h1>Painel do site</h1>
+    <p class="sub">Guaru Ar LC</p>
+    <div id="login-aviso"></div>
+    <div class="campo">
+      <label for="login-email">E-mail</label>
+      <input id="login-email" type="email" autocomplete="username" required />
+    </div>
+    <div class="campo">
+      <label for="login-senha">Senha</label>
+      <input id="login-senha" type="password" autocomplete="current-password" required />
+    </div>
+    <button class="btn full" type="submit" id="btn-entrar">Entrar</button>
+    <p style="text-align:center;margin:16px 0 0">
+      <button type="button" class="link" id="btn-esqueci">Esqueci minha senha</button>
+    </p>
+  </form>
+</div>
+
+<!-- ============ PAINEL ============ -->
+<div class="app" id="tela-app">
+  <aside>
+    <div class="marca">Guaru Ar LC</div>
+    <nav id="menu"></nav>
+    <div class="rodape">
+      <div id="usuario-logado"></div>
+      <button type="button" id="btn-sair">Sair</button>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topo">
+      <h2 id="titulo-secao"></h2>
+      <span class="estado" id="estado">Carregando…</span>
+      <button class="btn ghost pequeno" id="btn-restaurar" type="button">Restaurar padrão</button>
+      <button class="btn" id="btn-publicar" type="button" disabled>Publicar alterações</button>
+    </header>
+    <div class="conteudo">
+      <div id="aviso"></div>
+      <div id="secao"></div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="card">
+    <h1 id="modal-titulo"></h1>
+    <p class="sub" id="modal-texto"></p>
+    <div id="modal-campos"></div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn ghost" type="button" id="modal-cancelar" style="flex:1">Cancelar</button>
+      <button class="btn" type="button" id="modal-confirmar" style="flex:1">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+// =====================================================================
+// Painel do site Guaru Ar LC
+// Edita src/data/content.json via API no edge; cada publicação vira um
+// commit no GitHub, que dispara o deploy automático.
+// =====================================================================
+
+const $ = (sel) => document.querySelector(sel);
+const el = (tag, props = {}, filhos = []) => {
+  const node = Object.assign(document.createElement(tag), props);
+  for (const filho of [].concat(filhos)) if (filho) node.append(filho);
+  return node;
+};
+
+const estado = {
+  conteudo: null,
+  secao: "config",
+  sujo: false,
+  publicando: false,
+};
+
+// ---------------------------------------------------------------- API
+
+async function api(caminho, opcoes = {}) {
+  const resposta = await fetch(`/api/${caminho}`, {
+    credentials: "same-origin",
+    ...opcoes,
+    headers: opcoes.body instanceof FormData ? {} : { "content-type": "application/json" },
+  });
+  const corpo = await resposta.json().catch(() => ({}));
+  if (!resposta.ok) {
+    const erro = new Error(corpo.error || "Não consegui completar a ação.");
+    erro.detalhes = corpo.details;
+    erro.status = resposta.status;
+    throw erro;
+  }
+  return corpo;
+}
+
+// ---------------------------------------------------------------- Avisos
+
+function aviso(alvo, tipo, texto, itens) {
+  const caixa = $(alvo);
+  caixa.innerHTML = "";
+  if (!texto) return;
+  const div = el("div", { className: `aviso ${tipo}` }, [el("span", { textContent: texto })]);
+  if (itens?.length) {
+    div.append(el("ul", {}, itens.map((i) => el("li", { textContent: i }))));
+  }
+  caixa.append(div);
+  caixa.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// ---------------------------------------------------------------- Login
+
+$("#form-login").addEventListener("submit", async (evento) => {
+  evento.preventDefault();
+  $("#btn-entrar").disabled = true;
+  aviso("#login-aviso", "", "");
+  try {
+    await api("login", {
+      method: "POST",
+      body: JSON.stringify({ email: $("#login-email").value, password: $("#login-senha").value }),
+    });
+    await iniciar();
+  } catch (erro) {
+    aviso("#login-aviso", "erro", erro.message);
+  } finally {
+    $("#btn-entrar").disabled = false;
+  }
+});
+
+$("#btn-esqueci").addEventListener("click", () => {
+  abrirModal({
+    titulo: "Recuperar senha",
+    texto: "Informe o e-mail cadastrado. Enviaremos a senha atual do painel para ele.",
+    campos: [{ id: "email", label: "E-mail cadastrado", type: "email" }],
+    confirmar: "Enviar",
+    async acao(valores) {
+      await api("recover", { method: "POST", body: JSON.stringify({ email: valores.email }) });
+      aviso("#login-aviso", "ok", "Se o e-mail estiver cadastrado, a senha chegará em instantes.");
+    },
+  });
+});
+
+$("#btn-sair").addEventListener("click", async () => {
+  await api("logout", { method: "POST" }).catch(() => {});
+  location.reload();
+});
+
+// ---------------------------------------------------------------- Modal
+
+let acaoModal = null;
+
+function abrirModal({ titulo, texto, campos = [], confirmar = "Confirmar", acao, perigo = false }) {
+  $("#modal-titulo").textContent = titulo;
+  $("#modal-texto").textContent = texto || "";
+  const area = $("#modal-campos");
+  area.innerHTML = "";
+  for (const campo of campos) {
+    area.append(
+      el("div", { className: "campo" }, [
+        el("label", { textContent: campo.label, htmlFor: `modal-${campo.id}` }),
+        el("input", { id: `modal-${campo.id}`, type: campo.type || "text", value: campo.value || "" }),
+        campo.dica ? el("p", { className: "dica", textContent: campo.dica }) : null,
+      ]),
+    );
+  }
+  const botao = $("#modal-confirmar");
+  botao.textContent = confirmar;
+  botao.className = perigo ? "btn perigo" : "btn";
+  botao.disabled = false;
+  acaoModal = { campos, acao };
+  $("#modal").hidden = false;
+  area.querySelector("input")?.focus();
+}
+
+function fecharModal() {
+  $("#modal").hidden = true;
+  acaoModal = null;
+}
+
+$("#modal-cancelar").addEventListener("click", fecharModal);
+$("#modal-confirmar").addEventListener("click", async () => {
+  if (!acaoModal) return;
+  const valores = {};
+  for (const campo of acaoModal.campos) valores[campo.id] = $(`#modal-${campo.id}`).value;
+  $("#modal-confirmar").disabled = true;
+  try {
+    await acaoModal.acao(valores);
+    fecharModal();
+  } catch (erro) {
+    alert(erro.message);
+    $("#modal-confirmar").disabled = false;
+  }
+});
+
+// ---------------------------------------------------------------- Campos
+
+function marcarSujo() {
+  estado.sujo = true;
+  $("#btn-publicar").disabled = false;
+  atualizarEstado("pendente", "Alterações não publicadas");
+}
+
+/** Campo de texto ligado a um objeto, com limite de caracteres. */
+function campo({ label, obj, chave, max = 120, area = false, dica, tipo = "text" }) {
+  const id = `c-${Math.random().toString(36).slice(2, 9)}`;
+  const entrada = el(area ? "textarea" : "input", { id, value: obj[chave] ?? "" });
+  if (!area) entrada.type = tipo;
+  entrada.maxLength = max;
+  const contador = el("div", { className: "contador" });
+  const atualizarContador = () => {
+    const usado = entrada.value.length;
+    contador.textContent = `${usado}/${max}`;
+    contador.classList.toggle("perto", usado > max * 0.9);
+  };
+  entrada.addEventListener("input", () => {
+    obj[chave] = entrada.value;
+    atualizarContador();
+    marcarSujo();
+  });
+  atualizarContador();
+  return el("div", { className: "campo" }, [
+    el("label", { textContent: label, htmlFor: id }),
+    entrada,
+    dica ? el("p", { className: "dica", textContent: dica }) : null,
+    contador,
+  ]);
+}
+
+/** Campo de preço em reais, sempre número. */
+function campoPreco({ label, obj, chave, dica }) {
+  const id = `p-${Math.random().toString(36).slice(2, 9)}`;
+  const entrada = el("input", { id, type: "number", value: obj[chave] ?? 0, min: "0", step: "1" });
+  entrada.addEventListener("input", () => {
+    const valor = Number(entrada.value);
+    obj[chave] = Number.isFinite(valor) && valor >= 0 ? valor : 0;
+    marcarSujo();
+  });
+  return el("div", { className: "campo" }, [
+    el("label", { textContent: label, htmlFor: id }),
+    entrada,
+    el("p", { className: "dica", textContent: dica || "Somente números, sem R$ nem pontos. Ex.: 1899" }),
+  ]);
+}
+
+/** Campo de imagem: só troca por upload, o caminho nunca é digitado à mão. */
+function campoImagem({ label, obj, chave, dica }) {
+  const thumb = el("div", { className: "thumb" });
+  const caminho = el("p", { className: "caminho" });
+  const pintar = () => {
+    thumb.style.backgroundImage = obj[chave] ? `url("${obj[chave]}")` : "none";
+    caminho.textContent = obj[chave] || "sem imagem";
+  };
+  pintar();
+
+  const arquivo = el("input", { type: "file", accept: "image/jpeg,image/png,image/webp" });
+  arquivo.style.display = "none";
+  const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Trocar imagem" });
+  const status = el("p", { className: "dica" });
+
+  botao.addEventListener("click", () => arquivo.click());
+  arquivo.addEventListener("change", async () => {
+    const file = arquivo.files?.[0];
+    if (!file) return;
+    botao.disabled = true;
+    status.textContent = "Enviando…";
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const resultado = await api("upload", { method: "POST", body: form });
+      obj[chave] = resultado.path;
+      thumb.style.backgroundImage = `url("${URL.createObjectURL(file)}")`;
+      caminho.textContent = resultado.path;
+      status.textContent = "Imagem enviada. Ela aparece no site depois de publicar.";
+      marcarSujo();
+    } catch (erro) {
+      status.textContent = erro.message;
+    } finally {
+      botao.disabled = false;
+      arquivo.value = "";
+    }
+  });
+
+  return el("div", { className: "campo" }, [
+    el("label", { textContent: label }),
+    el("div", { className: "imagem" }, [
+      thumb,
+      el("div", { className: "lado" }, [
+        botao,
+        arquivo,
+        caminho,
+        el("p", { className: "dica", textContent: dica || "JPG, PNG ou WebP, até 3 MB." }),
+        status,
+      ]),
+    ]),
+  ]);
+}
+
+/** Lista de textos simples (bairros, cidades) em forma de fichas. */
+function campoLista({ label, lista, placeholder, max = 60 }) {
+  const fichas = el("div", { className: "fichas" });
+  const entrada = el("input", { placeholder, maxLength: max });
+  const desenhar = () => {
+    fichas.innerHTML = "";
+    lista.forEach((valor, i) => {
+      const remover = el("button", { type: "button", textContent: "×", title: `Remover ${valor}` });
+      remover.addEventListener("click", () => {
+        lista.splice(i, 1);
+        desenhar();
+        marcarSujo();
+      });
+      fichas.append(el("span", { className: "ficha" }, [el("span", { textContent: valor }), remover]));
+    });
+  };
+  desenhar();
+
+  const adicionar = () => {
+    const valor = entrada.value.trim();
+    if (!valor) return;
+    lista.push(valor);
+    entrada.value = "";
+    desenhar();
+    marcarSujo();
+  };
+  entrada.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter") {
+      evento.preventDefault();
+      adicionar();
+    }
+  });
+  const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Adicionar" });
+  botao.addEventListener("click", adicionar);
+
+  return el("div", { className: "campo" }, [
+    el("label", { textContent: label }),
+    fichas,
+    el("div", { className: "adicionar" }, [entrada, botao]),
+  ]);
+}
+
+/** Cabeçalho de item com mover para cima/baixo e remover. */
+function cabecaItem({ titulo, lista, indice, minimo = 1, aoMudar }) {
+  const acao = (texto, dica, ativo, fn, classe = "") => {
+    const botao = el("button", { type: "button", className: `icone ${classe}`, textContent: texto, title: dica });
+    botao.disabled = !ativo;
+    botao.addEventListener("click", () => {
+      fn();
+      marcarSujo();
+      aoMudar();
+    });
+    return botao;
+  };
+  return el("div", { className: "cabeca" }, [
+    el("strong", { textContent: titulo }),
+    el("div", { className: "acoes" }, [
+      acao("↑", "Mover para cima", indice > 0, () => {
+        [lista[indice - 1], lista[indice]] = [lista[indice], lista[indice - 1]];
+      }),
+      acao("↓", "Mover para baixo", indice < lista.length - 1, () => {
+        [lista[indice + 1], lista[indice]] = [lista[indice], lista[indice + 1]];
+      }),
+      acao("×", "Remover", lista.length > minimo, () => lista.splice(indice, 1), "remover"),
+    ]),
+  ]);
+}
+
+function botaoAdicionar(texto, fn) {
+  const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: `+ ${texto}` });
+  botao.addEventListener("click", () => {
+    fn();
+    marcarSujo();
+    desenharSecao();
+  });
+  return botao;
+}
+
+// ---------------------------------------------------------------- Seções
+
+const SECOES = {
+  config: { titulo: "Configurações", desenhar: secaoConfig },
+  textos: { titulo: "Textos do site", desenhar: secaoTextos },
+  servicos: { titulo: "Serviços", desenhar: secaoServicos },
+  produtos: { titulo: "Produtos", desenhar: secaoProdutos },
+  bairros: { titulo: "Bairros e regiões", desenhar: secaoBairros },
+  provas: { titulo: "Números, avaliações e FAQ", desenhar: secaoProvas },
+  marcas: { titulo: "Marcas atendidas", desenhar: secaoMarcas },
+  usuario: { titulo: "Usuário", desenhar: secaoUsuario },
+};
+
+function secaoConfig() {
+  const s = estado.conteudo.site;
+  return [
+    bloco("Identificação", "Aparece no topo, no rodapé e nos resultados do Google.", [
+      el("div", { className: "grade" }, [
+        campo({ label: "Nome da empresa", obj: s, chave: "name", max: 40 }),
+        campo({ label: "Razão social", obj: s, chave: "legalName", max: 60 }),
+      ]),
+    ]),
+    bloco("Contato", "Usado em todos os botões de WhatsApp, telefone e e-mail do site.", [
+      el("div", { className: "grade" }, [
+        campo({ label: "Telefone exibido", obj: s, chave: "phoneDisplay", max: 20, dica: "Ex.: (13) 97410-4466" }),
+        campo({
+          label: "WhatsApp (só números)",
+          obj: s,
+          chave: "phone",
+          max: 13,
+          dica: "Com DDI e DDD, sem espaços. Ex.: 5513974104466",
+        }),
+        campo({ label: "E-mail", obj: s, chave: "email", max: 60, tipo: "email" }),
+        campo({ label: "Horário de atendimento", obj: s, chave: "hours", max: 60 }),
+      ]),
+      campo({ label: "Endereço", obj: s, chave: "address", max: 120 }),
+      campo({
+        label: "Mensagem que abre no WhatsApp",
+        obj: s,
+        chave: "whatsappMessage",
+        max: 160,
+        area: true,
+        dica: "É o texto já preenchido quando o cliente clica em um botão de WhatsApp.",
+      }),
+    ]),
+    bloco("Redes sociais", "Links completos, começando com https://", [
+      el("div", { className: "grade" }, [
+        campo({ label: "Instagram", obj: s.social, chave: "instagram", max: 120 }),
+        campo({ label: "Facebook", obj: s.social, chave: "facebook", max: 120 }),
+      ]),
+    ]),
+  ];
+}
+
+function secaoTextos() {
+  const t = estado.conteudo.texts;
+  return [
+    bloco("Topo da página inicial", "A primeira coisa que o cliente lê.", [
+      campo({ label: "Título", obj: t, chave: "heroTitle", max: 80 }),
+      campo({
+        label: "Palavra em destaque",
+        obj: t,
+        chave: "heroHighlight",
+        max: 30,
+        dica: "Uma palavra que já exista no título acima — ela aparece destacada. Deixe vazio para não destacar nada.",
+      }),
+      campo({ label: "Frase de apoio", obj: t, chave: "heroSubtitle", max: 120 }),
+    ]),
+    bloco("Sobre a empresa", "Seção de apresentação no meio da página inicial.", [
+      campo({ label: "Título", obj: t, chave: "aboutTitle", max: 90 }),
+      campo({ label: "Texto", obj: t, chave: "aboutText", max: 500, area: true }),
+    ]),
+    bloco("Chamada final e rodapé", "Bloco antes do rodapé e descrição da empresa no rodapé.", [
+      campo({ label: "Título da chamada", obj: t, chave: "ctaTitle", max: 80 }),
+      campo({ label: "Texto da chamada", obj: t, chave: "ctaText", max: 140 }),
+      campo({ label: "Descrição no rodapé", obj: t, chave: "footerDescription", max: 200, area: true }),
+    ]),
+  ];
+}
+
+function secaoServicos() {
+  const lista = estado.conteudo.services;
+  const itens = lista.map((servico, i) =>
+    el("div", { className: "item" }, [
+      cabecaItem({ titulo: servico.title || "Serviço", lista, indice: i, aoMudar: desenharSecao }),
+      el("div", { className: "grade" }, [
+        campo({ label: "Nome do serviço", obj: servico, chave: "title", max: 40 }),
+        campoPreco({ label: "Preço a partir de (R$)", obj: servico, chave: "price" }),
+      ]),
+      campo({ label: "Resumo curto", obj: servico, chave: "short", max: 60 }),
+      campo({ label: "Descrição", obj: servico, chave: "description", max: 300, area: true }),
+      campoImagem({ label: "Imagem do serviço", obj: servico, chave: "image" }),
+    ]),
+  );
+  return [
+    bloco(
+      "Serviços",
+      "Cada serviço vira um card na home e uma página própria. O endereço da página é criado a partir do nome e não muda depois.",
+      [
+        ...itens,
+        botaoAdicionar("Adicionar serviço", () =>
+          lista.push({
+            slug: `servico-${Date.now().toString(36)}`,
+            title: "Novo serviço",
+            icon: "Wrench",
+            short: "Manutenção, limpeza, instalação e reparos",
+            description: "Descreva aqui o que está incluído neste serviço.",
+            image: lista[0]?.image || "/images/home-generated/card-ar-condicionado.webp",
+            price: 0,
+          }),
+        ),
+      ],
+    ),
+  ];
+}
+
+function secaoProdutos() {
+  const lista = estado.conteudo.products;
+  const itens = lista.map((produto, i) =>
+    el("div", { className: "item" }, [
+      cabecaItem({ titulo: produto.name || "Produto", lista, indice: i, aoMudar: desenharSecao }),
+      el("div", { className: "grade" }, [
+        campo({ label: "Nome do produto", obj: produto, chave: "name", max: 60 }),
+        campoPreco({ label: "Preço a partir de (R$)", obj: produto, chave: "price" }),
+      ]),
+      el("div", { className: "grade" }, [
+        campoImagem({ label: "Foto principal", obj: produto, chave: "image" }),
+        campoImagem({
+          label: "Foto em uso (opcional)",
+          obj: produto,
+          chave: "imageEmUso",
+          dica: "Quando existe, o card alterna entre as duas fotos.",
+        }),
+      ]),
+    ]),
+  );
+  return [
+    bloco("Produtos", "Aparecem na vitrine da página Produtos. O botão de compra abre o WhatsApp.", [
+      ...itens,
+      botaoAdicionar("Adicionar produto", () => {
+        const id = `produto-${Date.now().toString(36)}`;
+        lista.push({ id, name: "Novo produto", price: 0, image: lista[0]?.image || "/images/products/ar-completo.webp" });
+      }),
+    ]),
+    bloco("Categorias", "Filtros da vitrine de produtos.", [
+      ...estado.conteudo.productCategories.map((cat, i) =>
+        el("div", { className: "item" }, [
+          cabecaItem({
+            titulo: cat.label || "Categoria",
+            lista: estado.conteudo.productCategories,
+            indice: i,
+            aoMudar: desenharSecao,
+          }),
+          campo({ label: "Nome da categoria", obj: cat, chave: "label", max: 30 }),
+        ]),
+      ),
+      botaoAdicionar("Adicionar categoria", () =>
+        estado.conteudo.productCategories.push({
+          slug: `categoria-${Date.now().toString(36)}`,
+          label: "Nova categoria",
+        }),
+      ),
+    ]),
+  ];
+}
+
+function secaoBairros() {
+  const destaques = estado.conteudo.areaPhotos;
+  const grupos = estado.conteudo.neighborhoodGroups;
+  const cidades = estado.conteudo.serviceAreaGroups;
+
+  return [
+    bloco(
+      "Bairros em destaque",
+      "Os cards com foto na seção de áreas de atendimento. Cada um leva para a página do bairro.",
+      [
+        ...destaques.map((area, i) =>
+          el("div", { className: "item" }, [
+            cabecaItem({ titulo: area.name || "Bairro", lista: destaques, indice: i, aoMudar: desenharSecao }),
+            campo({ label: "Nome do bairro", obj: area, chave: "name", max: 40 }),
+            campoImagem({ label: "Foto do bairro", obj: area, chave: "image" }),
+          ]),
+        ),
+        botaoAdicionar("Adicionar destaque", () =>
+          destaques.push({ name: "Novo bairro", image: destaques[0]?.image || "/images/home-generated/area-enseada.webp" }),
+        ),
+      ],
+    ),
+    bloco(
+      "Todos os bairros atendidos",
+      "Listados na home e cada um ganha uma página própria no Google. Não repita o mesmo bairro em duas regiões.",
+      [
+        ...grupos.map((grupo, i) =>
+          el("div", { className: "item" }, [
+            cabecaItem({ titulo: grupo.region || "Região", lista: grupos, indice: i, aoMudar: desenharSecao }),
+            campo({ label: "Nome da região", obj: grupo, chave: "region", max: 40 }),
+            campoLista({ label: "Bairros", lista: grupo.neighborhoods, placeholder: "Digite o bairro e tecle Enter" }),
+          ]),
+        ),
+        botaoAdicionar("Adicionar região", () => grupos.push({ region: "Nova região", neighborhoods: ["Bairro"] })),
+      ],
+    ),
+    bloco("Cidades atendidas", "Cobertura fora do Guarujá, mostrada na home.", [
+      ...cidades.map((grupo, i) =>
+        el("div", { className: "item" }, [
+          cabecaItem({ titulo: grupo.region || "Região", lista: cidades, indice: i, aoMudar: desenharSecao }),
+          campo({ label: "Nome da região", obj: grupo, chave: "region", max: 40 }),
+          campoLista({ label: "Cidades", lista: grupo.cities, placeholder: "Digite a cidade e tecle Enter" }),
+        ]),
+      ),
+      botaoAdicionar("Adicionar região", () => cidades.push({ region: "Nova região", cities: ["Cidade"] })),
+    ]),
+  ];
+}
+
+function secaoProvas() {
+  const numeros = estado.conteudo.stats;
+  const avaliacoes = estado.conteudo.reviews;
+  const perguntas = estado.conteudo.faqs;
+
+  return [
+    bloco("Números", "Os três destaques na seção sobre a empresa.", [
+      ...numeros.map((n, i) =>
+        el("div", { className: "item" }, [
+          cabecaItem({ titulo: n.label || "Número", lista: numeros, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          el("div", { className: "grade" }, [
+            campo({ label: "Valor", obj: n, chave: "value", max: 10, dica: "Ex.: +10, +2.000, 100%" }),
+            campo({ label: "Descrição", obj: n, chave: "label", max: 40 }),
+          ]),
+        ]),
+      ),
+      botaoAdicionar("Adicionar número", () => numeros.push({ value: "+0", label: "descrição" })),
+    ]),
+    bloco("Avaliações de clientes", "Depoimentos exibidos na home.", [
+      ...avaliacoes.map((r, i) =>
+        el("div", { className: "item" }, [
+          cabecaItem({ titulo: r.name || "Avaliação", lista: avaliacoes, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          campo({ label: "Depoimento", obj: r, chave: "text", max: 260, area: true }),
+          el("div", { className: "grade" }, [
+            campo({ label: "Nome do cliente", obj: r, chave: "name", max: 30 }),
+            campo({ label: "Bairro", obj: r, chave: "area", max: 30 }),
+          ]),
+          campoImagem({ label: "Foto do cliente", obj: r, chave: "avatar" }),
+        ]),
+      ),
+      botaoAdicionar("Adicionar avaliação", () =>
+        avaliacoes.push({
+          text: "Escreva aqui o depoimento do cliente.",
+          name: "Nome do cliente",
+          area: "Bairro",
+          avatar: avaliacoes[0]?.avatar || "https://i.pravatar.cc/96?img=45",
+        }),
+      ),
+    ]),
+    bloco("Perguntas frequentes", "Bloco de dúvidas no fim da home. Ajuda no Google.", [
+      ...perguntas.map((f, i) =>
+        el("div", { className: "item" }, [
+          cabecaItem({ titulo: f.q || "Pergunta", lista: perguntas, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          campo({ label: "Pergunta", obj: f, chave: "q", max: 120 }),
+          campo({ label: "Resposta", obj: f, chave: "a", max: 400, area: true }),
+        ]),
+      ),
+      botaoAdicionar("Adicionar pergunta", () => perguntas.push({ q: "Nova pergunta?", a: "Resposta." })),
+    ]),
+  ];
+}
+
+function secaoMarcas() {
+  const desenharGrupo = (titulo, ajuda, lista) =>
+    bloco(titulo, ajuda, [
+      ...lista.map((marca, i) =>
+        el("div", { className: "item" }, [
+          cabecaItem({ titulo: marca.name || "Marca", lista, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          campo({ label: "Nome da marca", obj: marca, chave: "name", max: 40 }),
+          campoImagem({ label: "Logo", obj: marca, chave: "image" }),
+        ]),
+      ),
+      botaoAdicionar("Adicionar marca", () =>
+        lista.push({ name: "Nova marca", image: lista[0]?.image || "/images/brands/logos/ar-condicionado/lg.png" }),
+      ),
+    ]);
+
+  return [
+    desenharGrupo("Ar-condicionado", "Marcas exibidas na página de assistência autorizada.", estado.conteudo.brands.airConditioning),
+    desenharGrupo("Aquecedores", "Marcas exibidas na página de assistência autorizada.", estado.conteudo.brands.heating),
+  ];
+}
+
+function secaoUsuario() {
+  const form = el("div");
+  const atual = el("input", { type: "password", autocomplete: "current-password" });
+  const email = el("input", { type: "email", autocomplete: "username", value: estado.email || "" });
+  const nova = el("input", { type: "password", autocomplete: "new-password" });
+  const salvar = el("button", { type: "button", className: "btn", textContent: "Salvar acesso" });
+  const retorno = el("div");
+
+  salvar.addEventListener("click", async () => {
+    salvar.disabled = true;
+    retorno.innerHTML = "";
+    try {
+      const resultado = await api("account", {
+        method: "POST",
+        body: JSON.stringify({ currentPassword: atual.value, email: email.value, password: nova.value }),
+      });
+      estado.email = resultado.email;
+      $("#usuario-logado").textContent = resultado.email;
+      atual.value = "";
+      nova.value = "";
+      retorno.append(el("div", { className: "aviso ok", textContent: "Dados de acesso atualizados." }));
+    } catch (erro) {
+      retorno.append(el("div", { className: "aviso erro", textContent: erro.message }));
+    } finally {
+      salvar.disabled = false;
+    }
+  });
+
+  form.append(
+    el("div", { className: "campo" }, [el("label", { textContent: "Senha atual (obrigatória)" }), atual]),
+    el("div", { className: "grade" }, [
+      el("div", { className: "campo" }, [
+        el("label", { textContent: "E-mail de acesso" }),
+        email,
+        el("p", { className: "dica", textContent: "É para este e-mail que a recuperação de senha é enviada." }),
+      ]),
+      el("div", { className: "campo" }, [
+        el("label", { textContent: "Nova senha" }),
+        nova,
+        el("p", { className: "dica", textContent: "Deixe vazio para manter a senha atual. Mínimo de 6 caracteres." }),
+      ]),
+    ]),
+    salvar,
+    retorno,
+  );
+
+  return [
+    bloco("Acesso ao painel", "Alterar e-mail e senha de login. Vale na hora, sem precisar publicar.", [form]),
+    bloco("Restaurar padrão de fábrica", "Volta todo o conteúdo do site exatamente como foi entregue.", [
+      el("p", {
+        className: "ajuda",
+        textContent:
+          "Textos, produtos, serviços, bairros e imagens voltam ao original. Suas alterações atuais são perdidas. O acesso ao painel não muda.",
+      }),
+      (() => {
+        const botao = el("button", { type: "button", className: "btn perigo", textContent: "Restaurar padrão de fábrica" });
+        botao.addEventListener("click", restaurar);
+        return botao;
+      })(),
+    ]),
+  ];
+}
+
+function bloco(titulo, ajuda, filhos) {
+  return el("section", { className: "bloco" }, [
+    el("h3", { textContent: titulo }),
+    ajuda ? el("p", { className: "ajuda", textContent: ajuda }) : null,
+    ...filhos,
+  ]);
+}
+
+// ---------------------------------------------------------------- Navegação
+
+function desenharMenu() {
+  const menu = $("#menu");
+  menu.innerHTML = "";
+  for (const [chave, { titulo }] of Object.entries(SECOES)) {
+    const botao = el("button", { type: "button", textContent: titulo, className: chave === estado.secao ? "on" : "" });
+    botao.addEventListener("click", () => {
+      estado.secao = chave;
+      desenharMenu();
+      desenharSecao();
+      window.scrollTo({ top: 0 });
+    });
+    menu.append(botao);
+  }
+}
+
+function desenharSecao() {
+  const { titulo, desenhar } = SECOES[estado.secao];
+  $("#titulo-secao").textContent = titulo;
+  const area = $("#secao");
+  area.innerHTML = "";
+  for (const parte of desenhar()) area.append(parte);
+}
+
+function atualizarEstado(classe, texto) {
+  const marcador = $("#estado");
+  marcador.className = `estado ${classe}`;
+  marcador.textContent = texto;
+}
+
+// ---------------------------------------------------------------- Publicar
+
+$("#btn-publicar").addEventListener("click", async () => {
+  if (estado.publicando) return;
+  estado.publicando = true;
+  $("#btn-publicar").disabled = true;
+  aviso("#aviso", "", "");
+  atualizarEstado("publicando", "Publicando…");
+
+  try {
+    await api("content", { method: "POST", body: JSON.stringify({ content: estado.conteudo }) });
+    estado.sujo = false;
+    aviso("#aviso", "ok", "Alterações enviadas. O site é atualizado em cerca de 2 minutos.");
+    acompanharDeploy();
+  } catch (erro) {
+    aviso("#aviso", "erro", erro.message, erro.detalhes);
+    atualizarEstado("falhou", "Não publicado");
+    $("#btn-publicar").disabled = false;
+  } finally {
+    estado.publicando = false;
+  }
+});
+
+async function acompanharDeploy() {
+  atualizarEstado("publicando", "Atualizando o site…");
+  const inicio = Date.now();
+  const verificar = async () => {
+    if (Date.now() - inicio > 6 * 60 * 1000) return atualizarEstado("pendente", "Publicado — verifique o site");
+    try {
+      const { run } = await api("status");
+      if (run?.status === "completed") {
+        return run.conclusion === "success"
+          ? atualizarEstado("pronto", "Site atualizado")
+          : atualizarEstado("falhou", "Falha ao atualizar o site");
+      }
+    } catch {
+      /* segue tentando */
+    }
+    setTimeout(verificar, 10000);
+  };
+  setTimeout(verificar, 12000);
+}
+
+$("#btn-restaurar").addEventListener("click", restaurar);
+
+function restaurar() {
+  abrirModal({
+    titulo: "Restaurar padrão de fábrica",
+    texto:
+      'Todo o conteúdo do site volta ao original entregue. Suas alterações serão perdidas. Digite RESTAURAR para confirmar.',
+    campos: [{ id: "confirmacao", label: "Digite RESTAURAR" }],
+    confirmar: "Restaurar",
+    perigo: true,
+    async acao(valores) {
+      if (valores.confirmacao.trim().toUpperCase() !== "RESTAURAR") throw new Error("Confirmação incorreta.");
+      const resultado = await api("restore", { method: "POST" });
+      estado.conteudo = resultado.content;
+      estado.sujo = false;
+      $("#btn-publicar").disabled = true;
+      desenharSecao();
+      aviso("#aviso", "ok", "Conteúdo restaurado. O site volta ao original em cerca de 2 minutos.");
+      acompanharDeploy();
+    },
+  });
+}
+
+window.addEventListener("beforeunload", (evento) => {
+  if (estado.sujo) evento.preventDefault();
+});
+
+// ---------------------------------------------------------------- Início
+
+async function iniciar() {
+  const sessao = await api("me").catch(() => null);
+  if (!sessao) {
+    $("#tela-login").style.display = "grid";
+    $("#tela-app").classList.remove("ativo");
+    return;
+  }
+
+  estado.email = sessao.email;
+  $("#tela-login").style.display = "none";
+  $("#tela-app").classList.add("ativo");
+  $("#usuario-logado").textContent = sessao.email;
+  desenharMenu();
+
+  try {
+    const dados = await api("content");
+    estado.conteudo = dados.content;
+    desenharSecao();
+    if (dados.pending) {
+      atualizarEstado("publicando", "Publicação em andamento");
+      acompanharDeploy();
+    } else {
+      atualizarEstado("pronto", "Site em dia");
+    }
+  } catch (erro) {
+    $("#titulo-secao").textContent = "Painel";
+    aviso("#aviso", "erro", erro.message);
+    atualizarEstado("falhou", "Erro ao carregar");
+  }
+}
+
+iniciar();
+</script>
+</body>
+</html>

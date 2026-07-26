@@ -1,0 +1,42 @@
+import { bad, commitFile, draft, fetchContent, json, requireSession, toBase64 } from "../../lib/admin.js";
+
+// Restaura o site para a base de fábrica (src/data/content.default.json).
+// Esse arquivo nunca é escrito pelo painel — é a referência imutável.
+const PATH = "src/data/content.json";
+const DEFAULT_PATH = "src/data/content.default.json";
+
+export async function onRequestPost({ request, env }) {
+  const session = await requireSession(request, env);
+  if (session instanceof Response) return session;
+
+  const branch = env.GITHUB_BRANCH || "main";
+  const raw = await fetch(
+    `https://raw.githubusercontent.com/${env.GITHUB_REPO}/${branch}/${DEFAULT_PATH}`,
+    { headers: { authorization: `Bearer ${env.GITHUB_TOKEN}`, "user-agent": "guaru-ar-lc-admin" } },
+  );
+  if (!raw.ok) return bad("Não encontrei a base de fábrica no repositório.", 502);
+
+  const text = (await raw.text()).trim() + "\n";
+  let content;
+  try {
+    content = JSON.parse(text);
+  } catch {
+    return bad("A base de fábrica está corrompida.", 500);
+  }
+
+  const published = await fetchContent(env).catch((error) => ({ error }));
+  if (published.error) return bad(`Não consegui falar com o repositório: ${published.error.message}`, 502);
+
+  try {
+    const result = await commitFile(env, {
+      path: PATH,
+      base64: toBase64(text),
+      message: `conteudo: restauracao para o padrao de fabrica (${session.email})`,
+      sha: published.sha,
+    });
+    await draft.put(env, { sha: result.content.sha, content });
+    return json({ ok: true, content, commit: result.commit.sha.slice(0, 7) });
+  } catch (error) {
+    return bad(`Não consegui restaurar: ${error.message}`, 502);
+  }
+}
