@@ -56,7 +56,7 @@
   "stats": [
     {
       "value": "+10",
-      "label": "anos de experiência"
+      "label": "TESTE-QA-R2"
     },
     {
       "value": "+2.000",
@@ -471,5 +471,6 @@
         "image": "/images/brands/logos/ar-condicionado/vogga.png"
       }
     ]
-  }
+  },
+  "updatedAt": "2026-07-26T22:16:23.259Z"
 }
