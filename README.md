@@ -73,11 +73,13 @@ MAIL_FROM=Guaru Ar LC <no-reply@guaruarguaruja.com.br>
 | Deploy | GitHub Actions → `wrangler pages deploy` |
 | E-mail de recuperação de senha | Resend |
 
-Segredos necessários no repositório (*Settings → Secrets → Actions*):
+Segredos no repositório (*Settings → Secrets → Actions*):
 `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
 
-Segredos necessários no projeto do Cloudflare Pages:
-`GITHUB_TOKEN`, `RESEND_API_KEY`.
+Variáveis no projeto do Cloudflare Pages (*Settings → Environment variables*):
+`GITHUB_REPO`, `GITHUB_BRANCH`, `MAIL_FROM` e os segredos `GITHUB_TOKEN`,
+`RESEND_API_KEY`. Elas ficam só no Cloudflare — o deploy é upload puro e não
+sobrescreve nada. Por isso o projeto não tem `wrangler.toml`.
 
 ## SEO
 
