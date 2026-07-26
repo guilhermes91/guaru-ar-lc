@@ -104,7 +104,10 @@ Variáveis no projeto do Cloudflare Pages (*Settings → Environment variables*)
 
 O repositório é público: **nenhuma senha mora no código**. O primeiro acesso
 nasce de `ADMIN_EMAIL` + `ADMIN_PASSWORD`, e o KV guarda só um hash PBKDF2
-(100.000 iterações, com salt próprio). Depois que o cliente troca a senha pelo
+(100.000 iterações, com salt próprio — 100k é o **teto do Cloudflare Workers**,
+que recusa valores maiores; a recomendação OWASP de 600k não roda nessa
+plataforma). O número usado fica gravado junto do hash, então subir o teto no
+futuro não invalida a senha existente. Depois que o cliente troca a senha pelo
 painel, as variáveis deixam de ser consultadas.
 
 Para redefinir o acesso (cliente perdeu a senha e o e-mail de recuperação):
