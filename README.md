@@ -121,17 +121,21 @@ funcionando: se a troca fosse imediata, qualquer visitante anônimo derrubaria o
 acesso do cliente só chamando a rota. Definir uma senha nova no painel encerra
 a provisória.
 
-> ### ⚠️ A recuperação de senha ainda não entrega no cliente
+> ### Remetente do e-mail de recuperação
 >
-> `MAIL_FROM` está no remetente de teste do Resend (`onboarding@resend.dev`),
-> que **só entrega no e-mail dono da conta Resend** — não em
-> `guaruar@softuria.com`. Enquanto for assim, "Esqueci minha senha" responde
-> normalmente ao cliente, mas o e-mail não chega nele.
+> `MAIL_FROM` está no remetente de teste do Resend (`onboarding@resend.dev`).
+> A entrega em `guaruar@softuria.com` **funciona** — testado em 26/07/2026, com
+> o Resend aceitando o envio e a senha provisória sendo gravada em seguida.
 >
-> Para resolver, depois que o domínio apontar: verifique `guaruarguaruja.com.br`
-> no Resend (registros DNS de domínio) e troque `MAIL_FROM` para
-> `Guaru Ar LC <no-reply@guaruarguaruja.com.br>`. Só então a recuperação passa a
-> funcionar de ponta a ponta.
+> O que fica pendente é cosmético e de reputação: o cliente recebe um e-mail
+> que parece vir de `resend.dev`, o que tende a cair em spam e não passa
+> confiança. Depois que o domínio apontar, verifique `guaruarguaruja.com.br` no
+> Resend (registros DNS) e troque `MAIL_FROM` para
+> `Guaru Ar LC <no-reply@guaruarguaruja.com.br>`.
+>
+> O envio só funciona para o e-mail dono da conta Resend enquanto o domínio não
+> estiver verificado — então trocar o e-mail de acesso do painel para outro
+> endereço **antes** disso deixaria a recuperação sem entrega.
 
 > ### `GITHUB_TOKEN` — sem vencimento
 >
