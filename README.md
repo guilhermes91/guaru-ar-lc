@@ -96,6 +96,19 @@ Variáveis no projeto do Cloudflare Pages (*Settings → Environment variables*)
 `RESEND_API_KEY`. Elas ficam só no Cloudflare — o deploy é upload puro e não
 sobrescreve nada. Por isso o projeto não tem `wrangler.toml`.
 
+> ### ⚠️ `GITHUB_TOKEN` vence em 25/08/2026
+>
+> É o PAT fine-grained `guaru-ar-lc`, com `Contents: Read and write` e
+> `Actions: Read-only`. **Quando vencer, o painel para de salvar** — o cliente
+> clica em Publicar e recebe erro.
+>
+> Para renovar: gere outro PAT com as mesmas permissões e substitua o valor de
+> `GITHUB_TOKEN` no projeto do Cloudflare. **A variável só passa a valer no
+> próximo deploy** — dispare o workflow `Deploy` depois de trocar.
+>
+> Prefira a maior validade disponível, ou migre para um GitHub App (tokens de
+> 1 hora gerados sob demanda, sem renovação manual).
+
 ## SEO
 
 - Metadados por página e JSON-LD de negócio local
