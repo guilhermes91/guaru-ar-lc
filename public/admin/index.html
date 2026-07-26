@@ -692,7 +692,7 @@ function secaoServicos() {
       "Cada serviço vira um card na home e uma página própria. O endereço da página é criado a partir do nome no momento em que você adiciona o serviço, e não muda depois — renomear o serviço não muda o endereço.",
       [
         ...itens,
-        botaoAdicionar("Adicionar serviço", () =>
+        botaoAdicionar("Adicionar serviço", () => {
           const titulo = "Novo serviço";
           lista.push({
             slug: slugUnico(titulo, lista.map((x) => x.slug)),
@@ -702,8 +702,8 @@ function secaoServicos() {
             description: "Descreva aqui o que está incluído neste serviço.",
             image: lista[0]?.image || "/images/home-generated/card-ar-condicionado.webp",
             price: 0,
-          }),
-        ),
+          });
+        }),
       ],
     ),
   ];

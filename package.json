@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/checar-painel.mjs && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:painel": "node scripts/checar-painel.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.23.0",
