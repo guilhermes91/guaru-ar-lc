@@ -1,0 +1,71 @@
+# Manual do painel
+
+Endereço: **https://guaruarguaruja.com.br/admin/**
+
+## Entrar
+
+Use o e-mail e a senha do painel. Se esquecer a senha, clique em
+**Esqueci minha senha** e informe o e-mail cadastrado — a senha atual chega
+por e-mail em alguns minutos.
+
+## Como funciona
+
+Você edita, revisa e clica em **Publicar alterações**. O site é reconstruído e
+fica no ar em cerca de 2 minutos. O indicador no topo mostra o andamento:
+
+| Indicador | Significa |
+| --- | --- |
+| Site em dia | Nada pendente |
+| Alterações não publicadas | Você editou mas ainda não publicou |
+| Atualizando o site… | Publicado, o site está sendo reconstruído |
+| Site atualizado | Pronto, já está no ar |
+
+Enquanto não clicar em Publicar, nada muda no site. Pode editar com calma.
+
+## O que dá para editar
+
+**Configurações** — nome da empresa, telefone, WhatsApp, e-mail, endereço,
+horário de atendimento e redes sociais. Muda em todo o site de uma vez.
+
+**Textos do site** — o título grande da página inicial, a frase de apoio, o
+texto "sobre a empresa" e a chamada final.
+
+**Serviços** — nome, resumo, descrição, preço e imagem de cada serviço.
+
+**Produtos** — nome, preço e fotos. Cada produto pode ter uma foto de estúdio
+e uma foto em uso; quando as duas existem, o card alterna entre elas.
+
+**Bairros e regiões** — os bairros em destaque (os cards com foto) e a lista
+completa de bairros e cidades atendidas.
+
+**Números, avaliações e FAQ** — os três números de destaque, os depoimentos de
+clientes e as perguntas frequentes.
+
+**Marcas atendidas** — os logos que aparecem na página de assistência.
+
+**Usuário** — trocar seu e-mail e senha de acesso.
+
+## Regras que o painel aplica sozinho
+
+- Cada campo tem um limite de caracteres, mostrado no canto do campo. Isso
+  evita textos que estouram o layout.
+- Preços aceitam só números. Escreva `1899`, não `R$ 1.899,00`.
+- Imagens entram só por upload (JPG, PNG ou WebP, até 3 MB). Elas aparecem no
+  site depois de publicar.
+- Não é possível repetir o mesmo bairro em duas regiões — cada bairro tem uma
+  página própria no Google.
+- Se algo estiver errado, o painel avisa na hora de publicar e não deixa
+  quebrar o site.
+
+## Botões ↑ ↓ ×
+
+Em cada item das listas: **↑ ↓** mudam a ordem em que aparecem no site,
+**×** remove o item.
+
+## Restaurar padrão de fábrica
+
+Em **Usuário**, ou no botão no topo. Devolve todo o conteúdo do site
+exatamente como foi entregue — textos, produtos, serviços, bairros e imagens.
+
+Use se algo sair muito do lugar. **As alterações atuais são perdidas.** O
+e-mail e a senha de acesso não mudam.
