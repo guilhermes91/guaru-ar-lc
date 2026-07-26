@@ -355,8 +355,51 @@ function campoPreco({ label, obj, chave, dica }) {
   ]);
 }
 
+// Cada lugar do site tem um espaço fixo para a imagem. O painel recorta e
+// redimensiona no navegador antes de enviar, então o cliente pode escolher
+// qualquer foto: o site sempre recebe o tamanho e a proporção certos.
+const MEDIDAS = {
+  servico: { modo: "cover", w: 1200, h: 675, tipo: "image/webp", texto: "deitada (16:9)" },
+  produto: { modo: "cover", w: 1200, h: 675, tipo: "image/webp", texto: "deitada (16:9)" },
+  bairro: { modo: "cover", w: 1200, h: 750, tipo: "image/webp", texto: "deitada (16:10)" },
+  avatar: { modo: "cover", w: 256, h: 256, tipo: "image/webp", texto: "quadrada" },
+  logo: { modo: "contain", w: 400, h: 200, tipo: "image/png", texto: "logo com fundo transparente" },
+};
+
+/**
+ * Ajusta a imagem à medida do slot.
+ * cover: recorta pelo centro na proporção exata (fotos).
+ * contain: encolhe mantendo a proporção, sem cortar (logos).
+ */
+async function ajustarImagem(file, medida) {
+  const bitmap = await createImageBitmap(file);
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  if (medida.modo === "cover") {
+    canvas.width = medida.w;
+    canvas.height = medida.h;
+    const escala = Math.max(medida.w / bitmap.width, medida.h / bitmap.height);
+    const largura = bitmap.width * escala;
+    const altura = bitmap.height * escala;
+    ctx.drawImage(bitmap, (medida.w - largura) / 2, (medida.h - altura) / 2, largura, altura);
+  } else {
+    const escala = Math.min(medida.w / bitmap.width, medida.h / bitmap.height, 1);
+    canvas.width = Math.round(bitmap.width * escala);
+    canvas.height = Math.round(bitmap.height * escala);
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  }
+  bitmap.close?.();
+
+  const blob = await new Promise((ok) => canvas.toBlob(ok, medida.tipo, 0.82));
+  if (!blob) throw new Error("Não consegui processar essa imagem. Tente outra.");
+  const extensao = medida.tipo === "image/png" ? "png" : "webp";
+  const nome = String(file.name || "imagem").replace(/\.[^.]+$/, "");
+  return new File([blob], `${nome}.${extensao}`, { type: medida.tipo });
+}
+
 /** Campo de imagem: só troca por upload, o caminho nunca é digitado à mão. */
-function campoImagem({ label, obj, chave, dica }) {
+function campoImagem({ label, obj, chave, dica, medida = MEDIDAS.servico }) {
   const thumb = el("div", { className: "thumb" });
   const caminho = el("p", { className: "caminho" });
   const pintar = () => {
@@ -375,15 +418,18 @@ function campoImagem({ label, obj, chave, dica }) {
     const file = arquivo.files?.[0];
     if (!file) return;
     botao.disabled = true;
-    status.textContent = "Enviando…";
+    status.textContent = "Ajustando a imagem…";
     try {
+      const ajustada = await ajustarImagem(file, medida);
+      status.textContent = "Enviando…";
       const form = new FormData();
-      form.append("file", file);
+      form.append("file", ajustada);
       const resultado = await api("upload", { method: "POST", body: form });
       obj[chave] = resultado.path;
-      thumb.style.backgroundImage = `url("${URL.createObjectURL(file)}")`;
+      // A prévia mostra a imagem já recortada — é exatamente o que vai ao ar.
+      thumb.style.backgroundImage = `url("${URL.createObjectURL(ajustada)}")`;
       caminho.textContent = resultado.path;
-      status.textContent = "Imagem enviada. Ela aparece no site depois de publicar.";
+      status.textContent = "Pronto. Aparece no site depois de publicar.";
       marcarSujo();
     } catch (erro) {
       status.textContent = erro.message;
@@ -393,6 +439,11 @@ function campoImagem({ label, obj, chave, dica }) {
     }
   });
 
+  const explicacao =
+    medida.modo === "cover"
+      ? `A imagem é recortada pelo centro no formato ${medida.texto}. Prefira fotos ${medida.texto}.`
+      : `A imagem encolhe inteira, sem cortar. Ideal: ${medida.texto}.`;
+
   return el("div", { className: "campo" }, [
     el("label", { textContent: label }),
     el("div", { className: "imagem" }, [
@@ -401,7 +452,7 @@ function campoImagem({ label, obj, chave, dica }) {
         botao,
         arquivo,
         caminho,
-        el("p", { className: "dica", textContent: dica || "JPG, PNG ou WebP, até 3 MB." }),
+        el("p", { className: "dica", textContent: dica ? `${dica} ${explicacao}` : explicacao }),
         status,
       ]),
     ]),
@@ -577,7 +628,7 @@ function secaoServicos() {
       ]),
       campo({ label: "Resumo curto", obj: servico, chave: "short", max: 60 }),
       campo({ label: "Descrição", obj: servico, chave: "description", max: 300, area: true }),
-      campoImagem({ label: "Imagem do serviço", obj: servico, chave: "image" }),
+      campoImagem({ label: "Imagem do serviço", obj: servico, chave: "image", medida: MEDIDAS.servico }),
     ]),
   );
   return [
@@ -612,11 +663,12 @@ function secaoProdutos() {
         campoPreco({ label: "Preço a partir de (R$)", obj: produto, chave: "price" }),
       ]),
       el("div", { className: "grade" }, [
-        campoImagem({ label: "Foto principal", obj: produto, chave: "image" }),
+        campoImagem({ label: "Foto principal", obj: produto, chave: "image", medida: MEDIDAS.produto }),
         campoImagem({
           label: "Foto em uso (opcional)",
           obj: produto,
           chave: "imageEmUso",
+          medida: MEDIDAS.produto,
           dica: "Quando existe, o card alterna entre as duas fotos.",
         }),
       ]),
@@ -666,7 +718,7 @@ function secaoBairros() {
           el("div", { className: "item" }, [
             cabecaItem({ titulo: area.name || "Bairro", lista: destaques, indice: i, aoMudar: desenharSecao }),
             campo({ label: "Nome do bairro", obj: area, chave: "name", max: 40 }),
-            campoImagem({ label: "Foto do bairro", obj: area, chave: "image" }),
+            campoImagem({ label: "Foto do bairro", obj: area, chave: "image", medida: MEDIDAS.bairro }),
           ]),
         ),
         botaoAdicionar("Adicionar destaque", () =>
@@ -728,7 +780,7 @@ function secaoProvas() {
             campo({ label: "Nome do cliente", obj: r, chave: "name", max: 30 }),
             campo({ label: "Bairro", obj: r, chave: "area", max: 30 }),
           ]),
-          campoImagem({ label: "Foto do cliente", obj: r, chave: "avatar" }),
+          campoImagem({ label: "Foto do cliente", obj: r, chave: "avatar", medida: MEDIDAS.avatar }),
         ]),
       ),
       botaoAdicionar("Adicionar avaliação", () =>
@@ -760,7 +812,7 @@ function secaoMarcas() {
         el("div", { className: "item" }, [
           cabecaItem({ titulo: marca.name || "Marca", lista, indice: i, minimo: 0, aoMudar: desenharSecao }),
           campo({ label: "Nome da marca", obj: marca, chave: "name", max: 40 }),
-          campoImagem({ label: "Logo", obj: marca, chave: "image" }),
+          campoImagem({ label: "Logo", obj: marca, chave: "image", medida: MEDIDAS.logo }),
         ]),
       ),
       botaoAdicionar("Adicionar marca", () =>

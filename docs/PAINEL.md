@@ -50,8 +50,12 @@ clientes e as perguntas frequentes.
 - Cada campo tem um limite de caracteres, mostrado no canto do campo. Isso
   evita textos que estouram o layout.
 - Preços aceitam só números. Escreva `1899`, não `R$ 1.899,00`.
-- Imagens entram só por upload (JPG, PNG ou WebP, até 3 MB). Elas aparecem no
-  site depois de publicar.
+- Imagens entram só por upload (JPG, PNG ou WebP). **Pode mandar a foto do
+  jeito que ela está**: o painel recorta e redimensiona sozinho para a medida
+  daquele lugar do site, e a miniatura já mostra o resultado final. Fotos são
+  cortadas pelo centro — então deixe o assunto principal no meio. Logos de
+  marca não são cortados, só encolhem. As imagens aparecem no site depois de
+  publicar.
 - Não é possível repetir o mesmo bairro em duas regiões — cada bairro tem uma
   página própria no Google.
 - Se algo estiver errado, o painel avisa na hora de publicar e não deixa

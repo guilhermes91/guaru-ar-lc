@@ -41,9 +41,24 @@ escreve nesse arquivo.** O botão *Restaurar padrão* copia ele por cima de
 | Marcas atendidas | Logos de ar-condicionado e aquecedores |
 | Usuário | E-mail e senha de acesso, e restauração de fábrica |
 
-Todos os campos têm limite de caracteres e validação. Preços aceitam só números,
-imagens só entram por upload, e identificadores de página são gerados
-automaticamente — o cliente não consegue quebrar o layout nem as rotas.
+Todos os campos têm limite de caracteres e validação. Preços aceitam só números
+e identificadores de página são gerados automaticamente — o cliente não
+consegue quebrar o layout nem as rotas.
+
+Imagens só entram por upload e são normalizadas no navegador antes de subir
+(`MEDIDAS` em `public/admin/index.html`), casando com o espaço que cada slot
+tem no CSS:
+
+| Slot | Saída | Modo | CSS correspondente |
+| --- | --- | --- | --- |
+| Serviço | 1200×675 WebP | recorte central | `.svc-media` 210px `cover` |
+| Produto | 1200×675 WebP | recorte central | `.product-card img` 210px `cover` |
+| Bairro | 1200×750 WebP | recorte central | `.area-card` 150px `cover` |
+| Avaliação | 256×256 WebP | recorte central | `.who img` 44×44 `cover` |
+| Logo de marca | até 400×200 PNG | encolhe, sem cortar | `.brand-logo-card img` 60px `contain` |
+
+Isso importa porque o site é export estático com `images.unoptimized`: sem a
+normalização, o arquivo original iria inteiro para o visitante.
 
 ## Desenvolvimento
 
