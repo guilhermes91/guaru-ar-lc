@@ -13,16 +13,10 @@ const fitOf = (i: number) => (i === 0 ? "contain" : "cover");
 
 function ProductCard({ item, turn }: { item: Item; turn: number }) {
   const swappable = item.images.length > 1;
-  const [idx, setIdx] = useState(0);
-  const [pulse, setPulse] = useState(0);
-  const first = useRef(true);
-
-  useEffect(() => {
-    if (first.current) { first.current = false; return; }
-    if (!swappable) return;
-    setIdx((i) => (i + 1) % item.images.length);
-    setPulse((p) => p + 1);
-  }, [turn, swappable, item.images.length]);
+  // idx e pulse derivam do turno em vez de virem de setState dentro de um efeito:
+  // menos estado, e sem a cascata de renders que o react-hooks aponta.
+  const idx = swappable ? turn % item.images.length : 0;
+  const pulse = swappable ? turn : 0;
 
   const outgoing = item.images[(idx + item.images.length - 1) % item.images.length];
   const outFit = fitOf((idx + item.images.length - 1) % item.images.length);
@@ -65,6 +59,9 @@ export function ProductsGrid({ items }: { items: Item[] }) {
 
   useEffect(() => {
     if (items.length === 0) return;
+    // Quem pediu "reduzir movimento" no sistema não recebe a troca automática:
+    // o CSS já encurta a animação das lâminas, mas o timer continuava rodando.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => {
       const i = cursor.current % items.length;
       cursor.current += 1;

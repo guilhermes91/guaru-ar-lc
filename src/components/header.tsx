@@ -7,16 +7,24 @@ import { services, site } from "@/data/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
+  const [servicos, setServicos] = useState(false);
+  const close = () => {
+    setOpen(false);
+    setServicos(false);
+  };
   return (
     <header className="header">
       <div className="container nav">
         <Logo />
         <nav className={open ? "navlinks open" : "navlinks"}>
           <Link href="/" onClick={close}>Início</Link>
+          {/* Botão, não span: no desktop o submenu abre no :hover e no :focus-within,
+              então quem navega por teclado alcança os serviços pelo Tab. */}
           <div className="drop">
-            <span>Serviços <ChevronDown size={15} /></span>
-            <div className="drop-menu">
+            <button type="button" aria-expanded={servicos} onClick={() => setServicos(!servicos)}>
+              Serviços <ChevronDown size={15} />
+            </button>
+            <div className="drop-menu" data-aberto={servicos ? "sim" : undefined}>
               {services.map((s) => (
                 <Link key={s.slug} href={`/servicos/${s.slug}`} onClick={close}>{s.title}</Link>
               ))}

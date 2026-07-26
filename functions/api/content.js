@@ -1,4 +1,13 @@
-import { bad, commitFile, draft, fetchContent, json, requireSession, toBase64 } from "../../lib/admin.js";
+import {
+  bad,
+  commitFile,
+  deployConcluido,
+  draft,
+  fetchContent,
+  json,
+  requireSession,
+  toBase64,
+} from "../../lib/admin.js";
 import { validateContent } from "../../lib/validate.js";
 
 const PATH = "src/data/content.json";
@@ -10,14 +19,21 @@ export async function onRequestGet({ request, env }) {
   const published = await fetchContent(env).catch((error) => ({ error }));
   if (published.error) return bad(`Não consegui ler o conteúdo do site: ${published.error.message}`, 502);
 
-  // Se existe rascunho salvo mais recente que o publicado, o painel mostra ele.
-  const pending = await draft.get(env);
-  const useDraft = pending && pending.sha === published.sha && pending.content;
+  // O rascunho existe só para cobrir a janela entre o commit e o fim do build.
+  // Assim que o deploy daquele commit termina, ele é descartado — senão o painel
+  // ficaria anunciando "publicação em andamento" para sempre.
+  const rascunho = await draft.get(env);
+  let pendente = Boolean(rascunho?.content && rascunho.sha === published.sha);
+
+  if (pendente && (await deployConcluido(env, rascunho.at))) {
+    await draft.clear(env);
+    pendente = false;
+  }
 
   return json({
-    content: useDraft ? pending.content : published.content,
+    content: pendente ? rascunho.content : published.content,
     sha: published.sha,
-    pending: Boolean(useDraft),
+    pending: pendente,
   });
 }
 
@@ -34,7 +50,11 @@ export async function onRequestPost({ request, env }) {
   const published = await fetchContent(env).catch((error) => ({ error }));
   if (published.error) return bad(`Não consegui falar com o repositório: ${published.error.message}`, 502);
 
-  const text = JSON.stringify(body.content, null, 2) + "\n";
+  // Carimba quando o conteúdo mudou de verdade: é isso que vira <lastmod> no
+  // sitemap, em vez da data do build (que muda a cada deploy sem motivo).
+  const conteudo = { ...body.content, updatedAt: new Date().toISOString() };
+
+  const text = JSON.stringify(conteudo, null, 2) + "\n";
   try {
     const result = await commitFile(env, {
       path: PATH,
@@ -42,7 +62,7 @@ export async function onRequestPost({ request, env }) {
       message: `conteudo: atualizacao pelo painel (${session.email})`,
       sha: published.sha,
     });
-    await draft.put(env, { sha: result.content.sha, content: body.content });
+    await draft.put(env, { sha: result.content.sha, content: conteudo, at: new Date().toISOString() });
     return json({ ok: true, commit: result.commit.sha.slice(0, 7) });
   } catch (error) {
     return bad(`Não consegui publicar: ${error.message}`, 502);

@@ -72,19 +72,19 @@
       "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
       "name": "Mariana S.",
       "area": "Pitangueiras",
-      "avatar": "https://i.pravatar.cc/96?img=45"
+      "avatar": "/images/avatars/ms.webp"
     },
     {
       "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
       "name": "Carlos A.",
       "area": "Jardim Acapulco",
-      "avatar": "https://i.pravatar.cc/96?img=12"
+      "avatar": "/images/avatars/ca.webp"
     },
     {
       "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
       "name": "Juliana T.",
       "area": "Enseada",
-      "avatar": "https://i.pravatar.cc/96?img=32"
+      "avatar": "/images/avatars/jt.webp"
     }
   ],
   "areaPhotos": [
@@ -141,36 +141,6 @@
     {
       "q": "Como faço para solicitar um orçamento?",
       "a": "É só chamar no WhatsApp informando o serviço, o bairro e, se possível, fotos do equipamento. Retornamos rapidinho."
-    }
-  ],
-  "productCategories": [
-    {
-      "slug": "ar-completo",
-      "label": "Ar completo"
-    },
-    {
-      "slug": "condensadora",
-      "label": "Condensadora"
-    },
-    {
-      "slug": "evaporadora",
-      "label": "Evaporadora"
-    },
-    {
-      "slug": "aquecedor-gas",
-      "label": "Aquecedor a gás"
-    },
-    {
-      "slug": "piscinas",
-      "label": "Piscinas"
-    },
-    {
-      "slug": "filtros",
-      "label": "Filtros"
-    },
-    {
-      "slug": "acessorios",
-      "label": "Acessórios"
     }
   ],
   "products": [
@@ -288,7 +258,8 @@
         "Porto de Guarujá",
         "Boa Esperança",
         "Conceiçãozinha",
-        "Bocaina"
+        "Bocaina",
+        "Vicente de Carvalho"
       ]
     },
     {
@@ -304,7 +275,8 @@
         "Acapulco",
         "Perequê",
         "Santo Amaro",
-        "Guararú"
+        "Guararú",
+        "Jardim Acapulco"
       ]
     },
     {

@@ -6,10 +6,10 @@ export function Logo() {
     <Link href="/" className="logo" aria-label={`${site.name} - início`}>
       <img
         className="logo-img"
-        src="/logo-guaruar-transparente.png"
+        src="/logo-guaruar.png"
         alt={site.name}
-        width="1055"
-        height="668"
+        width="308"
+        height="195"
         decoding="async"
         style={{
           display: "block",

@@ -29,7 +29,7 @@ export function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4>Navegação</h4>
+            <h3>Navegação</h3>
             <Link href="/">Início</Link>
             <Link href="/produtos">Produtos</Link>
             <Link href="/assistencia-autorizada">Marcas atendidas</Link>
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4>Serviços</h4>
+            <h3>Serviços</h3>
             {services.map((s) => <Link key={s.slug} href={`/servicos/${s.slug}`}>{s.title}</Link>)}
             <Link href="/servicos">Manutenção e limpeza</Link>
             <Link href="/servicos">Instalação</Link>
@@ -48,7 +48,7 @@ export function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4>Contato</h4>
+            <h3>Contato</h3>
             <a href={`tel:+${site.phone}`}><Phone />{site.phoneDisplay}</a>
             <a href={`mailto:${site.email}`}><Mail />{site.email}</a>
             <p className="line"><MapPin />Guarujá, SP</p>
@@ -56,7 +56,7 @@ export function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4>Fale com a Guaru Ar LC</h4>
+            <h3>Fale com a Guaru Ar LC</h3>
             <p className="desc">Solicite seu orçamento pelo WhatsApp.</p>
             <a className="btn whatsapp" href={site.whatsapp()} target="_blank" rel="noopener">
               <WhatsAppIcon /> Solicitar orçamento

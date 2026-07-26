@@ -5,16 +5,38 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { LocalBusinessSchema } from "@/components/schema";
+import { site } from "@/data/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
+const TITULO = "Guaru Ar LC | Ar-condicionado, aquecedores e piscinas no Guarujá";
+const DESCRICAO =
+  "Instalação, manutenção, limpeza e reparos em ar-condicionado, aquecedores e piscinas no Guarujá. Peça seu orçamento.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://guaruarguaruja.com.br"),
-  title: {default:"Guaru Ar LC | Ar-condicionado, aquecedores e piscinas no Guarujá",template:"%s | Guaru Ar LC"},
-  description: "Instalação, manutenção, limpeza e reparos em ar-condicionado, aquecedores e piscinas no Guarujá. Peça seu orçamento.",
+  metadataBase: new URL(site.url),
+  title: { default: TITULO, template: "%s | Guaru Ar LC" },
+  description: DESCRICAO,
+  // "./" resolve para a própria rota: cada página exporta o canonical dela.
+  alternates: { canonical: "./" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: site.name,
+    title: TITULO,
+    description: DESCRICAO,
+    url: "./",
+    images: [{ url: "/og-guaruar.jpg", width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITULO,
+    description: DESCRICAO,
+    images: ["/og-guaruar.jpg"],
+  },
 };
 
 export default function RootLayout({

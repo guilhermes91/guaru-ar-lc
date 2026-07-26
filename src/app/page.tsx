@@ -157,7 +157,6 @@ export default function Home() {
                 <div className="stars">★★★★★</div>
                 <blockquote>{r.text}</blockquote>
                 <div className="who">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={r.avatar} alt={r.name} />
                   <span><b>{r.name}</b><span>{r.area}</span></span>
                 </div>

@@ -16,13 +16,14 @@ export async function onRequestPost({ request, env }) {
   );
   if (!raw.ok) return bad("Não encontrei a base de fábrica no repositório.", 502);
 
-  const text = (await raw.text()).trim() + "\n";
   let content;
   try {
-    content = JSON.parse(text);
+    content = JSON.parse(await raw.text());
   } catch {
     return bad("A base de fábrica está corrompida.", 500);
   }
+  content.updatedAt = new Date().toISOString();
+  const text = JSON.stringify(content, null, 2) + "\n";
 
   const published = await fetchContent(env).catch((error) => ({ error }));
   if (published.error) return bad(`Não consegui falar com o repositório: ${published.error.message}`, 502);
@@ -34,7 +35,7 @@ export async function onRequestPost({ request, env }) {
       message: `conteudo: restauracao para o padrao de fabrica (${session.email})`,
       sha: published.sha,
     });
-    await draft.put(env, { sha: result.content.sha, content });
+    await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString() });
     return json({ ok: true, content, commit: result.commit.sha.slice(0, 7) });
   } catch (error) {
     return bad(`Não consegui restaurar: ${error.message}`, 502);

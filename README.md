@@ -35,7 +35,7 @@ escreve nesse arquivo.** O botão *Restaurar padrão* copia ele por cima de
 | Configurações | Nome, telefone, WhatsApp, e-mail, endereço, horário, redes sociais |
 | Textos do site | Título e frase do topo, bloco "sobre", chamada final, rodapé |
 | Serviços | Nome, resumo, descrição, preço e imagem de cada serviço |
-| Produtos | Nome, preço e fotos dos produtos, além das categorias da vitrine |
+| Produtos | Nome, preço e fotos dos produtos |
 | Bairros e regiões | Bairros em destaque (com foto), todos os bairros e as cidades atendidas |
 | Números, avaliações e FAQ | Provas sociais e perguntas frequentes |
 | Marcas atendidas | Logos de ar-condicionado e aquecedores |
@@ -52,7 +52,8 @@ tem no CSS:
 | Slot | Saída | Modo | CSS correspondente |
 | --- | --- | --- | --- |
 | Serviço | 1200×675 WebP | recorte central | `.svc-media` 210px `cover` |
-| Produto | 1200×675 WebP | recorte central | `.product-card img` 210px `cover` |
+| Produto (foto principal) | 1200×675 WebP | encolhe, sem cortar | `.prod-frame` 200px `contain` |
+| Produto (foto em uso) | 1200×675 WebP | recorte central | `.prod-frame` 200px `cover` |
 | Bairro | 1200×750 WebP | recorte central | `.area-card` 150px `cover` |
 | Avaliação | 256×256 WebP | recorte central | `.who img` 44×44 `cover` |
 | Logo de marca | até 400×200 PNG | encolhe, sem cortar | `.brand-logo-card img` 60px `contain` |
@@ -76,7 +77,9 @@ GITHUB_TOKEN=...
 GITHUB_REPO=guilhermes91/guaru-ar-lc
 GITHUB_BRANCH=main
 RESEND_API_KEY=...
-MAIL_FROM=Guaru Ar LC <no-reply@guaruarguaruja.com.br>
+MAIL_FROM=Guaru Ar LC <onboarding@resend.dev>
+ADMIN_EMAIL=guaruar@softuria.com
+ADMIN_PASSWORD=...
 ```
 
 ## Infraestrutura
@@ -92,22 +95,41 @@ Segredos no repositório (*Settings → Secrets → Actions*):
 `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
 
 Variáveis no projeto do Cloudflare Pages (*Settings → Environment variables*):
-`GITHUB_REPO`, `GITHUB_BRANCH`, `MAIL_FROM` e os segredos `GITHUB_TOKEN`,
-`RESEND_API_KEY`. Elas ficam só no Cloudflare — o deploy é upload puro e não
-sobrescreve nada. Por isso o projeto não tem `wrangler.toml`.
+`GITHUB_REPO`, `GITHUB_BRANCH`, `MAIL_FROM`, `ADMIN_EMAIL` e os segredos
+`GITHUB_TOKEN`, `RESEND_API_KEY`, `ADMIN_PASSWORD`. Elas ficam só no Cloudflare
+— o deploy é upload puro e não sobrescreve nada. Por isso o projeto não tem
+`wrangler.toml`.
 
-> ### ⚠️ `GITHUB_TOKEN` vence em 25/08/2026
+### Credenciais do painel
+
+O repositório é público: **nenhuma senha mora no código**. O primeiro acesso
+nasce de `ADMIN_EMAIL` + `ADMIN_PASSWORD`, e o KV guarda só um hash PBKDF2
+(100.000 iterações, com salt próprio). Depois que o cliente troca a senha pelo
+painel, as variáveis deixam de ser consultadas.
+
+Para redefinir o acesso (cliente perdeu a senha e o e-mail de recuperação):
+troque `ADMIN_PASSWORD` no Cloudflare, apague a chave `user` do KV `ADMIN_KV` e
+dispare um deploy. O próximo login volta a nascer do ambiente.
+
+`Esqueci minha senha` **não devolve a senha antiga** — ela é um hash e não tem
+volta. O e-mail traz uma senha provisória sorteada na hora, que passa a valer
+imediatamente.
+
+> Enquanto o domínio não estiver apontado, `MAIL_FROM` usa o remetente de teste
+> do Resend (`onboarding@resend.dev`), que **só entrega no e-mail dono da conta
+> Resend**. Para a recuperação chegar em `guaruar@softuria.com`, verifique o
+> domínio no Resend e troque `MAIL_FROM` para `no-reply@guaruarguaruja.com.br`.
+
+> ### `GITHUB_TOKEN` — sem vencimento
 >
 > É o PAT fine-grained `guaru-ar-lc`, com `Contents: Read and write` e
-> `Actions: Read-only`. **Quando vencer, o painel para de salvar** — o cliente
-> clica em Publicar e recebe erro.
+> `Actions: Read-only`, criado sem data de expiração. A API do GitHub não expõe
+> a validade de um PAT: isso só se confere na tela de tokens do GitHub.
 >
-> Para renovar: gere outro PAT com as mesmas permissões e substitua o valor de
+> Se um dia ele for revogado, **o painel para de salvar**: o cliente clica em
+> Publicar e recebe `Bad credentials`. Para trocar, substitua o valor de
 > `GITHUB_TOKEN` no projeto do Cloudflare. **A variável só passa a valer no
 > próximo deploy** — dispare o workflow `Deploy` depois de trocar.
->
-> Prefira a maior validade disponível, ou migre para um GitHub App (tokens de
-> 1 hora gerados sob demanda, sem renovação manual).
 
 ## SEO
 

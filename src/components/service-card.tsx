@@ -1,19 +1,25 @@
 import Link from "next/link";
-import { ArrowRight, Flame, Snowflake, Waves } from "lucide-react";
+import { ArrowRight, Flame, Snowflake, Waves, Wrench } from "lucide-react";
 
-const icons = { Snowflake, Flame, Waves };
-const accent = { Snowflake: "ac", Flame: "heat", Waves: "pool" } as const;
+// Todo ícone aqui precisa existir também em ICONES, em lib/validate.js: é o que
+// impede o painel de salvar um serviço com ícone que o site não sabe desenhar.
+const icons = { Snowflake, Flame, Waves, Wrench };
+const accent = { Snowflake: "ac", Flame: "heat", Waves: "pool", Wrench: "tool" } as const;
 
-export function ServiceCard({ service }: { service: { slug: string; title: string; icon: string; short: string; image: string } }) {
-  const Icon = icons[service.icon as keyof typeof icons];
+export function ServiceCard({ service }: { service: { slug: string; title: string; icon: string; short: string; image: string; price: number } }) {
+  const Icon = icons[service.icon as keyof typeof icons] ?? Wrench;
+  const cor = accent[service.icon as keyof typeof accent] ?? "tool";
   return (
-    <Link href={`/servicos/${service.slug}`} className="svc" data-accent={accent[service.icon as keyof typeof accent]}>
+    <Link href={`/servicos/${service.slug}`} className="svc" data-accent={cor}>
       <div className="svc-media" style={{ backgroundImage: `url(${service.image})` }}>
-        <span className="svc-icon">{Icon && <Icon />}</span>
+        <span className="svc-icon"><Icon /></span>
       </div>
       <div className="svc-info">
         <h3>{service.title}</h3>
         <p>{service.short}</p>
+        {service.price > 0 && (
+          <p className="svc-preco">a partir de <b>R$ {service.price.toLocaleString("pt-BR")}</b></p>
+        )}
       </div>
       <span className="svc-go"><ArrowRight /></span>
     </Link>

@@ -1,4 +1,41 @@
-import type { MetadataRoute } from "next"; import { neighborhoods, services } from "@/data/site";
+import type { MetadataRoute } from "next";
+import { contentUpdatedAt, neighborhoods, services, site } from "@/data/site";
+
 export const dynamic = "force-static";
-const base="https://guaruarguaruja.com.br"; const slug=(x:string)=>x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ /g,'-');
-export default function sitemap():MetadataRoute.Sitemap{const fixed=['','/servicos','/produtos','/assistencia-autorizada','/sobre','/contato'].map(url=>({url:base+url,lastModified:new Date(),changeFrequency:'monthly' as const,priority:url===''?1:.8}));return [...fixed,...services.map(s=>({url:`${base}/servicos/${s.slug}`,lastModified:new Date(),changeFrequency:'monthly' as const,priority:.8})),...neighborhoods.map(n=>({url:`${base}/guaruja/${slug(n)}`,lastModified:new Date(),changeFrequency:'monthly' as const,priority:.7}))]}
+
+const base = site.url.replace(/\/$/, "");
+const slug = (x: string) =>
+  x.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ /g, "-");
+
+// O site é exportado com trailingSlash: /servicos responde 308 para /servicos/.
+// Declarar a URL sem a barra faria o Google seguir um redirect em cada uma das rotas.
+const url = (caminho: string) => `${base}${caminho}/`.replace(/\/{2,}$/, "/");
+
+// Data da última edição de conteúdo, não do build: o painel carimba updatedAt ao
+// publicar, então republicar o site sem mudar nada não finge frescor para o Google.
+const lastModified = new Date(contentUpdatedAt);
+
+const fixas = ["", "/servicos", "/produtos", "/assistencia-autorizada", "/sobre", "/contato"];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    ...fixas.map((caminho) => ({
+      url: url(caminho),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: caminho === "" ? 1 : 0.8,
+    })),
+    ...services.map((s) => ({
+      url: url(`/servicos/${s.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...neighborhoods.map((n) => ({
+      url: url(`/guaruja/${slug(n)}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+}

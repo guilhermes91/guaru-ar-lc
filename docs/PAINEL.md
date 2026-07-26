@@ -5,8 +5,12 @@ Endereço: **https://guaruarguaruja.com.br/admin/**
 ## Entrar
 
 Use o e-mail e a senha do painel. Se esquecer a senha, clique em
-**Esqueci minha senha** e informe o e-mail cadastrado — a senha atual chega
-por e-mail em alguns minutos.
+**Esqueci minha senha** e informe o e-mail cadastrado: em alguns minutos chega
+por e-mail uma **senha nova**, já valendo. A senha anterior deixa de funcionar.
+Entre com a provisória e defina uma sua em **Usuário**.
+
+A senha é guardada embaralhada, sem volta — nem quem administra o servidor
+consegue ler a sua. Por isso o e-mail traz uma senha nova, e não a antiga.
 
 ## Como funciona
 
@@ -33,7 +37,8 @@ texto "sobre a empresa" e a chamada final.
 **Serviços** — nome, resumo, descrição, preço e imagem de cada serviço.
 
 **Produtos** — nome, preço e fotos. Cada produto pode ter uma foto de estúdio
-e uma foto em uso; quando as duas existem, o card alterna entre elas.
+e uma foto em uso; quando as duas existem, o card alterna entre elas. A foto de
+estúdio aparece inteira (não é cortada); a foto em uso preenche o card.
 
 **Bairros e regiões** — os bairros em destaque (os cards com foto) e a lista
 completa de bairros e cidades atendidas.
@@ -58,6 +63,11 @@ clientes e as perguntas frequentes.
   publicar.
 - Não é possível repetir o mesmo bairro em duas regiões — cada bairro tem uma
   página própria no Google.
+- Um bairro em destaque (card com foto na página inicial) só é aceito se o
+  bairro também estiver na lista de bairros atendidos. Sem isso, o card levaria
+  o visitante a uma página que não existe.
+- Nomes de bairro e cidade aceitam letras, números, espaço, ponto, apóstrofo e
+  hífen. Caracteres como `/` e `#` quebrariam o endereço da página.
 - Se algo estiver errado, o painel avisa na hora de publicar e não deixa
   quebrar o site.
 

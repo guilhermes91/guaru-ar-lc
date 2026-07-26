@@ -1,4 +1,4 @@
-import { bad, createSession, getUser, json, sessionCookie } from "../../lib/admin.js";
+import { bad, checkPassword, createSession, getUser, json, sessionCookie } from "../../lib/admin.js";
 
 const MAX_ATTEMPTS = 8;
 const WINDOW = 60 * 10; // 10 minutos
@@ -14,7 +14,8 @@ export async function onRequestPost({ request, env }) {
   }
 
   const user = await getUser(env);
-  const ok = email.trim().toLowerCase() === user.email.toLowerCase() && password === user.password;
+  const ok =
+    email.trim().toLowerCase() === user.email.toLowerCase() && (await checkPassword(user, password));
 
   if (!ok) {
     await env.ADMIN_KV.put(key, String(attempts + 1), { expirationTtl: WINDOW });

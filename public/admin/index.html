@@ -243,12 +243,12 @@ $("#form-login").addEventListener("submit", async (evento) => {
 $("#btn-esqueci").addEventListener("click", () => {
   abrirModal({
     titulo: "Recuperar senha",
-    texto: "Informe o e-mail cadastrado. Enviaremos a senha atual do painel para ele.",
+    texto: "Informe o e-mail cadastrado. Enviaremos uma senha nova para ele — a atual deixa de valer.",
     campos: [{ id: "email", label: "E-mail cadastrado", type: "email" }],
     confirmar: "Enviar",
     async acao(valores) {
       await api("recover", { method: "POST", body: JSON.stringify({ email: valores.email }) });
-      aviso("#login-aviso", "ok", "Se o e-mail estiver cadastrado, a senha chegará em instantes.");
+      aviso("#login-aviso", "ok", "Se o e-mail estiver cadastrado, a nova senha chegará em instantes.");
     },
   });
 });
@@ -360,6 +360,9 @@ function campoPreco({ label, obj, chave, dica }) {
 // qualquer foto: o site sempre recebe o tamanho e a proporção certos.
 const MEDIDAS = {
   servico: { modo: "cover", w: 1200, h: 675, tipo: "image/webp", texto: "deitada (16:9)" },
+  // A vitrine mostra a foto de estúdio inteira (background-size: contain), então
+  // recortar aqui tiraria borda do produto sem o site aproveitar o corte.
+  produtoEstudio: { modo: "contain", w: 1200, h: 675, tipo: "image/webp", texto: "produto em fundo claro" },
   produto: { modo: "cover", w: 1200, h: 675, tipo: "image/webp", texto: "deitada (16:9)" },
   bairro: { modo: "cover", w: 1200, h: 750, tipo: "image/webp", texto: "deitada (16:10)" },
   avatar: { modo: "cover", w: 256, h: 256, tipo: "image/webp", texto: "quadrada" },
@@ -663,7 +666,7 @@ function secaoProdutos() {
         campoPreco({ label: "Preço a partir de (R$)", obj: produto, chave: "price" }),
       ]),
       el("div", { className: "grade" }, [
-        campoImagem({ label: "Foto principal", obj: produto, chave: "image", medida: MEDIDAS.produto }),
+        campoImagem({ label: "Foto principal", obj: produto, chave: "image", medida: MEDIDAS.produtoEstudio }),
         campoImagem({
           label: "Foto em uso (opcional)",
           obj: produto,
@@ -681,25 +684,6 @@ function secaoProdutos() {
         const id = `produto-${Date.now().toString(36)}`;
         lista.push({ id, name: "Novo produto", price: 0, image: lista[0]?.image || "/images/products/ar-completo.webp" });
       }),
-    ]),
-    bloco("Categorias", "Filtros da vitrine de produtos.", [
-      ...estado.conteudo.productCategories.map((cat, i) =>
-        el("div", { className: "item" }, [
-          cabecaItem({
-            titulo: cat.label || "Categoria",
-            lista: estado.conteudo.productCategories,
-            indice: i,
-            aoMudar: desenharSecao,
-          }),
-          campo({ label: "Nome da categoria", obj: cat, chave: "label", max: 30 }),
-        ]),
-      ),
-      botaoAdicionar("Adicionar categoria", () =>
-        estado.conteudo.productCategories.push({
-          slug: `categoria-${Date.now().toString(36)}`,
-          label: "Nova categoria",
-        }),
-      ),
     ]),
   ];
 }
@@ -788,7 +772,7 @@ function secaoProvas() {
           text: "Escreva aqui o depoimento do cliente.",
           name: "Nome do cliente",
           area: "Bairro",
-          avatar: avaliacoes[0]?.avatar || "https://i.pravatar.cc/96?img=45",
+          avatar: avaliacoes[0]?.avatar || "/images/avatars/ms.webp",
         }),
       ),
     ]),
@@ -865,7 +849,7 @@ function secaoUsuario() {
       el("div", { className: "campo" }, [
         el("label", { textContent: "Nova senha" }),
         nova,
-        el("p", { className: "dica", textContent: "Deixe vazio para manter a senha atual. Mínimo de 6 caracteres." }),
+        el("p", { className: "dica", textContent: "Deixe vazio para manter a senha atual. Mínimo de 8 caracteres." }),
       ]),
     ]),
     salvar,

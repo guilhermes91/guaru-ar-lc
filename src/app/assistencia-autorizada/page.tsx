@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BadgeCheck, MapPin, ShieldCheck, Sparkles, Wrench } from "lucide-react";
+import { BadgeCheck, ShieldCheck, Sparkles, Wrench } from "lucide-react";
 import { WhatsAppIcon } from "@/components/logo";
 import { airConditioningBrands, guarujaNeighborhoodGroups, heatingBrands, serviceAreaGroups } from "@/data/brands";
 import { site } from "@/data/site";

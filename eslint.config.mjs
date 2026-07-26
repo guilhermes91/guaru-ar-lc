@@ -13,6 +13,14 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // O site é export estático com images.unoptimized: next/image não otimiza
+      // nada aqui e ainda embute JS extra. As imagens já são normalizadas no
+      // upload do painel (ver MEDIDAS em public/admin/index.html).
+      "@next/next/no-img-element": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

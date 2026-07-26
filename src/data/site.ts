@@ -10,6 +10,11 @@ export const site = {
   },
 };
 
+// Carimbado pelo painel a cada publicação. A base de fábrica não tem o campo,
+// então o fallback é a data de entrega do site.
+export const contentUpdatedAt: string =
+  (content as { updatedAt?: string }).updatedAt || "2026-07-26T00:00:00.000Z";
+
 export const texts = content.texts;
 
 export const services = content.services;
@@ -21,8 +26,6 @@ export const reviews = content.reviews;
 export const areaPhotos = content.areaPhotos;
 
 export const faqs = content.faqs;
-
-export const productCategories = content.productCategories;
 
 export type Product = { id: string; name: string; price: number; image: string; imageEmUso?: string };
 

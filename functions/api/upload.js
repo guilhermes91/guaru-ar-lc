@@ -4,6 +4,20 @@ import { slugify } from "../../lib/validate.js";
 const MAX_BYTES = 3 * 1024 * 1024; // 3 MB
 const TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
 
+const PNG = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+const casa = (bytes, assinatura, offset = 0) =>
+  assinatura.every((byte, i) => bytes[offset + i] === byte);
+
+/** Extensão deduzida dos primeiros bytes do arquivo, ou null se não for imagem. */
+function assinatura(bytes) {
+  if (bytes.length < 12) return null;
+  if (casa(bytes, [0xff, 0xd8, 0xff])) return "jpg";
+  if (casa(bytes, PNG)) return "png";
+  // WebP: "RIFF" .... "WEBP"
+  if (casa(bytes, [0x52, 0x49, 0x46, 0x46]) && casa(bytes, [0x57, 0x45, 0x42, 0x50], 8)) return "webp";
+  return null;
+}
+
 export async function onRequestPost({ request, env }) {
   const session = await requireSession(request, env);
   if (session instanceof Response) return session;
@@ -17,6 +31,10 @@ export async function onRequestPost({ request, env }) {
   if (file.size > MAX_BYTES) return bad("Imagem muito grande. O limite é 3 MB.");
 
   const bytes = new Uint8Array(await file.arrayBuffer());
+  // `file.type` é só o que o navegador declarou. Confere a assinatura do arquivo
+  // antes de commitar: o repositório é público e serve o que estiver nele.
+  if (assinatura(bytes) !== ext) return bad("Esse arquivo não é uma imagem JPG, PNG ou WebP.");
+
   let binary = "";
   for (let i = 0; i < bytes.length; i += 8192) {
     binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
