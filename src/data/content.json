@@ -17,7 +17,7 @@
   "texts": {
     "heroTitle": "Climatização, aquecimento e piscinas no Guarujá",
     "heroHighlight": "Guarujá",
-    "heroSubtitle": "Conforto, segurança e cuidado em todos os ambientes. QA-MARK-A1.",
+    "heroSubtitle": "Conforto, segurança e cuidado em todos os ambientes.",
     "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
     "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
     "footerDescription": "Climatização, aquecimento e piscinas no Guarujá com qualidade, segurança e atendimento que você confia.",
@@ -28,26 +28,116 @@
     {
       "slug": "ar-condicionado",
       "title": "Ar-condicionado",
+      "icon": "Snowflake",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
-      "image": "/images/nao-existe-qa.png",
-      "icon": "Snowflake"
+      "image": "/images/home-generated/card-ar-condicionado.webp"
     },
     {
       "slug": "aquecedores",
       "title": "Aquecedores",
+      "icon": "Flame",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Instalação, revisão e reparo de aquecedores a gás, elétricos e sistemas de água quente.",
-      "image": "/images/home-generated/card-aquecedor.webp",
-      "icon": "Flame"
+      "image": "/images/home-generated/card-aquecedor.webp"
     },
     {
       "slug": "piscinas",
       "title": "Piscinas",
+      "icon": "Waves",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Limpeza, tratamento, manutenção de equipamentos e recuperação da qualidade da água.",
-      "image": "/images/home-generated/card-piscina.webp",
-      "icon": "Waves"
+      "image": "/images/home-generated/card-piscina.webp"
+    }
+  ],
+  "stats": [
+    {
+      "value": "+10",
+      "label": "anos de experiência"
+    },
+    {
+      "value": "+2.000",
+      "label": "clientes atendidos"
+    },
+    {
+      "value": "100%",
+      "label": "compromisso com sua satisfação"
+    }
+  ],
+  "reviews": [
+    {
+      "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
+      "name": "Mariana S.",
+      "area": "Pitangueiras",
+      "avatar": "/images/avatars/ms.webp"
+    },
+    {
+      "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
+      "name": "Carlos A.",
+      "area": "Jardim Acapulco",
+      "avatar": "/images/avatars/ca.webp"
+    },
+    {
+      "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
+      "name": "Juliana T.",
+      "area": "Enseada",
+      "avatar": "/images/avatars/jt.webp"
+    }
+  ],
+  "areaPhotos": [
+    {
+      "name": "Enseada",
+      "image": "/images/home-generated/area-enseada.webp"
+    },
+    {
+      "name": "Pitangueiras",
+      "image": "/images/home-generated/area-pitangueiras.webp"
+    },
+    {
+      "name": "Pernambuco",
+      "image": "/images/home-generated/area-pernambuco.webp"
+    },
+    {
+      "name": "Tombo",
+      "image": "/images/home-generated/area-tombo.webp"
+    },
+    {
+      "name": "Astúrias",
+      "image": "/images/home-generated/area-asturias.webp"
+    },
+    {
+      "name": "Jardim Acapulco",
+      "image": "/images/home-generated/area-jardim-acapulco.webp"
+    },
+    {
+      "name": "Vicente de Carvalho",
+      "image": "/images/home-generated/area-vicente-de-carvalho.webp"
+    }
+  ],
+  "faqs": [
+    {
+      "q": "Vocês cobram visita técnica?",
+      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
+    },
+    {
+      "q": "Quais marcas de equipamentos vocês trabalham?",
+      "a": "Atendemos as principais marcas do mercado de ar-condicionado, aquecedores e piscinas, indicando sempre a melhor solução para cada caso."
+    },
+    {
+      "q": "Quanto tempo leva para executar o serviço?",
+      "a": "Depende do serviço. Manutenções e limpezas costumam ser feitas no mesmo dia; instalações são agendadas conforme disponibilidade."
+    },
+    {
+      "q": "Vocês oferecem garantia?",
+      "a": "Sim. Todo serviço tem garantia informada no orçamento, de acordo com o tipo de serviço e equipamento."
+    },
+    {
+      "q": "Atendem condomínios e empresas?",
+      "a": "Sim, atendemos residências, condomínios e empresas no Guarujá e região, com contratos de manutenção sob medida."
+    },
+    {
+      "q": "Como faço para solicitar um orçamento?",
+      "a": "É só chamar no WhatsApp informando o serviço, o bairro e, se possível, fotos do equipamento. Retornamos rapidinho."
     }
   ],
   "products": [
@@ -56,12 +146,12 @@
       "name": "Ar-condicionado completo",
       "price": 1899,
       "image": "/images/products/ar-completo.webp",
-      "imageEmUso": ""
+      "imageEmUso": "/images/products/ar-completo-emuso.webp"
     },
     {
       "id": "condensadora",
       "name": "Condensadora",
-      "price": 0.5,
+      "price": 1290,
       "image": "/images/products/condensadora.webp",
       "imageEmUso": "/images/products/condensadora-emuso.webp"
     },
@@ -101,102 +191,37 @@
       "imageEmUso": "/images/products/acessorios-emuso.webp"
     }
   ],
-  "stats": [
+  "serviceAreaGroups": [
     {
-      "value": "+10",
-      "label": "anos de experiência"
+      "region": "Peruíbe a Mongaguá",
+      "cities": [
+        "Peruíbe",
+        "Itanhaém",
+        "Mongaguá"
+      ]
     },
     {
-      "value": "+2.000",
-      "label": "clientes atendidos"
+      "region": "Baixada Santista",
+      "cities": [
+        "Praia Grande",
+        "São Vicente",
+        "Santos",
+        "Guarujá",
+        "Bertioga"
+      ]
     },
     {
-      "value": "100%",
-      "label": "compromisso com sua satisfação"
+      "region": "Litoral Norte até Ilhabela",
+      "cities": [
+        "São Sebastião",
+        "Ilhabela"
+      ]
     },
     {
-      "value": "+10",
-      "label": "anos de experiência"
-    }
-  ],
-  "reviews": [
-    {
-      "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
-      "name": "Mariana S.",
-      "area": "",
-      "avatar": "/images/avatars/ms.webp"
-    },
-    {
-      "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
-      "name": "Carlos A.",
-      "area": "Jardim Acapulco",
-      "avatar": "/images/avatars/ca.webp"
-    },
-    {
-      "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
-      "name": "Juliana T.",
-      "area": "Enseada",
-      "avatar": "/images/avatars/jt.webp"
-    }
-  ],
-  "faqs": [
-    {
-      "q": "Vocês cobram visita técnica?",
-      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
-    },
-    {
-      "q": "Quais marcas de equipamentos vocês trabalham?",
-      "a": "Atendemos as principais marcas do mercado de ar-condicionado, aquecedores e piscinas, indicando sempre a melhor solução para cada caso."
-    },
-    {
-      "q": "Quanto tempo leva para executar o serviço?",
-      "a": "Depende do serviço. Manutenções e limpezas costumam ser feitas no mesmo dia; instalações são agendadas conforme disponibilidade."
-    },
-    {
-      "q": "Vocês oferecem garantia?",
-      "a": "Sim. Todo serviço tem garantia informada no orçamento, de acordo com o tipo de serviço e equipamento."
-    },
-    {
-      "q": "Atendem condomínios e empresas?",
-      "a": "Sim, atendemos residências, condomínios e empresas no Guarujá e região, com contratos de manutenção sob medida."
-    },
-    {
-      "q": "Como faço para solicitar um orçamento?",
-      "a": "É só chamar no WhatsApp informando o serviço, o bairro e, se possível, fotos do equipamento. Retornamos rapidinho."
-    },
-    {
-      "q": "Vocês cobram visita técnica?",
-      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
-    }
-  ],
-  "areaPhotos": [
-    {
-      "name": "Enseada",
-      "image": "/images/home-generated/area-enseada.webp"
-    },
-    {
-      "name": "Pitangueiras",
-      "image": "/images/home-generated/area-pitangueiras.webp"
-    },
-    {
-      "name": "Pernambuco",
-      "image": "/images/home-generated/area-pernambuco.webp"
-    },
-    {
-      "name": "Tombo",
-      "image": "/images/home-generated/area-tombo.webp"
-    },
-    {
-      "name": "Astúrias",
-      "image": "/images/home-generated/area-asturias.webp"
-    },
-    {
-      "name": "Jardim Acapulco",
-      "image": "/images/home-generated/area-jardim-acapulco.webp"
-    },
-    {
-      "name": "Vicente de Carvalho",
-      "image": "/images/home-generated/area-vicente-de-carvalho.webp"
+      "region": "SP Capital",
+      "cities": [
+        "São Paulo"
+      ]
     }
   ],
   "neighborhoodGroups": [
@@ -264,40 +289,6 @@
         "Saco do Funil"
       ],
       "seoText": "Área mais afastada da orla, com imóveis maiores e acesso por estrada. A visita é agendada com antecedência para levar peças e ferramentas na primeira ida, evitando um segundo deslocamento."
-    }
-  ],
-  "serviceAreaGroups": [
-    {
-      "region": "Peruíbe a Mongaguá",
-      "cities": [
-        "Peruíbe",
-        "Itanhaém",
-        "Mongaguá",
-        "Peruíbe"
-      ]
-    },
-    {
-      "region": "Baixada Santista",
-      "cities": [
-        "Praia Grande",
-        "São Vicente",
-        "Santos",
-        "Guarujá",
-        "Bertioga"
-      ]
-    },
-    {
-      "region": "Litoral Norte até Ilhabela",
-      "cities": [
-        "São Sebastião",
-        "Ilhabela"
-      ]
-    },
-    {
-      "region": "SP Capital",
-      "cities": [
-        "São Paulo"
-      ]
     }
   ],
   "brands": {
@@ -373,1006 +364,6 @@
       {
         "name": "Thermotini",
         "image": "/images/brands/logos/aquecedores/thermotini.png"
-      },
-      {
-        "name": "Marca Qa 0",
-        "image": "/images/uploads/marca-qa-0.webp"
-      },
-      {
-        "name": "Marca Qa 1",
-        "image": "/images/uploads/marca-qa-1.webp"
-      },
-      {
-        "name": "Marca Qa 2",
-        "image": "/images/uploads/marca-qa-2.webp"
-      },
-      {
-        "name": "Marca Qa 3",
-        "image": "/images/uploads/marca-qa-3.webp"
-      },
-      {
-        "name": "Marca Qa 4",
-        "image": "/images/uploads/marca-qa-4.webp"
-      },
-      {
-        "name": "Marca Qa 5",
-        "image": "/images/uploads/marca-qa-5.webp"
-      },
-      {
-        "name": "Marca Qa 6",
-        "image": "/images/uploads/marca-qa-6.webp"
-      },
-      {
-        "name": "Marca Qa 7",
-        "image": "/images/uploads/marca-qa-7.webp"
-      },
-      {
-        "name": "Marca Qa 8",
-        "image": "/images/uploads/marca-qa-8.webp"
-      },
-      {
-        "name": "Marca Qa 9",
-        "image": "/images/uploads/marca-qa-9.webp"
-      },
-      {
-        "name": "Marca Qa 10",
-        "image": "/images/uploads/marca-qa-10.webp"
-      },
-      {
-        "name": "Marca Qa 11",
-        "image": "/images/uploads/marca-qa-11.webp"
-      },
-      {
-        "name": "Marca Qa 12",
-        "image": "/images/uploads/marca-qa-12.webp"
-      },
-      {
-        "name": "Marca Qa 13",
-        "image": "/images/uploads/marca-qa-13.webp"
-      },
-      {
-        "name": "Marca Qa 14",
-        "image": "/images/uploads/marca-qa-14.webp"
-      },
-      {
-        "name": "Marca Qa 15",
-        "image": "/images/uploads/marca-qa-15.webp"
-      },
-      {
-        "name": "Marca Qa 16",
-        "image": "/images/uploads/marca-qa-16.webp"
-      },
-      {
-        "name": "Marca Qa 17",
-        "image": "/images/uploads/marca-qa-17.webp"
-      },
-      {
-        "name": "Marca Qa 18",
-        "image": "/images/uploads/marca-qa-18.webp"
-      },
-      {
-        "name": "Marca Qa 19",
-        "image": "/images/uploads/marca-qa-19.webp"
-      },
-      {
-        "name": "Marca Qa 20",
-        "image": "/images/uploads/marca-qa-20.webp"
-      },
-      {
-        "name": "Marca Qa 21",
-        "image": "/images/uploads/marca-qa-21.webp"
-      },
-      {
-        "name": "Marca Qa 22",
-        "image": "/images/uploads/marca-qa-22.webp"
-      },
-      {
-        "name": "Marca Qa 23",
-        "image": "/images/uploads/marca-qa-23.webp"
-      },
-      {
-        "name": "Marca Qa 24",
-        "image": "/images/uploads/marca-qa-24.webp"
-      },
-      {
-        "name": "Marca Qa 25",
-        "image": "/images/uploads/marca-qa-25.webp"
-      },
-      {
-        "name": "Marca Qa 26",
-        "image": "/images/uploads/marca-qa-26.webp"
-      },
-      {
-        "name": "Marca Qa 27",
-        "image": "/images/uploads/marca-qa-27.webp"
-      },
-      {
-        "name": "Marca Qa 28",
-        "image": "/images/uploads/marca-qa-28.webp"
-      },
-      {
-        "name": "Marca Qa 29",
-        "image": "/images/uploads/marca-qa-29.webp"
-      },
-      {
-        "name": "Marca Qa 30",
-        "image": "/images/uploads/marca-qa-30.webp"
-      },
-      {
-        "name": "Marca Qa 31",
-        "image": "/images/uploads/marca-qa-31.webp"
-      },
-      {
-        "name": "Marca Qa 32",
-        "image": "/images/uploads/marca-qa-32.webp"
-      },
-      {
-        "name": "Marca Qa 33",
-        "image": "/images/uploads/marca-qa-33.webp"
-      },
-      {
-        "name": "Marca Qa 34",
-        "image": "/images/uploads/marca-qa-34.webp"
-      },
-      {
-        "name": "Marca Qa 35",
-        "image": "/images/uploads/marca-qa-35.webp"
-      },
-      {
-        "name": "Marca Qa 36",
-        "image": "/images/uploads/marca-qa-36.webp"
-      },
-      {
-        "name": "Marca Qa 37",
-        "image": "/images/uploads/marca-qa-37.webp"
-      },
-      {
-        "name": "Marca Qa 38",
-        "image": "/images/uploads/marca-qa-38.webp"
-      },
-      {
-        "name": "Marca Qa 39",
-        "image": "/images/uploads/marca-qa-39.webp"
-      },
-      {
-        "name": "Marca Qa 40",
-        "image": "/images/uploads/marca-qa-40.webp"
-      },
-      {
-        "name": "Marca Qa 41",
-        "image": "/images/uploads/marca-qa-41.webp"
-      },
-      {
-        "name": "Marca Qa 42",
-        "image": "/images/uploads/marca-qa-42.webp"
-      },
-      {
-        "name": "Marca Qa 43",
-        "image": "/images/uploads/marca-qa-43.webp"
-      },
-      {
-        "name": "Marca Qa 44",
-        "image": "/images/uploads/marca-qa-44.webp"
-      },
-      {
-        "name": "Marca Qa 45",
-        "image": "/images/uploads/marca-qa-45.webp"
-      },
-      {
-        "name": "Marca Qa 46",
-        "image": "/images/uploads/marca-qa-46.webp"
-      },
-      {
-        "name": "Marca Qa 47",
-        "image": "/images/uploads/marca-qa-47.webp"
-      },
-      {
-        "name": "Marca Qa 48",
-        "image": "/images/uploads/marca-qa-48.webp"
-      },
-      {
-        "name": "Marca Qa 49",
-        "image": "/images/uploads/marca-qa-49.webp"
-      },
-      {
-        "name": "Marca Qa 50",
-        "image": "/images/uploads/marca-qa-50.webp"
-      },
-      {
-        "name": "Marca Qa 51",
-        "image": "/images/uploads/marca-qa-51.webp"
-      },
-      {
-        "name": "Marca Qa 52",
-        "image": "/images/uploads/marca-qa-52.webp"
-      },
-      {
-        "name": "Marca Qa 53",
-        "image": "/images/uploads/marca-qa-53.webp"
-      },
-      {
-        "name": "Marca Qa 54",
-        "image": "/images/uploads/marca-qa-54.webp"
-      },
-      {
-        "name": "Marca Qa 55",
-        "image": "/images/uploads/marca-qa-55.webp"
-      },
-      {
-        "name": "Marca Qa 56",
-        "image": "/images/uploads/marca-qa-56.webp"
-      },
-      {
-        "name": "Marca Qa 57",
-        "image": "/images/uploads/marca-qa-57.webp"
-      },
-      {
-        "name": "Marca Qa 58",
-        "image": "/images/uploads/marca-qa-58.webp"
-      },
-      {
-        "name": "Marca Qa 59",
-        "image": "/images/uploads/marca-qa-59.webp"
-      },
-      {
-        "name": "Marca Qa 60",
-        "image": "/images/uploads/marca-qa-60.webp"
-      },
-      {
-        "name": "Marca Qa 61",
-        "image": "/images/uploads/marca-qa-61.webp"
-      },
-      {
-        "name": "Marca Qa 62",
-        "image": "/images/uploads/marca-qa-62.webp"
-      },
-      {
-        "name": "Marca Qa 63",
-        "image": "/images/uploads/marca-qa-63.webp"
-      },
-      {
-        "name": "Marca Qa 64",
-        "image": "/images/uploads/marca-qa-64.webp"
-      },
-      {
-        "name": "Marca Qa 65",
-        "image": "/images/uploads/marca-qa-65.webp"
-      },
-      {
-        "name": "Marca Qa 66",
-        "image": "/images/uploads/marca-qa-66.webp"
-      },
-      {
-        "name": "Marca Qa 67",
-        "image": "/images/uploads/marca-qa-67.webp"
-      },
-      {
-        "name": "Marca Qa 68",
-        "image": "/images/uploads/marca-qa-68.webp"
-      },
-      {
-        "name": "Marca Qa 69",
-        "image": "/images/uploads/marca-qa-69.webp"
-      },
-      {
-        "name": "Marca Qa 70",
-        "image": "/images/uploads/marca-qa-70.webp"
-      },
-      {
-        "name": "Marca Qa 71",
-        "image": "/images/uploads/marca-qa-71.webp"
-      },
-      {
-        "name": "Marca Qa 72",
-        "image": "/images/uploads/marca-qa-72.webp"
-      },
-      {
-        "name": "Marca Qa 73",
-        "image": "/images/uploads/marca-qa-73.webp"
-      },
-      {
-        "name": "Marca Qa 74",
-        "image": "/images/uploads/marca-qa-74.webp"
-      },
-      {
-        "name": "Marca Qa 75",
-        "image": "/images/uploads/marca-qa-75.webp"
-      },
-      {
-        "name": "Marca Qa 76",
-        "image": "/images/uploads/marca-qa-76.webp"
-      },
-      {
-        "name": "Marca Qa 77",
-        "image": "/images/uploads/marca-qa-77.webp"
-      },
-      {
-        "name": "Marca Qa 78",
-        "image": "/images/uploads/marca-qa-78.webp"
-      },
-      {
-        "name": "Marca Qa 79",
-        "image": "/images/uploads/marca-qa-79.webp"
-      },
-      {
-        "name": "Marca Qa 80",
-        "image": "/images/uploads/marca-qa-80.webp"
-      },
-      {
-        "name": "Marca Qa 81",
-        "image": "/images/uploads/marca-qa-81.webp"
-      },
-      {
-        "name": "Marca Qa 82",
-        "image": "/images/uploads/marca-qa-82.webp"
-      },
-      {
-        "name": "Marca Qa 83",
-        "image": "/images/uploads/marca-qa-83.webp"
-      },
-      {
-        "name": "Marca Qa 84",
-        "image": "/images/uploads/marca-qa-84.webp"
-      },
-      {
-        "name": "Marca Qa 85",
-        "image": "/images/uploads/marca-qa-85.webp"
-      },
-      {
-        "name": "Marca Qa 86",
-        "image": "/images/uploads/marca-qa-86.webp"
-      },
-      {
-        "name": "Marca Qa 87",
-        "image": "/images/uploads/marca-qa-87.webp"
-      },
-      {
-        "name": "Marca Qa 88",
-        "image": "/images/uploads/marca-qa-88.webp"
-      },
-      {
-        "name": "Marca Qa 89",
-        "image": "/images/uploads/marca-qa-89.webp"
-      },
-      {
-        "name": "Marca Qa 90",
-        "image": "/images/uploads/marca-qa-90.webp"
-      },
-      {
-        "name": "Marca Qa 91",
-        "image": "/images/uploads/marca-qa-91.webp"
-      },
-      {
-        "name": "Marca Qa 92",
-        "image": "/images/uploads/marca-qa-92.webp"
-      },
-      {
-        "name": "Marca Qa 93",
-        "image": "/images/uploads/marca-qa-93.webp"
-      },
-      {
-        "name": "Marca Qa 94",
-        "image": "/images/uploads/marca-qa-94.webp"
-      },
-      {
-        "name": "Marca Qa 95",
-        "image": "/images/uploads/marca-qa-95.webp"
-      },
-      {
-        "name": "Marca Qa 96",
-        "image": "/images/uploads/marca-qa-96.webp"
-      },
-      {
-        "name": "Marca Qa 97",
-        "image": "/images/uploads/marca-qa-97.webp"
-      },
-      {
-        "name": "Marca Qa 98",
-        "image": "/images/uploads/marca-qa-98.webp"
-      },
-      {
-        "name": "Marca Qa 99",
-        "image": "/images/uploads/marca-qa-99.webp"
-      },
-      {
-        "name": "Marca Qa 100",
-        "image": "/images/uploads/marca-qa-100.webp"
-      },
-      {
-        "name": "Marca Qa 101",
-        "image": "/images/uploads/marca-qa-101.webp"
-      },
-      {
-        "name": "Marca Qa 102",
-        "image": "/images/uploads/marca-qa-102.webp"
-      },
-      {
-        "name": "Marca Qa 103",
-        "image": "/images/uploads/marca-qa-103.webp"
-      },
-      {
-        "name": "Marca Qa 104",
-        "image": "/images/uploads/marca-qa-104.webp"
-      },
-      {
-        "name": "Marca Qa 105",
-        "image": "/images/uploads/marca-qa-105.webp"
-      },
-      {
-        "name": "Marca Qa 106",
-        "image": "/images/uploads/marca-qa-106.webp"
-      },
-      {
-        "name": "Marca Qa 107",
-        "image": "/images/uploads/marca-qa-107.webp"
-      },
-      {
-        "name": "Marca Qa 108",
-        "image": "/images/uploads/marca-qa-108.webp"
-      },
-      {
-        "name": "Marca Qa 109",
-        "image": "/images/uploads/marca-qa-109.webp"
-      },
-      {
-        "name": "Marca Qa 110",
-        "image": "/images/uploads/marca-qa-110.webp"
-      },
-      {
-        "name": "Marca Qa 111",
-        "image": "/images/uploads/marca-qa-111.webp"
-      },
-      {
-        "name": "Marca Qa 112",
-        "image": "/images/uploads/marca-qa-112.webp"
-      },
-      {
-        "name": "Marca Qa 113",
-        "image": "/images/uploads/marca-qa-113.webp"
-      },
-      {
-        "name": "Marca Qa 114",
-        "image": "/images/uploads/marca-qa-114.webp"
-      },
-      {
-        "name": "Marca Qa 115",
-        "image": "/images/uploads/marca-qa-115.webp"
-      },
-      {
-        "name": "Marca Qa 116",
-        "image": "/images/uploads/marca-qa-116.webp"
-      },
-      {
-        "name": "Marca Qa 117",
-        "image": "/images/uploads/marca-qa-117.webp"
-      },
-      {
-        "name": "Marca Qa 118",
-        "image": "/images/uploads/marca-qa-118.webp"
-      },
-      {
-        "name": "Marca Qa 119",
-        "image": "/images/uploads/marca-qa-119.webp"
-      },
-      {
-        "name": "Marca Qa 120",
-        "image": "/images/uploads/marca-qa-120.webp"
-      },
-      {
-        "name": "Marca Qa 121",
-        "image": "/images/uploads/marca-qa-121.webp"
-      },
-      {
-        "name": "Marca Qa 122",
-        "image": "/images/uploads/marca-qa-122.webp"
-      },
-      {
-        "name": "Marca Qa 123",
-        "image": "/images/uploads/marca-qa-123.webp"
-      },
-      {
-        "name": "Marca Qa 124",
-        "image": "/images/uploads/marca-qa-124.webp"
-      },
-      {
-        "name": "Marca Qa 125",
-        "image": "/images/uploads/marca-qa-125.webp"
-      },
-      {
-        "name": "Marca Qa 126",
-        "image": "/images/uploads/marca-qa-126.webp"
-      },
-      {
-        "name": "Marca Qa 127",
-        "image": "/images/uploads/marca-qa-127.webp"
-      },
-      {
-        "name": "Marca Qa 128",
-        "image": "/images/uploads/marca-qa-128.webp"
-      },
-      {
-        "name": "Marca Qa 129",
-        "image": "/images/uploads/marca-qa-129.webp"
-      },
-      {
-        "name": "Marca Qa 130",
-        "image": "/images/uploads/marca-qa-130.webp"
-      },
-      {
-        "name": "Marca Qa 131",
-        "image": "/images/uploads/marca-qa-131.webp"
-      },
-      {
-        "name": "Marca Qa 132",
-        "image": "/images/uploads/marca-qa-132.webp"
-      },
-      {
-        "name": "Marca Qa 133",
-        "image": "/images/uploads/marca-qa-133.webp"
-      },
-      {
-        "name": "Marca Qa 134",
-        "image": "/images/uploads/marca-qa-134.webp"
-      },
-      {
-        "name": "Marca Qa 135",
-        "image": "/images/uploads/marca-qa-135.webp"
-      },
-      {
-        "name": "Marca Qa 136",
-        "image": "/images/uploads/marca-qa-136.webp"
-      },
-      {
-        "name": "Marca Qa 137",
-        "image": "/images/uploads/marca-qa-137.webp"
-      },
-      {
-        "name": "Marca Qa 138",
-        "image": "/images/uploads/marca-qa-138.webp"
-      },
-      {
-        "name": "Marca Qa 139",
-        "image": "/images/uploads/marca-qa-139.webp"
-      },
-      {
-        "name": "Marca Qa 140",
-        "image": "/images/uploads/marca-qa-140.webp"
-      },
-      {
-        "name": "Marca Qa 141",
-        "image": "/images/uploads/marca-qa-141.webp"
-      },
-      {
-        "name": "Marca Qa 142",
-        "image": "/images/uploads/marca-qa-142.webp"
-      },
-      {
-        "name": "Marca Qa 143",
-        "image": "/images/uploads/marca-qa-143.webp"
-      },
-      {
-        "name": "Marca Qa 144",
-        "image": "/images/uploads/marca-qa-144.webp"
-      },
-      {
-        "name": "Marca Qa 145",
-        "image": "/images/uploads/marca-qa-145.webp"
-      },
-      {
-        "name": "Marca Qa 146",
-        "image": "/images/uploads/marca-qa-146.webp"
-      },
-      {
-        "name": "Marca Qa 147",
-        "image": "/images/uploads/marca-qa-147.webp"
-      },
-      {
-        "name": "Marca Qa 148",
-        "image": "/images/uploads/marca-qa-148.webp"
-      },
-      {
-        "name": "Marca Qa 149",
-        "image": "/images/uploads/marca-qa-149.webp"
-      },
-      {
-        "name": "Marca Qa 150",
-        "image": "/images/uploads/marca-qa-150.webp"
-      },
-      {
-        "name": "Marca Qa 151",
-        "image": "/images/uploads/marca-qa-151.webp"
-      },
-      {
-        "name": "Marca Qa 152",
-        "image": "/images/uploads/marca-qa-152.webp"
-      },
-      {
-        "name": "Marca Qa 153",
-        "image": "/images/uploads/marca-qa-153.webp"
-      },
-      {
-        "name": "Marca Qa 154",
-        "image": "/images/uploads/marca-qa-154.webp"
-      },
-      {
-        "name": "Marca Qa 155",
-        "image": "/images/uploads/marca-qa-155.webp"
-      },
-      {
-        "name": "Marca Qa 156",
-        "image": "/images/uploads/marca-qa-156.webp"
-      },
-      {
-        "name": "Marca Qa 157",
-        "image": "/images/uploads/marca-qa-157.webp"
-      },
-      {
-        "name": "Marca Qa 158",
-        "image": "/images/uploads/marca-qa-158.webp"
-      },
-      {
-        "name": "Marca Qa 159",
-        "image": "/images/uploads/marca-qa-159.webp"
-      },
-      {
-        "name": "Marca Qa 160",
-        "image": "/images/uploads/marca-qa-160.webp"
-      },
-      {
-        "name": "Marca Qa 161",
-        "image": "/images/uploads/marca-qa-161.webp"
-      },
-      {
-        "name": "Marca Qa 162",
-        "image": "/images/uploads/marca-qa-162.webp"
-      },
-      {
-        "name": "Marca Qa 163",
-        "image": "/images/uploads/marca-qa-163.webp"
-      },
-      {
-        "name": "Marca Qa 164",
-        "image": "/images/uploads/marca-qa-164.webp"
-      },
-      {
-        "name": "Marca Qa 165",
-        "image": "/images/uploads/marca-qa-165.webp"
-      },
-      {
-        "name": "Marca Qa 166",
-        "image": "/images/uploads/marca-qa-166.webp"
-      },
-      {
-        "name": "Marca Qa 167",
-        "image": "/images/uploads/marca-qa-167.webp"
-      },
-      {
-        "name": "Marca Qa 168",
-        "image": "/images/uploads/marca-qa-168.webp"
-      },
-      {
-        "name": "Marca Qa 169",
-        "image": "/images/uploads/marca-qa-169.webp"
-      },
-      {
-        "name": "Marca Qa 170",
-        "image": "/images/uploads/marca-qa-170.webp"
-      },
-      {
-        "name": "Marca Qa 171",
-        "image": "/images/uploads/marca-qa-171.webp"
-      },
-      {
-        "name": "Marca Qa 172",
-        "image": "/images/uploads/marca-qa-172.webp"
-      },
-      {
-        "name": "Marca Qa 173",
-        "image": "/images/uploads/marca-qa-173.webp"
-      },
-      {
-        "name": "Marca Qa 174",
-        "image": "/images/uploads/marca-qa-174.webp"
-      },
-      {
-        "name": "Marca Qa 175",
-        "image": "/images/uploads/marca-qa-175.webp"
-      },
-      {
-        "name": "Marca Qa 176",
-        "image": "/images/uploads/marca-qa-176.webp"
-      },
-      {
-        "name": "Marca Qa 177",
-        "image": "/images/uploads/marca-qa-177.webp"
-      },
-      {
-        "name": "Marca Qa 178",
-        "image": "/images/uploads/marca-qa-178.webp"
-      },
-      {
-        "name": "Marca Qa 179",
-        "image": "/images/uploads/marca-qa-179.webp"
-      },
-      {
-        "name": "Marca Qa 180",
-        "image": "/images/uploads/marca-qa-180.webp"
-      },
-      {
-        "name": "Marca Qa 181",
-        "image": "/images/uploads/marca-qa-181.webp"
-      },
-      {
-        "name": "Marca Qa 182",
-        "image": "/images/uploads/marca-qa-182.webp"
-      },
-      {
-        "name": "Marca Qa 183",
-        "image": "/images/uploads/marca-qa-183.webp"
-      },
-      {
-        "name": "Marca Qa 184",
-        "image": "/images/uploads/marca-qa-184.webp"
-      },
-      {
-        "name": "Marca Qa 185",
-        "image": "/images/uploads/marca-qa-185.webp"
-      },
-      {
-        "name": "Marca Qa 186",
-        "image": "/images/uploads/marca-qa-186.webp"
-      },
-      {
-        "name": "Marca Qa 187",
-        "image": "/images/uploads/marca-qa-187.webp"
-      },
-      {
-        "name": "Marca Qa 188",
-        "image": "/images/uploads/marca-qa-188.webp"
-      },
-      {
-        "name": "Marca Qa 189",
-        "image": "/images/uploads/marca-qa-189.webp"
-      },
-      {
-        "name": "Marca Qa 190",
-        "image": "/images/uploads/marca-qa-190.webp"
-      },
-      {
-        "name": "Marca Qa 191",
-        "image": "/images/uploads/marca-qa-191.webp"
-      },
-      {
-        "name": "Marca Qa 192",
-        "image": "/images/uploads/marca-qa-192.webp"
-      },
-      {
-        "name": "Marca Qa 193",
-        "image": "/images/uploads/marca-qa-193.webp"
-      },
-      {
-        "name": "Marca Qa 194",
-        "image": "/images/uploads/marca-qa-194.webp"
-      },
-      {
-        "name": "Marca Qa 195",
-        "image": "/images/uploads/marca-qa-195.webp"
-      },
-      {
-        "name": "Marca Qa 196",
-        "image": "/images/uploads/marca-qa-196.webp"
-      },
-      {
-        "name": "Marca Qa 197",
-        "image": "/images/uploads/marca-qa-197.webp"
-      },
-      {
-        "name": "Marca Qa 198",
-        "image": "/images/uploads/marca-qa-198.webp"
-      },
-      {
-        "name": "Marca Qa 199",
-        "image": "/images/uploads/marca-qa-199.webp"
-      },
-      {
-        "name": "Marca Qa 200",
-        "image": "/images/uploads/marca-qa-200.webp"
-      },
-      {
-        "name": "Marca Qa 201",
-        "image": "/images/uploads/marca-qa-201.webp"
-      },
-      {
-        "name": "Marca Qa 202",
-        "image": "/images/uploads/marca-qa-202.webp"
-      },
-      {
-        "name": "Marca Qa 203",
-        "image": "/images/uploads/marca-qa-203.webp"
-      },
-      {
-        "name": "Marca Qa 204",
-        "image": "/images/uploads/marca-qa-204.webp"
-      },
-      {
-        "name": "Marca Qa 205",
-        "image": "/images/uploads/marca-qa-205.webp"
-      },
-      {
-        "name": "Marca Qa 206",
-        "image": "/images/uploads/marca-qa-206.webp"
-      },
-      {
-        "name": "Marca Qa 207",
-        "image": "/images/uploads/marca-qa-207.webp"
-      },
-      {
-        "name": "Marca Qa 208",
-        "image": "/images/uploads/marca-qa-208.webp"
-      },
-      {
-        "name": "Marca Qa 209",
-        "image": "/images/uploads/marca-qa-209.webp"
-      },
-      {
-        "name": "Marca Qa 210",
-        "image": "/images/uploads/marca-qa-210.webp"
-      },
-      {
-        "name": "Marca Qa 211",
-        "image": "/images/uploads/marca-qa-211.webp"
-      },
-      {
-        "name": "Marca Qa 212",
-        "image": "/images/uploads/marca-qa-212.webp"
-      },
-      {
-        "name": "Marca Qa 213",
-        "image": "/images/uploads/marca-qa-213.webp"
-      },
-      {
-        "name": "Marca Qa 214",
-        "image": "/images/uploads/marca-qa-214.webp"
-      },
-      {
-        "name": "Marca Qa 215",
-        "image": "/images/uploads/marca-qa-215.webp"
-      },
-      {
-        "name": "Marca Qa 216",
-        "image": "/images/uploads/marca-qa-216.webp"
-      },
-      {
-        "name": "Marca Qa 217",
-        "image": "/images/uploads/marca-qa-217.webp"
-      },
-      {
-        "name": "Marca Qa 218",
-        "image": "/images/uploads/marca-qa-218.webp"
-      },
-      {
-        "name": "Marca Qa 219",
-        "image": "/images/uploads/marca-qa-219.webp"
-      },
-      {
-        "name": "Marca Qa 220",
-        "image": "/images/uploads/marca-qa-220.webp"
-      },
-      {
-        "name": "Marca Qa 221",
-        "image": "/images/uploads/marca-qa-221.webp"
-      },
-      {
-        "name": "Marca Qa 222",
-        "image": "/images/uploads/marca-qa-222.webp"
-      },
-      {
-        "name": "Marca Qa 223",
-        "image": "/images/uploads/marca-qa-223.webp"
-      },
-      {
-        "name": "Marca Qa 224",
-        "image": "/images/uploads/marca-qa-224.webp"
-      },
-      {
-        "name": "Marca Qa 225",
-        "image": "/images/uploads/marca-qa-225.webp"
-      },
-      {
-        "name": "Marca Qa 226",
-        "image": "/images/uploads/marca-qa-226.webp"
-      },
-      {
-        "name": "Marca Qa 227",
-        "image": "/images/uploads/marca-qa-227.webp"
-      },
-      {
-        "name": "Marca Qa 228",
-        "image": "/images/uploads/marca-qa-228.webp"
-      },
-      {
-        "name": "Marca Qa 229",
-        "image": "/images/uploads/marca-qa-229.webp"
-      },
-      {
-        "name": "Marca Qa 230",
-        "image": "/images/uploads/marca-qa-230.webp"
-      },
-      {
-        "name": "Marca Qa 231",
-        "image": "/images/uploads/marca-qa-231.webp"
-      },
-      {
-        "name": "Marca Qa 232",
-        "image": "/images/uploads/marca-qa-232.webp"
-      },
-      {
-        "name": "Marca Qa 233",
-        "image": "/images/uploads/marca-qa-233.webp"
-      },
-      {
-        "name": "Marca Qa 234",
-        "image": "/images/uploads/marca-qa-234.webp"
-      },
-      {
-        "name": "Marca Qa 235",
-        "image": "/images/uploads/marca-qa-235.webp"
-      },
-      {
-        "name": "Marca Qa 236",
-        "image": "/images/uploads/marca-qa-236.webp"
-      },
-      {
-        "name": "Marca Qa 237",
-        "image": "/images/uploads/marca-qa-237.webp"
-      },
-      {
-        "name": "Marca Qa 238",
-        "image": "/images/uploads/marca-qa-238.webp"
-      },
-      {
-        "name": "Marca Qa 239",
-        "image": "/images/uploads/marca-qa-239.webp"
-      },
-      {
-        "name": "Marca Qa 240",
-        "image": "/images/uploads/marca-qa-240.webp"
-      },
-      {
-        "name": "Marca Qa 241",
-        "image": "/images/uploads/marca-qa-241.webp"
-      },
-      {
-        "name": "Marca Qa 242",
-        "image": "/images/uploads/marca-qa-242.webp"
-      },
-      {
-        "name": "Marca Qa 243",
-        "image": "/images/uploads/marca-qa-243.webp"
-      },
-      {
-        "name": "Marca Qa 244",
-        "image": "/images/uploads/marca-qa-244.webp"
-      },
-      {
-        "name": "Marca Qa 245",
-        "image": "/images/uploads/marca-qa-245.webp"
-      },
-      {
-        "name": "Marca Qa 246",
-        "image": "/images/uploads/marca-qa-246.webp"
-      },
-      {
-        "name": "Marca Qa 247",
-        "image": "/images/uploads/marca-qa-247.webp"
-      },
-      {
-        "name": "Marca Qa 248",
-        "image": "/images/uploads/marca-qa-248.webp"
-      },
-      {
-        "name": "Marca Qa 249",
-        "image": "/images/uploads/marca-qa-249.webp"
       }
     ],
     "airConditioning": [
@@ -1482,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T13:13:55.459Z"
+  "updatedAt": "2026-07-27T13:17:36.335Z"
 }
