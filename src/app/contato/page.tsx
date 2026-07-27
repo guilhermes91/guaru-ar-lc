@@ -29,7 +29,7 @@ export default function Contact() {
               <a className="btn whatsapp" href={site.whatsapp()} target="_blank" rel="noopener">
                 <WhatsAppIcon /> Chamar no WhatsApp
               </a>
-              <a className="btn outline" href={`tel:+${site.phone}`}>
+              <a className="btn contorno" href={`tel:+${site.phone}`}>
                 <Phone /> Ligar agora
               </a>
             </div>
@@ -41,7 +41,7 @@ export default function Contact() {
             <p>Ar-condicionado, aquecedores e piscinas com avaliação objetiva e orçamento transparente.</p>
             <div className="contact-summary-line">
               <Clock3 />
-              <span>Segunda a sábado, das 8h às 18h</span>
+              <span>{site.hours}</span>
             </div>
           </aside>
         </div>
@@ -69,7 +69,7 @@ export default function Contact() {
             <a className="contact-card" href={mapUrl} target="_blank" rel="noopener">
               <span className="contact-icon"><MapPin /></span>
               <small>Base local</small>
-              <h2>Perequê, Guarujá</h2>
+              <h2>{site.address}</h2>
               <p>{site.address}</p>
               <strong>Ver no mapa</strong>
             </a>

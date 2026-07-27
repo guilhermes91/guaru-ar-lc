@@ -18,7 +18,7 @@ const DESCRICAO =
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: TITULO, template: "%s | Guaru Ar LC" },
+  title: { default: TITULO, template: `%s | ${site.name}` },
   description: DESCRICAO,
   // "./" resolve para a própria rota: cada página exporta o canonical dela.
   alternates: { canonical: "./" },

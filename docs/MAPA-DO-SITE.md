@@ -4,8 +4,8 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 
 - **Site:** https://guaruarguaruja.com.br · https://guaru-ar-lc.pages.dev
 - **Painel:** https://guaruarguaruja.com.br/admin/ (fora do índice)
-- **Páginas públicas:** 50
-- **URLs no sitemap.xml:** 50
+- **Páginas públicas:** 51
+- **URLs no sitemap.xml:** 51
 
 
 ## Institucional — 6 páginas
@@ -13,7 +13,7 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 | Rota | Título | H1 | Sitemap |
 | --- | --- | --- | --- |
 | `/` | Guaru Ar LC | Ar-condicionado, aquecedores e piscinas no Guarujá | Climatização, aquecimento e piscinas no Guarujá | sim |
-| `/assistencia-autorizada/` | Assistência técnica especializada multimarcas | Guaru Ar LC | Especialistas nas principais marcas de ar-condicionado e aquecedores. | sim |
+| `/assistencia-especializada/` | Assistência técnica especializada multimarcas | Guaru Ar LC | Especialistas nas principais marcas de ar-condicionado e aquecedores. | sim |
 | `/contato/` | Contato | Guaru Ar LC | Atendimento rápido, claro e sem enrolação. | sim |
 | `/produtos/` | Produtos — ar-condicionado, aquecedores e piscinas | Guaru Ar LC | Produtos | sim |
 | `/servicos/` | Serviços | Guaru Ar LC | Serviços Guaru Ar LC | sim |
@@ -27,10 +27,11 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 | `/servicos/ar-condicionado/` | Ar-condicionado no Guarujá | Guaru Ar LC | Ar-condicionado no Guarujá | sim |
 | `/servicos/piscinas/` | Piscinas no Guarujá | Guaru Ar LC | Piscinas no Guarujá | sim |
 
-## Bairro — 41 páginas
+## Bairro — 42 páginas
 
 | Rota | Título | H1 | Sitemap |
 | --- | --- | --- | --- |
+| `/guaruja/` | Bairros atendidos no Guarujá | Guaru Ar LC | Bairros atendidos no Guarujá | sim |
 | `/guaruja/acapulco/` | Ar-condicionado, aquecedores e piscinas em Acapulco | Guaru Ar LC | Serviços Guaru Ar LC em Acapulco | sim |
 | `/guaruja/asturias/` | Ar-condicionado, aquecedores e piscinas em Astúrias | Guaru Ar LC | Serviços Guaru Ar LC em Astúrias | sim |
 | `/guaruja/barra-grande/` | Ar-condicionado, aquecedores e piscinas em Barra Grande | Guaru Ar LC | Serviços Guaru Ar LC em Barra Grande | sim |
@@ -103,9 +104,9 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 | Textos do site | Título e frase do topo, bloco sobre, chamada final, descrição do rodapé | Página inicial, /sobre/ e rodapé de todas |
 | Serviços | Nome, resumo, descrição, ícone e imagem de cada serviço (sem preço) | Cards da home, /servicos/ e a página de cada serviço |
 | Produtos | Nome, preço e as duas fotos de cada produto | /produtos/ |
-| Bairros e regiões | Bairros em destaque com foto, regiões, texto de cada região, bairros e cidades atendidas | Home, as páginas de bairro, rodapé e /assistencia-autorizada/ |
+| Bairros e regiões | Bairros em destaque com foto, regiões, texto de cada região, bairros e cidades atendidas | Home, as páginas de bairro, rodapé e /assistencia-especializada/ |
 | Números, avaliações e FAQ | Três números de destaque, depoimentos com foto e perguntas frequentes | Página inicial |
-| Marcas atendidas | Logos de ar-condicionado e de aquecedores | /assistencia-autorizada/ |
+| Marcas atendidas | Logos de ar-condicionado e de aquecedores | /assistencia-especializada/ |
 | Usuário | E-mail e senha de acesso, e restauração de fábrica | Só o painel |
 
 ## Navegação

@@ -54,7 +54,7 @@ export function Header() {
             </div>
           </div>
           <Link href="/produtos" onClick={close}>Produtos</Link>
-          <Link href="/assistencia-autorizada" onClick={close}>Marcas</Link>
+          <Link href="/assistencia-especializada" onClick={close}>Marcas</Link>
           <Link href="/#como-funciona" onClick={close}>Como funciona</Link>
           <Link href="/#sobre" onClick={close}>Sobre nós</Link>
           <Link href="/#areas" onClick={close}>Áreas de atendimento</Link>

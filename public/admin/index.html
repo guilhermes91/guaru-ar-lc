@@ -20,7 +20,7 @@
   a{color:var(--azul-claro)}
 
   /* ---------- Login ---------- */
-  .login{min-height:100dvh;display:grid;place-items:center;padding:24px}
+  .login{position:fixed;inset:0;z-index:30;min-height:100dvh;display:grid;place-items:center;padding:24px;background:var(--fundo)}
   .card{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:28px;width:100%;max-width:380px;box-shadow:0 8px 30px rgba(10,43,82,.08)}
   .card h1{margin:0 0 4px;font-size:20px;color:var(--azul)}
   .card p.sub{margin:0 0 20px;font-size:13px;color:#5c6b7a}
@@ -220,6 +220,8 @@ async function api(caminho, opcoes = {}) {
     const erro = new Error(corpo.error || "Não consegui completar a ação.");
     erro.detalhes = corpo.details;
     erro.status = resposta.status;
+    // Sessão caiu no meio do trabalho: reabre o login sem descartar a edição.
+    if (resposta.status === 401 && estado.conteudo) pedirLoginDeNovo();
     throw erro;
   }
   return corpo;
@@ -241,6 +243,20 @@ function aviso(alvo, tipo, texto, itens) {
 
 // ---------------------------------------------------------------- Login
 
+/**
+ * A sessão dura 8 horas. Quem edita o dia todo e clica em Publicar à noite
+ * levava 401 sem ter como logar de novo — e recarregar descartava tudo que
+ * tinha sido digitado. Aqui o login reaparece por cima do painel, com o
+ * conteúdo intacto na memória.
+ */
+function pedirLoginDeNovo(mensagem) {
+  $("#tela-login").style.display = "grid";
+  $("#login-senha").value = "";
+  $("#login-email").value = estado.email || "";
+  aviso("#login-aviso", "erro", mensagem || "Sua sessão expirou. Entre de novo — suas alterações continuam aqui.");
+  $("#login-senha").focus();
+}
+
 $("#form-login").addEventListener("submit", async (evento) => {
   evento.preventDefault();
   $("#btn-entrar").disabled = true;
@@ -250,7 +266,13 @@ $("#form-login").addEventListener("submit", async (evento) => {
       method: "POST",
       body: JSON.stringify({ email: $("#login-email").value, password: $("#login-senha").value }),
     });
-    await iniciar();
+    // Já havia conteúdo em edição: só fecha o login e devolve o painel como estava.
+    if (estado.conteudo) {
+      $("#tela-login").style.display = "none";
+      aviso("#aviso", "ok", "Você entrou de novo. Suas alterações continuam aqui — clique em Publicar.");
+    } else {
+      await iniciar();
+    }
   } catch (erro) {
     aviso("#login-aviso", "erro", erro.message);
   } finally {
@@ -540,6 +562,35 @@ function campoLista({ label, lista, placeholder, max = 60 }) {
   ]);
 }
 
+/**
+ * Remove pedindo confirmação e deixando um "Desfazer" na barra de avisos.
+ * Sem isso a única recuperação era recarregar a página, perdendo todas as
+ * outras edições, ou restaurar o padrão de fábrica.
+ */
+function removerComDesfazer(lista, indice, titulo, aoMudar) {
+  if (!confirm(`Remover "${titulo}"?
+
+Você poderá desfazer logo depois, enquanto não publicar.`)) return;
+  const [removido] = lista.splice(indice, 1);
+
+  const desfazer = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Desfazer" });
+  desfazer.addEventListener("click", () => {
+    lista.splice(indice, 0, removido);
+    marcarSujo();
+    aoMudar();
+    aviso("#aviso", "ok", `"${titulo}" foi restaurado.`);
+  });
+
+  const caixa = $("#aviso");
+  caixa.innerHTML = "";
+  caixa.append(
+    el("div", { className: "aviso info" }, [
+      el("span", { textContent: `"${titulo}" foi removido. Só sai do site quando você publicar.` }),
+      el("span", { style: "margin-left:10px" }, [desfazer]),
+    ]),
+  );
+}
+
 /** Cabeçalho de item com mover para cima/baixo e remover. */
 function cabecaItem({ titulo, lista, indice, minimo = 1, aoMudar }) {
   const acao = (texto, dica, ativo, fn, classe = "") => {
@@ -561,7 +612,9 @@ function cabecaItem({ titulo, lista, indice, minimo = 1, aoMudar }) {
       acao("↓", "Mover para baixo", indice < lista.length - 1, () => {
         [lista[indice + 1], lista[indice]] = [lista[indice], lista[indice + 1]];
       }),
-      acao("×", "Remover", lista.length > minimo, () => lista.splice(indice, 1), "remover"),
+      // Confirma e guarda o item para desfazer: o "×" fica a 30px do "↓" e um
+      // toque errado no celular apagaria um serviço e a página dele, sem volta.
+      acao("×", "Remover", lista.length > minimo, () => removerComDesfazer(lista, indice, titulo, aoMudar), "remover"),
     ]),
   ]);
 }
@@ -697,7 +750,7 @@ function secaoServicos() {
             slug: slugUnico(titulo, lista.map((x) => x.slug)),
             title: titulo,
             icon: "Wrench",
-            short: "Manutenção, limpeza, instalação e reparos",
+            short: "Resuma este serviço em uma linha.",
             description: "Descreva aqui o que está incluído neste serviço.",
             image: lista[0]?.image || "/images/home-generated/card-ar-condicionado.webp",
           });
@@ -878,6 +931,7 @@ function secaoUsuario() {
   const form = el("div");
   const atual = el("input", { type: "password", autocomplete: "current-password" });
   const email = el("input", { type: "email", autocomplete: "username", value: estado.email || "" });
+  const emailConfirma = el("input", { type: "email", autocomplete: "username" });
   const nova = el("input", { type: "password", autocomplete: "new-password" });
   const confirma = el("input", { type: "password", autocomplete: "new-password" });
   const salvar = el("button", { type: "button", className: "btn", textContent: "Salvar acesso" });
@@ -885,6 +939,13 @@ function secaoUsuario() {
 
   salvar.addEventListener("click", async () => {
     retorno.innerHTML = "";
+    // Trocar o e-mail sem conferir tranca o acesso: a recuperação de senha
+    // passa a ser enviada para o endereço novo, e não há como voltar atrás.
+    const trocouEmail = email.value.trim().toLowerCase() !== (estado.email || "").toLowerCase();
+    if (trocouEmail && email.value.trim().toLowerCase() !== emailConfirma.value.trim().toLowerCase()) {
+      retorno.append(el("div", { className: "aviso erro", textContent: "Os dois e-mails não são iguais. Confira: é para este endereço que a recuperação de senha vai." }));
+      return;
+    }
     if (nova.value && nova.value !== confirma.value) {
       retorno.append(el("div", { className: "aviso erro", textContent: "As duas senhas novas não são iguais." }));
       return;
@@ -900,6 +961,7 @@ function secaoUsuario() {
       atual.value = "";
       nova.value = "";
       confirma.value = "";
+      emailConfirma.value = "";
       retorno.append(el("div", { className: "aviso ok", textContent: "Dados de acesso atualizados." }));
     } catch (erro) {
       retorno.append(el("div", { className: "aviso erro", textContent: erro.message }));
@@ -915,6 +977,11 @@ function secaoUsuario() {
         el("label", { textContent: "E-mail de acesso" }),
         email,
         el("p", { className: "dica", textContent: "É para este e-mail que a recuperação de senha é enviada." }),
+      ]),
+      el("div", { className: "campo" }, [
+        el("label", { textContent: "Repita o e-mail (só se for trocar)" }),
+        emailConfirma,
+        el("p", { className: "dica", textContent: "Deixe vazio para manter o e-mail atual." }),
       ]),
       el("div", { className: "campo" }, [
         el("label", { textContent: "Nova senha" }),
@@ -1015,6 +1082,16 @@ $("#btn-publicar").addEventListener("click", async () => {
  * que tem esse commit no topo: sem isso, um run anterior já concluído faria o
  * painel anunciar "Site atualizado" com o site ainda mostrando o conteúdo velho.
  */
+/** O conteúdo já foi commitado, então nada está "sujo" e o botão continuaria
+ *  desabilitado. Sem isto o cliente lia o erro e não tinha o que fazer. */
+function falhouPublicacao() {
+  atualizarEstado("falhou", "Falha ao atualizar o site");
+  const botao = $("#btn-publicar");
+  botao.disabled = false;
+  botao.textContent = "Tentar publicar de novo";
+  aviso("#aviso", "erro", "O site não terminou de atualizar. Clique em Tentar publicar de novo; se repetir, avise quem cuida do site.");
+}
+
 async function acompanharDeploy(commit) {
   atualizarEstado("publicando", "Atualizando o site…");
   const inicio = Date.now();
@@ -1026,7 +1103,7 @@ async function acompanharDeploy(commit) {
       if (run?.status === "completed" && eDesteCommit) {
         return run.conclusion === "success"
           ? atualizarEstado("pronto", "Site atualizado")
-          : atualizarEstado("falhou", "Falha ao atualizar o site");
+          : falhouPublicacao();
       }
     } catch {
       /* segue tentando */

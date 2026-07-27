@@ -73,7 +73,7 @@ export default function AuthorizedAssistance() {
               >
                 <WhatsAppIcon /> Solicitar orçamento
               </a>
-              <a className="btn outline" href="#marcas">
+              <a className="btn contorno" href="#marcas">
                 Ver marcas atendidas
               </a>
             </div>

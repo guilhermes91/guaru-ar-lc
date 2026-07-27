@@ -1,5 +1,5 @@
 import { serviceAreaCities } from "@/data/brands";
-import { site } from "@/data/site";
+import { site, texts } from "@/data/site";
 
 // JSON.stringify não escapa "<": sem isso, um "</script>" digitado no painel
 // fecharia a tag e injetaria HTML em todas as páginas do site.
@@ -13,6 +13,9 @@ export function LocalBusinessSchema() {
     name: site.legalName,
     url: site.url,
     logo: `${site.url}/logo-guaruar.png`,
+    // `image` é obrigatório para rich result de LocalBusiness.
+    image: [`${site.url}/og-guaruar.jpg`],
+    description: texts.heroSubtitle,
     // Campo vazio no painel viraria sameAs: [""] — URL inválida no dado estruturado.
     sameAs: [site.social.facebook, site.social.instagram].filter(Boolean),
     telephone: `+${site.phone}`,

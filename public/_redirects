@@ -1,0 +1,5 @@
+# A rota antiga afirmava "autorizada", que exigiria contrato com cada
+# fabricante. O texto da pagina sempre disse "especializada"; a URL ficou para
+# tras. 301 para nao perder quem tiver o link antigo.
+/assistencia-autorizada/  /assistencia-especializada/  301
+/assistencia-autorizada   /assistencia-especializada/  301

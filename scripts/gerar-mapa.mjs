@@ -95,9 +95,9 @@ for (const [s, o, onde] of [
   ["Textos do site", "Título e frase do topo, bloco sobre, chamada final, descrição do rodapé", "Página inicial, /sobre/ e rodapé de todas"],
   ["Serviços", "Nome, resumo, descrição, ícone e imagem de cada serviço (sem preço)", "Cards da home, /servicos/ e a página de cada serviço"],
   ["Produtos", "Nome, preço e as duas fotos de cada produto", "/produtos/"],
-  ["Bairros e regiões", "Bairros em destaque com foto, regiões, texto de cada região, bairros e cidades atendidas", "Home, as páginas de bairro, rodapé e /assistencia-autorizada/"],
+  ["Bairros e regiões", "Bairros em destaque com foto, regiões, texto de cada região, bairros e cidades atendidas", "Home, as páginas de bairro, rodapé e /assistencia-especializada/"],
   ["Números, avaliações e FAQ", "Três números de destaque, depoimentos com foto e perguntas frequentes", "Página inicial"],
-  ["Marcas atendidas", "Logos de ar-condicionado e de aquecedores", "/assistencia-autorizada/"],
+  ["Marcas atendidas", "Logos de ar-condicionado e de aquecedores", "/assistencia-especializada/"],
   ["Usuário", "E-mail e senha de acesso, e restauração de fábrica", "Só o painel"],
 ]) {
   L.push(`| ${s} | ${o} | ${onde} |`);

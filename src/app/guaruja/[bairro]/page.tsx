@@ -49,7 +49,13 @@ export default async function Neighborhood({ params }: { params: Promise<{ bairr
   if (!nome) notFound();
 
   const { regiao, texto, vizinhos } = contexto(nome);
-  const proximos = vizinhos.slice(0, 6);
+  // Janela CIRCULAR a partir do próprio bairro. Com `vizinhos.slice(0, 6)` os
+  // seis primeiros de cada região apareciam em todas as páginas dela e o resto
+  // não recebia link nenhum — 11 dos 41 bairros ficavam órfãos, inclusive o da
+  // sede da empresa.
+  const posicao = vizinhos.findIndex((n) => n > nome);
+  const inicio = posicao < 0 ? 0 : posicao;
+  const proximos = [...vizinhos.slice(inicio), ...vizinhos.slice(0, inicio)].slice(0, 6);
 
   return (
     <>
@@ -104,6 +110,10 @@ export default async function Neighborhood({ params }: { params: Promise<{ bairr
               </p>
             </>
           )}
+
+          <p>
+            <Link href="/guaruja/">Ver todos os bairros atendidos no Guarujá</Link>
+          </p>
 
           <h2>Solicite uma avaliação</h2>
           <p>

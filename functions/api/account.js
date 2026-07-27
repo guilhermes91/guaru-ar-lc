@@ -3,6 +3,7 @@ import {
   buildUser,
   checkPassword,
   corpoTexto,
+  encerrarOutrasSessoes,
   getUser,
   json,
   requireSession,
@@ -51,5 +52,8 @@ export const onRequestPost = rota(async ({ request, env }) => {
 
   // Definir senha nova encerra qualquer provisória em aberto.
   await saveUser(env, semSenhaProvisoria(await buildUser(nextEmail, password)));
+  // E derruba as outras sessões: quem troca a senha por suspeita de invasão
+  // espera que quem já estava dentro seja desconectado.
+  await encerrarOutrasSessoes(env, session.token);
   return json({ ok: true, email: nextEmail });
 });

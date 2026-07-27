@@ -12,7 +12,7 @@ const url = (caminho: string) => `${base}${caminho}/`.replace(/\/{2,}$/, "/");
 // publicar, então republicar o site sem mudar nada não finge frescor para o Google.
 const lastModified = new Date(contentUpdatedAt);
 
-const fixas = ["", "/servicos", "/produtos", "/assistencia-autorizada", "/sobre", "/contato"];
+const fixas = ["", "/servicos", "/produtos", "/assistencia-especializada", "/guaruja", "/sobre", "/contato"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

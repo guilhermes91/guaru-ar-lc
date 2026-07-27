@@ -4,7 +4,7 @@ Imagens geradas a partir das referências enviadas pelo cliente.
 
 ## O que o site usa
 
-**`standard/`** — os 4 banners exibidos em `/assistencia-autorizada`, em
+**`standard/`** — os 4 banners exibidos em `/assistencia-especializada`, em
 **1200×675 px** (16:9):
 
 - `standard/01-marcas-aquecedores.png` — card da seção de aquecedores

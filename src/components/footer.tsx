@@ -36,7 +36,7 @@ export function Footer() {
             <h3>Navegação</h3>
             <Link href="/">Início</Link>
             <Link href="/produtos">Produtos</Link>
-            <Link href="/assistencia-autorizada">Marcas atendidas</Link>
+            <Link href="/assistencia-especializada">Marcas atendidas</Link>
             <Link href="/#como-funciona">Como funciona</Link>
             <Link href="/#sobre">Sobre nós</Link>
             <Link href="/#areas">Áreas de atendimento</Link>
@@ -55,7 +55,7 @@ export function Footer() {
             <h3>Contato</h3>
             <a href={`tel:+${site.phone}`}><Phone />{site.phoneDisplay}</a>
             <a href={`mailto:${site.email}`}><Mail />{site.email}</a>
-            <p className="line"><MapPin />Guarujá, SP</p>
+            <p className="line"><MapPin />{site.address}</p>
             <p className="line"><Clock3 />Atendimento: {site.hours}</p>
           </div>
 
