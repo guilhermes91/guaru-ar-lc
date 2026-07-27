@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/checar-painel.mjs && next build && node scripts/pos-build.mjs",
+    "build": "node scripts/checar-painel.mjs && node scripts/smoke-painel.mjs && next build && node scripts/pos-build.mjs",
     "start": "next start",
     "lint": "eslint",
-    "check:painel": "node scripts/checar-painel.mjs"
+    "check:painel": "node scripts/checar-painel.mjs",
+    "smoke": "node scripts/smoke-painel.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.23.0",
