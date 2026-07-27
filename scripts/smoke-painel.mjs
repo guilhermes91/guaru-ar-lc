@@ -107,7 +107,7 @@ globalThis.File = class {
 const conteudo = JSON.parse(readFileSync("src/data/content.json", "utf8"));
 const chamadas = [];
 globalThis.fetch = async (url, opcoes = {}) => {
-  chamadas.push({ url: String(url), metodo: opcoes.method || "GET" });
+  chamadas.push({ url: String(url), metodo: opcoes.method || "GET", corpo: opcoes.body });
   const corpo = String(url).includes("/api/me")
     ? { email: "dono@exemplo.com" }
     : String(url).includes("/api/content") && (opcoes.method || "GET") === "GET"
@@ -162,6 +162,64 @@ porId.get("btn-publicar").disparar("click");
 await new Promise((ok) => setTimeout(ok, 50));
 const posts = chamadas.slice(antes).filter((c) => c.metodo === "POST" && c.url.includes("/api/content"));
 checar(posts.length === 1, `publicar deveria fazer 1 POST, fez ${posts.length}`);
+
+// ------------------------------------------------- regressões já pagas caro
+const percorrer = (no, fn) => {
+  fn(no);
+  for (const filho of no.filhos || []) percorrer(filho, fn);
+};
+const acharBotao = (raiz, titulo) => {
+  let achado = null;
+  percorrer(raiz, (no) => {
+    if (!achado && no.tag === "button" && no.title === titulo && !no.disabled) achado = no;
+  });
+  return achado;
+};
+
+// A caixa de desfazer promete "só saem do site quando você publicar". Depois da
+// publicação ela precisa sumir: enquanto ficava na tela, dizia o contrário do
+// que tinha acontecido e o botão ressuscitava o item no meio do deploy.
+const desfazer = porId.get("desfazer");
+let removeu = false;
+for (const botao of botoesMenu) {
+  botao.disparar("click");
+  const remover = acharBotao(secao, "Remover");
+  if (!remover) continue;
+  remover.disparar("click");
+  removeu = true;
+  break;
+}
+checar(removeu, "não achei botão de remover para exercitar o desfazer");
+if (removeu) {
+  checar(desfazer.textContent.includes("Desfazer"), "remover não ofereceu desfazer");
+  porId.get("btn-publicar").disparar("click");
+  await new Promise((ok) => setTimeout(ok, 50));
+  checar(desfazer.textContent === "", "a caixa de desfazer sobreviveu à publicação: o painel oferece desfazer de item que já foi ao ar");
+}
+
+// Bairro/cidade digitado e não confirmado com Enter tem que entrar na
+// publicação: era descartado em silêncio, com "Alterações enviadas" na tela.
+let entradaLista = null;
+for (const botao of botoesMenu) {
+  botao.disparar("click");
+  percorrer(secao, (no) => {
+    if (!entradaLista && no.className === "adicionar") entradaLista = (no.filhos || []).find((f) => f.tag === "input");
+  });
+  if (entradaLista) break;
+}
+checar(Boolean(entradaLista), "não achei campo de lista (bairros/cidades) para exercitar");
+if (entradaLista) {
+  entradaLista.value = "Bairro Do Smoke";
+  entradaLista.disparar("blur");
+  const antesDoEnvio = chamadas.length;
+  porId.get("btn-publicar").disparar("click");
+  await new Promise((ok) => setTimeout(ok, 50));
+  const enviado = chamadas.slice(antesDoEnvio).find((c) => c.metodo === "POST" && c.url.includes("/api/content"));
+  checar(
+    enviado && String(enviado.corpo).includes("Bairro Do Smoke"),
+    "o que foi digitado no campo de lista não entrou na publicação",
+  );
+}
 
 if (falhas.length) {
   console.error("smoke do painel falhou:");

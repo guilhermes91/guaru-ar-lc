@@ -26,6 +26,9 @@
 .page-hero .btn:focus-visible,.contact-hero .btn:focus-visible,.brands-hero .btn:focus-visible,
 .final-cta .btn:focus-visible,.brand-disclaimer-box .btn:focus-visible,.area-bar a:focus-visible,
 footer a:focus-visible,footer .btn:focus-visible,.socials a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+/* Menos os de /contato/: lá o mesmo .socials cai dentro de um card branco
+   (.contact-social-box), e o anel branco ficava em 1:1 — foco invisível. */
+.contact-socials a:focus-visible{outline:3px solid var(--aqua-txt)}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 html{scroll-behavior:smooth}
@@ -33,7 +36,10 @@ body{margin:0;color:var(--ink);font-family:var(--font-geist-sans),Arial,Helvetic
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
 main{min-height:60vh}
-.container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+/* max-width:none porque o Tailwind também define .container, com max-width por
+   breakpoint. Nosso width vence (regra fora de @layer), mas o max-width dele não
+   tinha concorrente e estreitava a coluna entre 672px e 1280px. */
+.container{width:min(1180px,calc(100% - 40px));max-width:none;margin-inline:auto}
 
 /* O botão flutuante do WhatsApp ocupa fixamente o canto inferior direito.
    Sem esta reserva ele cobre o fim de CTAs de largura total e a linha do

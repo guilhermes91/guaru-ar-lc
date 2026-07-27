@@ -1,4 +1,4 @@
-import { bad, commitFile, draft, fetchContent, json, requireSession, rota, toBase64 } from "../../lib/admin.js";
+import { bad, commitFile, draft, fetchContentSha, json, requireSession, rota, toBase64 } from "../../lib/admin.js";
 import { validateContent } from "../../lib/validate.js";
 
 // Restaura o site para a base de fábrica (src/data/content.default.json).
@@ -33,15 +33,18 @@ export const onRequestPost = rota(async ({ request, env }) => {
   content.updatedAt = new Date().toISOString();
   const text = JSON.stringify(content, null, 2) + "\n";
 
-  const published = await fetchContent(env).catch((error) => ({ error }));
-  if (published.error) return bad(`Não consegui falar com o repositório: ${published.error.message}`, 502);
+  // Só o sha, sem ler o conteúdo: se o content.json estiver ilegível, é
+  // exatamente para cá que o cliente vem — e parsear o arquivo quebrado antes
+  // de sobrescrevê-lo tirava do ar o único botão que ainda o salvaria.
+  const sha = await fetchContentSha(env).catch((error) => ({ error }));
+  if (sha?.error) return bad(`Não consegui falar com o repositório: ${sha.error.message}`, 502);
 
   try {
     const result = await commitFile(env, {
       path: PATH,
       base64: toBase64(text),
       message: `conteudo: restauracao para o padrao de fabrica (${session.email})`,
-      sha: published.sha,
+      sha,
     });
     const commit = result.commit.sha;
     await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString(), commit });

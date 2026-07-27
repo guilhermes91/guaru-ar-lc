@@ -1,4 +1,5 @@
 import {
+  arquivosPublicos,
   bad,
   commitFile,
   deployConcluido,
@@ -9,7 +10,7 @@ import {
   rota,
   toBase64,
 } from "../../lib/admin.js";
-import { limparConteudo, validateContent } from "../../lib/validate.js";
+import { caminhosDeImagem, limparConteudo, validateContent } from "../../lib/validate.js";
 
 const PATH = "src/data/content.json";
 
@@ -52,6 +53,23 @@ export const onRequestPost = rota(async ({ request, env }) => {
 
   const errors = validateContent(body.content);
   if (errors.length) return json({ error: "Corrija antes de publicar:", details: errors }, 422);
+
+  // A validação confere o formato do caminho, não o que existe no repositório:
+  // um caminho bem-formado para arquivo ausente passava, o build ficava verde e
+  // o card ia ao ar com a imagem em 404. Pelo painel não dá (o campo só recebe
+  // o path que o upload devolveu), mas esta rota aceita qualquer JSON.
+  // Árvore truncada devolve null: aí não dá para afirmar que falta, e recusar
+  // uma publicação legítima seria pior do que deixar passar.
+  const arquivos = await arquivosPublicos(env).catch(() => null);
+  if (arquivos) {
+    const ausentes = caminhosDeImagem(body.content).filter((caminho) => !arquivos.has(caminho));
+    if (ausentes.length) {
+      return json(
+        { error: "Estas imagens não existem no site e apareceriam em branco. Envie-as de novo pelo painel:", details: ausentes },
+        422,
+      );
+    }
+  }
 
   const published = await fetchContent(env).catch((error) => ({ error }));
   if (published.error) return bad(`Não consegui falar com o repositório: ${published.error.message}`, 502);

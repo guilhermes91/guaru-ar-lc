@@ -597,6 +597,10 @@ function campoLista({ label, lista, placeholder, max = 60 }) {
       adicionar();
     }
   });
+  // Sem isto, quem digita o bairro e clica direto em Publicar perde o que
+  // digitou: o texto ficava só no campo, a publicação ia sem ele e o painel
+  // ainda respondia "Alterações enviadas".
+  entrada.addEventListener("blur", adicionar);
   const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Adicionar" });
   botao.addEventListener("click", adicionar);
 
@@ -1208,8 +1212,12 @@ $("#btn-publicar").addEventListener("click", async () => {
     aplicarIdentificadores(pares);
     estado.sha = publicado.sha || estado.sha;
     estado.updatedAt = publicado.updatedAt || null;
-    // Editou durante o envio? Continua pendente, para não perder o que ficou de fora.
+    // A fila de desfazer some junto com a publicação: sem repintar, a caixa
+    // continuava na tela dizendo "só saem do site quando você publicar" sobre
+    // itens que acabaram de sair, e o botão ressuscitava o item em silêncio.
     removidos.length = 0;
+    pintarDesfazeres(desenharSecao);
+    // Editou durante o envio? Continua pendente, para não perder o que ficou de fora.
     estado.sujo = estado.versao !== versaoEnviada;
     $("#btn-publicar").disabled = !estado.sujo;
     aviso(
