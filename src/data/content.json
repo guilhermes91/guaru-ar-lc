@@ -17,7 +17,7 @@
   "texts": {
     "heroTitle": "Climatização, aquecimento e piscinas no Guarujá",
     "heroHighlight": "Guarujá",
-    "heroSubtitle": "Conforto, segurança e cuidado em todos os ambientes.",
+    "heroSubtitle": "QA-CICLO-1 Conforto, segurança e cuidado em todos os ambientes.",
     "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
     "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
     "footerDescription": "Climatização, aquecimento e piscinas no Guarujá com qualidade, segurança e atendimento que você confia.",
@@ -54,7 +54,7 @@
     {
       "id": "ar-completo",
       "name": "Ar-condicionado completo",
-      "price": 1899,
+      "price": 1234,
       "image": "/images/products/ar-completo.webp",
       "imageEmUso": "/images/products/ar-completo-emuso.webp"
     },
@@ -137,12 +137,12 @@
   ],
   "faqs": [
     {
-      "q": "Vocês cobram visita técnica?",
-      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
-    },
-    {
       "q": "Quais marcas de equipamentos vocês trabalham?",
       "a": "Atendemos as principais marcas do mercado de ar-condicionado, aquecedores e piscinas, indicando sempre a melhor solução para cada caso."
+    },
+    {
+      "q": "Vocês cobram visita técnica?",
+      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
     },
     {
       "q": "Quanto tempo leva para executar o serviço?",
@@ -473,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T15:56:08.560Z"
+  "updatedAt": "2026-07-27T16:14:39.832Z"
 }
