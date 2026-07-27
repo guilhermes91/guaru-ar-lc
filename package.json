@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/checar-painel.mjs && next build",
+    "build": "node scripts/checar-painel.mjs && next build && node scripts/pos-build.mjs",
     "start": "next start",
     "lint": "eslint",
     "check:painel": "node scripts/checar-painel.mjs"

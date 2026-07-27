@@ -26,7 +26,7 @@ export const onRequestGet = rota(async ({ request, env }) => {
   const rascunho = await draft.get(env);
   let pendente = Boolean(rascunho?.content && rascunho.sha === published.sha);
 
-  if (pendente && (await deployConcluido(env, rascunho.at))) {
+  if (pendente && (await deployConcluido(env, rascunho.at, rascunho.commit))) {
     await draft.clear(env);
     pendente = false;
   }

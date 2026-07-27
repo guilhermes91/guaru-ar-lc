@@ -455,9 +455,14 @@ async function ajustarImagem(file, medida) {
 
   const blob = await new Promise((ok) => canvas.toBlob(ok, medida.tipo, 0.82));
   if (!blob) throw new Error("Não consegui processar essa imagem. Tente outra.");
-  const extensao = medida.tipo === "image/png" ? "png" : "webp";
+  // O tipo real do blob, não o que foi pedido: quando o navegador não sabe
+  // codificar o formato (Safari antigo não faz WebP), ele cai para PNG. Declarar
+  // WebP nesse caso faria o servidor recusar por divergência de assinatura, e
+  // toda troca de imagem falharia com "não é uma imagem".
+  const tipoReal = blob.type || medida.tipo;
+  const extensao = tipoReal === "image/png" ? "png" : tipoReal === "image/jpeg" ? "jpg" : "webp";
   const nome = String(file.name || "imagem").replace(/\.[^.]+$/, "");
-  return new File([blob], `${nome}.${extensao}`, { type: medida.tipo });
+  return new File([blob], `${nome}.${extensao}`, { type: tipoReal });
 }
 
 /** Campo de imagem: só troca por upload, o caminho nunca é digitado à mão. */
@@ -912,7 +917,7 @@ function secaoMarcas() {
     bloco(titulo, ajuda, [
       ...lista.map((marca, i) =>
         el("div", { className: "item" }, [
-          cabecaItem({ titulo: marca.name || "Marca", lista, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          cabecaItem({ titulo: marca.name || "Marca", lista, indice: i, aoMudar: desenharSecao }),
           campo({ label: "Nome da marca", obj: marca, chave: "name", max: 40 }),
           campoImagem({ label: "Logo", obj: marca, chave: "image", medida: MEDIDAS.logo }),
         ]),
@@ -1094,9 +1099,12 @@ $("#btn-publicar").addEventListener("click", async () => {
       method: "POST",
       body: JSON.stringify({ content: paraPublicar, sha: estado.sha }),
     });
-    // Só agora os identificadores viram definitivos.
+    // Só agora os identificadores viram definitivos. O redesenho é obrigatório:
+    // os campos na tela guardam referência aos objetos da cópia anterior, e sem
+    // ele a próxima edição iria para um objeto órfão e sumiria na publicação.
     estado.conteudo = paraPublicar;
     estado.sha = publicado.sha || estado.sha;
+    desenharSecao();
     estado.sujo = false;
     aviso("#aviso", "ok", "Alterações enviadas. O site é atualizado em cerca de 2 minutos.");
     acompanharDeploy(publicado.commit);
@@ -1135,9 +1143,10 @@ async function acompanharDeploy(commit) {
       const { run } = await api(commit ? `status?commit=${commit}` : "status");
       if (run?.status === "completed") {
         if (run.conclusion === "success") return atualizarEstado("pronto", "Site atualizado");
-        // Cancelado = um deploy mais novo tomou o lugar deste. Não é falha.
-        if (run.conclusion === "cancelled") return atualizarEstado("pronto", "Site atualizado");
-        return falhouPublicacao();
+        // Cancelado = outro commit tomou o lugar deste. Não é sucesso: o deploy
+        // que substituiu ainda pode falhar. Passa a seguir o run mais recente.
+        if (run.conclusion === "cancelled") commit = null;
+        else return falhouPublicacao();
       }
     } catch {
       /* segue tentando */

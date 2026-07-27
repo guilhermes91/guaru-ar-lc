@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
+import { AnoAtual } from "./ano-atual";
 import { FacebookIcon, InstagramIcon, Logo, WhatsAppIcon } from "./logo";
 import { services, site, texts } from "@/data/site";
 
@@ -70,7 +71,7 @@ export function Footer() {
           </div>
         </div>
         <div className="container copyright">
-          <span>© {new Date().getFullYear()} {site.name}. Todos os direitos reservados.</span>
+          <span>© <AnoAtual /> {site.name}. Todos os direitos reservados.</span>
           <span className="developer-credit">
             Site desenvolvido por{" "}
             <a href="https://softuria.com" target="_blank" rel="noopener">
