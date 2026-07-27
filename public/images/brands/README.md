@@ -2,23 +2,35 @@
 
 Imagens geradas a partir das referências enviadas pelo cliente.
 
-## Arquivos
+## O que o site usa
 
-- `logos-aquecedores-limpo.png` — colagem limpa das marcas de aquecedores.
-- `logos-ar-condicionado-limpo.png` — colagem limpa das marcas de ar-condicionado/climatização.
-- `marcas-aquecedores-card.png` — card pronto para seção de aquecedores.
-- `marcas-ar-condicionado-card.png` — card pronto para seção de ar-condicionado.
-- `marcas-multimarcas-guaruar.png` — banner geral para comunicar atendimento multimarcas.
-- `atendimento-litoral-sp.png` — banner de área de atendimento de Peruíbe a Ilhabela + SP Capital, com menção aos bairros do Guarujá.
+**`standard/`** — os 4 banners exibidos em `/assistencia-autorizada`, em
+**1200×675 px** (16:9):
 
-## Versões padronizadas recomendadas
+- `standard/01-marcas-aquecedores.png` — card da seção de aquecedores
+- `standard/02-marcas-ar-condicionado.png` — card da seção de climatização
+- `standard/03-marcas-multimarcas.png` — banner do topo da página
+- `standard/04-atendimento-litoral-sp.png` — mapa da área de atendimento
 
-Use os arquivos da pasta `standard/` no site. Todos estão em **1600×900 px**, proporção **16:9**, com mesma identidade visual, espaçamento e hierarquia:
+**`logos/aquecedores/`** e **`logos/ar-condicionado/`** — os logos individuais,
+em **420×226 px**, exibidos a 60 px de altura com `object-fit: contain`. Os
+caminhos ficam em `src/data/content.json` (`brands.heating` e
+`brands.airConditioning`) e são trocáveis pelo painel, em *Marcas atendidas*.
 
-- `standard/01-marcas-aquecedores.png`
-- `standard/02-marcas-ar-condicionado.png`
-- `standard/03-marcas-multimarcas.png`
-- `standard/04-atendimento-litoral-sp.png`
+`atendimento-litoral-sp.png`, na raiz desta pasta, é a versão antiga do mapa —
+o site usa a de `standard/`.
+
+## Formato
+
+PNG com paleta indexada de 255 cores e transparência preservada, dimensionados
+para o dobro do espaço que ocupam no CSS. O site é export estático com
+`images.unoptimized`: o arquivo vai inteiro para o visitante, então subir algo
+maior que isso só aumenta o tempo de carregamento.
+
+> Cinco colagens soltas (`logos-*-limpo.png`, `marcas-*-card.png`,
+> `marcas-multimarcas-guaruar.png`) foram removidas em 26/07/2026: somavam
+> 2,6 MB, nenhuma página as referenciava, e ficavam públicas no repositório.
+> O conteúdo delas está nos banners de `standard/`.
 
 ## Comunicação recomendada
 
