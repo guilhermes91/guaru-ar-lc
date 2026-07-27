@@ -7,7 +7,7 @@ export const onRequestGet = rota(async ({ request, env }) => {
   // O painel informa o commit que publicou; sem ele, cai no run mais recente.
   const commit = new URL(request.url).searchParams.get("commit") || "";
   try {
-    return json({ run: await latestWorkflowRun(env, /^[0-9a-f]{7,40}$/.test(commit) ? commit : undefined) });
+    return json({ run: await latestWorkflowRun(env, /^[0-9a-f]{40}$/.test(commit) ? commit : undefined) });
   } catch (error) {
     return bad(error.message, 502);
   }

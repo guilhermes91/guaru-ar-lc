@@ -57,7 +57,7 @@ export function Header() {
           <Link href="/assistencia-especializada" onClick={close}>Marcas</Link>
           <Link href="/#como-funciona" onClick={close}>Como funciona</Link>
           <Link href="/#sobre" onClick={close}>Sobre nós</Link>
-          <Link href="/#areas" onClick={close}>Áreas de atendimento</Link>
+          <Link href="/guaruja/" onClick={close}>Áreas de atendimento</Link>
           <Link href="/contato" onClick={close}>Contato</Link>
         </nav>
         <a className="btn whatsapp nav-cta" href={site.whatsapp()} target="_blank" rel="noopener">

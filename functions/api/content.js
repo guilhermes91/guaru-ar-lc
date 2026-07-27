@@ -59,7 +59,8 @@ export const onRequestPost = rota(async ({ request, env }) => {
   // Trava otimista: o painel devolve o sha que recebeu no GET. Se o publicado
   // mudou nesse meio-tempo, outra aba (ou outro aparelho) já publicou — e
   // sobrescrever apagaria o trabalho dela sem ninguém perceber.
-  if (body.sha && body.sha !== published.sha) {
+  if (!body.sha) return bad("Recarregue o painel: esta tela está desatualizada.", 400);
+  if (body.sha !== published.sha) {
     return json(
       {
         error:
@@ -82,7 +83,9 @@ export const onRequestPost = rota(async ({ request, env }) => {
       message: `conteudo: atualizacao pelo painel (${session.email})`,
       sha: published.sha,
     });
-    const commit = result.commit.sha.slice(0, 7);
+    // Sha completo: o filtro head_sha do GitHub recusa o abreviado, e o painel
+    // ficava sem nunca ver o run — inclusive quando o build falhava.
+    const commit = result.commit.sha;
     await draft.put(env, { sha: result.content.sha, content: conteudo, at: new Date().toISOString(), commit });
     // Devolve o sha novo: sem isso a próxima publicação da mesma aba bateria na
     // trava otimista contra o sha que ela mesma acabou de tornar obsoleto.

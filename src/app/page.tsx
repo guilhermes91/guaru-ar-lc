@@ -185,7 +185,7 @@ export default function Home() {
                 <span>{a.name}</span>
               </Link>
             ))}
-            <div className="area-card more"><span>e mais<br />regiões</span></div>
+            <Link href="/guaruja/" className="area-card more"><span>e mais<br />regiões</span></Link>
           </div>
 
           <div className="service-area-detail">

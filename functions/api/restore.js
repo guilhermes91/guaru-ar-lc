@@ -43,7 +43,7 @@ export const onRequestPost = rota(async ({ request, env }) => {
       message: `conteudo: restauracao para o padrao de fabrica (${session.email})`,
       sha: published.sha,
     });
-    const commit = result.commit.sha.slice(0, 7);
+    const commit = result.commit.sha;
     await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString(), commit });
     return json({ ok: true, content, commit, sha: result.content.sha });
   } catch (error) {

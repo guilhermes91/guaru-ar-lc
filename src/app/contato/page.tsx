@@ -70,7 +70,7 @@ export default function Contact() {
               <span className="contact-icon"><MapPin /></span>
               <small>Base local</small>
               <h2>{site.address}</h2>
-              <p>{site.address}</p>
+              <p>Atendemos em domicílio no Guarujá e região; a base fica aqui.</p>
               <strong>Ver no mapa</strong>
             </a>
           </div>

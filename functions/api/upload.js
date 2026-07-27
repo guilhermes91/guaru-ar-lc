@@ -40,7 +40,13 @@ export const onRequestPost = rota(async ({ request, env }) => {
     binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
   }
 
-  const base = slugify(String(file.name || "imagem").replace(/\.[^.]+$/, "")).replace(/[^a-z0-9-]/g, "") || "imagem";
+  // O nome vem do disco do cliente. Sem teto, um arquivo de 300 caracteres
+  // gera um path acima do limite de 255 bytes por componente do ext4, e o
+  // actions/checkout do deploy passa a falhar para sempre.
+  const base =
+    slugify(String(file.name || "imagem").replace(/\.[^.]+$/, ""))
+      .replace(/[^a-z0-9-]/g, "")
+      .slice(0, 60) || "imagem";
   const path = `public/images/uploads/${base}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
 
   try {

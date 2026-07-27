@@ -41,7 +41,7 @@ export function Footer() {
             {/* A página, não a âncora da home: sem este link /sobre/ ficava no
                 sitemap sem nenhuma porta de entrada no site. */}
             <Link href="/sobre/">Sobre nós</Link>
-            <Link href="/#areas">Áreas de atendimento</Link>
+            <Link href="/guaruja/">Áreas de atendimento</Link>
             <Link href="/contato">Contato</Link>
           </div>
 
