@@ -22,14 +22,14 @@
     "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
     "footerDescription": "Climatização, aquecimento e piscinas no Guarujá com qualidade, segurança e atendimento que você confia.",
     "ctaTitle": "Precisa de um serviço profissional e confiável?",
-    "ctaText": "Fale com a Guaru Ar LC e tenha mais conforto, segurança e tranquilidade."
+    "ctaText": "Fale com a Guaru Ar LC e tenha mais conforto, segurança e tranquilidade. qa7f3"
   },
   "services": [
     {
       "slug": "ar-condicionado",
       "title": "Ar-condicionado",
-      "short": "Resuma este servico em uma linha.",
-      "description": "Descreva aqui o que esta incluido neste servico.",
+      "short": "Manutenção, limpeza, instalação e reparos",
+      "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
       "image": "/images/home-generated/card-ar-condicionado.webp",
       "icon": "Snowflake"
     },
@@ -473,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T03:41:27.145Z"
+  "updatedAt": "2026-07-27T03:44:01.149Z"
 }
