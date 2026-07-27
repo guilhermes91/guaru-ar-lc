@@ -28,116 +28,26 @@
     {
       "slug": "ar-condicionado",
       "title": "Ar-condicionado",
-      "icon": "Snowflake",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
-      "image": "/images/home-generated/card-ar-condicionado.webp"
+      "image": "/images/home-generated/card-ar-condicionado.webp",
+      "icon": "Snowflake"
     },
     {
       "slug": "aquecedores",
       "title": "Aquecedores",
-      "icon": "Flame",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Instalação, revisão e reparo de aquecedores a gás, elétricos e sistemas de água quente.",
-      "image": "/images/home-generated/card-aquecedor.webp"
+      "image": "/images/home-generated/card-aquecedor.webp",
+      "icon": "Flame"
     },
     {
       "slug": "piscinas",
       "title": "Piscinas",
-      "icon": "Waves",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Limpeza, tratamento, manutenção de equipamentos e recuperação da qualidade da água.",
-      "image": "/images/home-generated/card-piscina.webp"
-    }
-  ],
-  "stats": [
-    {
-      "value": "+10",
-      "label": "anos de experiência"
-    },
-    {
-      "value": "+2.000",
-      "label": "clientes atendidos"
-    },
-    {
-      "value": "100%",
-      "label": "compromisso com sua satisfação"
-    }
-  ],
-  "reviews": [
-    {
-      "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
-      "name": "Mariana S.",
-      "area": "Pitangueiras",
-      "avatar": "/images/avatars/ms.webp"
-    },
-    {
-      "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
-      "name": "Carlos A.",
-      "area": "Jardim Acapulco",
-      "avatar": "/images/avatars/ca.webp"
-    },
-    {
-      "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
-      "name": "Juliana T.",
-      "area": "Enseada",
-      "avatar": "/images/avatars/jt.webp"
-    }
-  ],
-  "areaPhotos": [
-    {
-      "name": "Enseada",
-      "image": "/images/home-generated/area-enseada.webp"
-    },
-    {
-      "name": "Pitangueiras",
-      "image": "/images/home-generated/area-pitangueiras.webp"
-    },
-    {
-      "name": "Pernambuco",
-      "image": "/images/home-generated/area-pernambuco.webp"
-    },
-    {
-      "name": "Tombo",
-      "image": "/images/home-generated/area-tombo.webp"
-    },
-    {
-      "name": "Astúrias",
-      "image": "/images/home-generated/area-asturias.webp"
-    },
-    {
-      "name": "Jardim Acapulco",
-      "image": "/images/home-generated/area-jardim-acapulco.webp"
-    },
-    {
-      "name": "Vicente de Carvalho",
-      "image": "/images/home-generated/area-vicente-de-carvalho.webp"
-    }
-  ],
-  "faqs": [
-    {
-      "q": "Vocês cobram visita técnica?",
-      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
-    },
-    {
-      "q": "Quais marcas de equipamentos vocês trabalham?",
-      "a": "Atendemos as principais marcas do mercado de ar-condicionado, aquecedores e piscinas, indicando sempre a melhor solução para cada caso."
-    },
-    {
-      "q": "Quanto tempo leva para executar o serviço?",
-      "a": "Depende do serviço. Manutenções e limpezas costumam ser feitas no mesmo dia; instalações são agendadas conforme disponibilidade."
-    },
-    {
-      "q": "Vocês oferecem garantia?",
-      "a": "Sim. Todo serviço tem garantia informada no orçamento, de acordo com o tipo de serviço e equipamento."
-    },
-    {
-      "q": "Atendem condomínios e empresas?",
-      "a": "Sim, atendemos residências, condomínios e empresas no Guarujá e região, com contratos de manutenção sob medida."
-    },
-    {
-      "q": "Como faço para solicitar um orçamento?",
-      "a": "É só chamar no WhatsApp informando o serviço, o bairro e, se possível, fotos do equipamento. Retornamos rapidinho."
+      "image": "/images/home-generated/card-piscina.webp",
+      "icon": "Waves"
     }
   ],
   "products": [
@@ -191,44 +101,101 @@
       "imageEmUso": "/images/products/acessorios-emuso.webp"
     }
   ],
-  "serviceAreaGroups": [
+  "stats": [
     {
-      "region": "Peruíbe a Mongaguá",
-      "cities": [
-        "Peruíbe",
-        "Itanhaém",
-        "Mongaguá"
-      ]
+      "value": "+10",
+      "label": "anos de experiência"
     },
     {
-      "region": "Baixada Santista",
-      "cities": [
-        "Praia Grande",
-        "São Vicente",
-        "Santos",
-        "Guarujá",
-        "Bertioga"
-      ]
+      "value": "+2.000",
+      "label": "clientes atendidos"
     },
     {
-      "region": "Litoral Norte até Ilhabela",
-      "cities": [
-        "São Sebastião",
-        "Ilhabela"
-      ]
+      "value": "100%",
+      "label": "compromisso com sua satisfação"
+    }
+  ],
+  "reviews": [
+    {
+      "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
+      "name": "Mariana S.",
+      "area": "Pitangueiras",
+      "avatar": "/images/avatars/ms.webp"
     },
     {
-      "region": "SP Capital",
-      "cities": [
-        "São Paulo"
-      ]
+      "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
+      "name": "Carlos A.",
+      "area": "Jardim Acapulco",
+      "avatar": "/images/avatars/ca.webp"
+    },
+    {
+      "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
+      "name": "Juliana T.",
+      "area": "Enseada",
+      "avatar": "/images/avatars/jt.webp"
+    }
+  ],
+  "faqs": [
+    {
+      "q": "Vocês cobram visita técnica?",
+      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
+    },
+    {
+      "q": "Quais marcas de equipamentos vocês trabalham?",
+      "a": "Atendemos as principais marcas do mercado de ar-condicionado, aquecedores e piscinas, indicando sempre a melhor solução para cada caso."
+    },
+    {
+      "q": "Quanto tempo leva para executar o serviço?",
+      "a": "Depende do serviço. Manutenções e limpezas costumam ser feitas no mesmo dia; instalações são agendadas conforme disponibilidade."
+    },
+    {
+      "q": "Vocês oferecem garantia?",
+      "a": "Sim. Todo serviço tem garantia informada no orçamento, de acordo com o tipo de serviço e equipamento."
+    },
+    {
+      "q": "Atendem condomínios e empresas?",
+      "a": "Sim, atendemos residências, condomínios e empresas no Guarujá e região, com contratos de manutenção sob medida."
+    },
+    {
+      "q": "Como faço para solicitar um orçamento?",
+      "a": "É só chamar no WhatsApp informando o serviço, o bairro e, se possível, fotos do equipamento. Retornamos rapidinho."
+    }
+  ],
+  "areaPhotos": [
+    {
+      "name": "Enseada",
+      "image": "/images/home-generated/area-enseada.webp"
+    },
+    {
+      "name": "Pitangueiras",
+      "image": "/images/home-generated/area-pitangueiras.webp"
+    },
+    {
+      "name": "Pernambuco",
+      "image": "/images/home-generated/area-pernambuco.webp"
+    },
+    {
+      "name": "Tombo",
+      "image": "/images/home-generated/area-tombo.webp"
+    },
+    {
+      "name": "Astúrias",
+      "image": "/images/home-generated/area-asturias.webp"
+    },
+    {
+      "name": "Jardim Acapulco",
+      "image": "/images/home-generated/area-jardim-acapulco.webp"
+    },
+    {
+      "name": "Vicente de Carvalho",
+      "image": "/images/home-generated/area-vicente-de-carvalho.webp"
     }
   ],
   "neighborhoodGroups": [
     {
       "region": "Região I",
       "neighborhoods": [
-        "Barra Grande",
+        "Bairro",
         "Santa Cruz",
         "Marinas",
         "Guaiúba",
@@ -289,6 +256,39 @@
         "Saco do Funil"
       ],
       "seoText": "Área mais afastada da orla, com imóveis maiores e acesso por estrada. A visita é agendada com antecedência para levar peças e ferramentas na primeira ida, evitando um segundo deslocamento."
+    }
+  ],
+  "serviceAreaGroups": [
+    {
+      "region": "Peruíbe a Mongaguá",
+      "cities": [
+        "Peruíbe",
+        "Itanhaém",
+        "Mongaguá"
+      ]
+    },
+    {
+      "region": "Baixada Santista",
+      "cities": [
+        "Praia Grande",
+        "São Vicente",
+        "Santos",
+        "Guarujá",
+        "Bertioga"
+      ]
+    },
+    {
+      "region": "Litoral Norte até Ilhabela",
+      "cities": [
+        "São Sebastião",
+        "Ilhabela"
+      ]
+    },
+    {
+      "region": "SP Capital",
+      "cities": [
+        "São Paulo"
+      ]
     }
   ],
   "brands": {
@@ -473,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T01:02:32.195Z"
+  "updatedAt": "2026-07-27T02:10:54.000Z"
 }
