@@ -10,6 +10,7 @@ import {
   rota,
   saveUser,
   semSenhaProvisoria,
+  sendMail,
 } from "../../lib/admin.js";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -39,6 +40,31 @@ export const onRequestPost = rota(async ({ request, env }) => {
 
   const nextEmail = (email.trim() || user.email).toLowerCase();
   if (!EMAIL.test(nextEmail)) return bad("Informe um e-mail válido.");
+
+  // Confirma que o endereço novo recebe ANTES de gravá-lo. É para ele que a
+  // recuperação de senha passa a ir: se não entregar, o dono perde o painel
+  // sem aviso e sem volta (o remetente de teste do Resend, por exemplo, só
+  // entrega no e-mail dono da conta).
+  if (nextEmail !== user.email) {
+    try {
+      await sendMail(env, {
+        to: nextEmail,
+        subject: "Guaru Ar LC — confirmação do e-mail do painel",
+        text: [
+          "Este endereço passou a ser o e-mail de acesso ao painel do site.",
+          "",
+          "É para cá que a recuperação de senha será enviada daqui em diante.",
+          "Se você não reconhece esta mudança, avise quem cuida do site.",
+        ].join("\n"),
+      });
+    } catch (error) {
+      console.error("account: e-mail novo não recebe", error?.message);
+      return bad(
+        "Não consegui enviar a confirmação para esse e-mail, então não troquei o endereço. Confira se está escrito certo — é para ele que a recuperação de senha vai.",
+        502,
+      );
+    }
+  }
 
   // Sem senha nova, mantém o hash atual e só troca o e-mail.
   if (!password) {

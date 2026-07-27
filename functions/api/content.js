@@ -89,7 +89,10 @@ export const onRequestPost = rota(async ({ request, env }) => {
     await draft.put(env, { sha: result.content.sha, content: conteudo, at: new Date().toISOString(), commit });
     // Devolve o sha novo: sem isso a próxima publicação da mesma aba bateria na
     // trava otimista contra o sha que ela mesma acabou de tornar obsoleto.
-    return json({ ok: true, commit, sha: result.content.sha });
+    // updatedAt volta para o painel confirmar no próprio site (via <lastmod> do
+    // sitemap) que o conteúdo novo já está sendo servido, e não só que o build
+    // terminou — entre uma coisa e outra há uns 15s de propagação.
+    return json({ ok: true, commit, sha: result.content.sha, updatedAt: conteudo.updatedAt });
   } catch (error) {
     // 409 do GitHub = o arquivo mudou entre a leitura e o commit.
     if (/409|does not match|is at [0-9a-f]{40}/i.test(error.message || "")) {

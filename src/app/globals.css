@@ -98,7 +98,7 @@ footer .logo-img{width:172px;height:92px;filter:drop-shadow(0 6px 14px #00000040
 .section-head h2::after{content:"";display:block;width:60px;height:4px;border-radius:3px;background:var(--aqua);margin:14px auto 0}
 .section-head p{color:var(--muted);font-size:16px;margin:0}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--aqua-txt);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px}
-.page-hero .eyebrow{color:#83efff}
+.page-hero .eyebrow,.contact-areas-box .eyebrow{color:#83efff}
 
 /* ---------- services ---------- */
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -297,7 +297,7 @@ footer{background:var(--navy);color:#fff;padding:64px 0 22px}
 .brand-disclaimer-box{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;border-radius:24px;background:linear-gradient(130deg,#0a2b52,#0f7da0);color:#fff;padding:28px 30px;box-shadow:0 20px 50px #0a2b5222}
 .brand-disclaimer-box>svg{width:42px;height:42px;color:#83efff}
 .brand-disclaimer-box h2{font-size:24px;margin:0 0 6px;color:#fff}
-.brand-disclaimer-box p{margin:0;opacity:.88;line-height:1.6;max-width:720px}
+.brand-disclaimer-box p{margin:0;line-height:1.6;max-width:720px}
 
 /* ---------- contato ---------- */
 .contact-hero{position:relative;overflow:hidden;background:
@@ -307,9 +307,9 @@ footer{background:var(--navy);color:#fff;padding:64px 0 22px}
 .contact-hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
 .contact-hero h1{max-width:720px}
 .contact-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.contact-summary{background:#ffffff14;border:1px solid #ffffff26;border-radius:24px;padding:30px;box-shadow:0 24px 55px #001b3533;backdrop-filter:blur(14px)}
+.contact-summary{background:#0a2b5259;border:1px solid #ffffff26;border-radius:24px;padding:30px;box-shadow:0 24px 55px #001b3533;backdrop-filter:blur(14px)}
 .contact-summary h2{font-size:30px;margin:18px 0 10px;color:#fff}
-.contact-summary p{opacity:.86;margin-bottom:22px}
+.contact-summary p{margin-bottom:22px}
 .contact-badge,.contact-summary-line{display:inline-flex;align-items:center;gap:10px}
 .contact-badge{border-radius:999px;background:#ffffff1f;color:#fff;padding:9px 13px;font-size:13px;font-weight:800}
 .contact-badge svg,.contact-summary-line svg{width:18px;height:18px;flex:none;color:#83efff}

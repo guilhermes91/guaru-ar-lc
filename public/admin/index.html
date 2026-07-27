@@ -204,6 +204,7 @@ const estado = {
   conteudo: null,
   secao: "config",
   sha: null,
+  updatedAt: null,
   sujo: false,
   publicando: false,
 };
@@ -466,19 +467,40 @@ async function ajustarImagem(file, medida) {
 }
 
 /** Campo de imagem: só troca por upload, o caminho nunca é digitado à mão. */
-function campoImagem({ label, obj, chave, dica, medida = MEDIDAS.servico }) {
+// Prévia local por caminho. A imagem enviada só passa a ser servida depois que
+// o deploy daquele commit termina; sem isto, qualquer redesenho da seção deixava
+// a miniatura em branco e parecia que o upload tinha se perdido.
+const previasLocais = new Map();
+
+function campoImagem({ label, obj, chave, dica, opcional, medida = MEDIDAS.servico }) {
   const thumb = el("div", { className: "thumb" });
   const caminho = el("p", { className: "caminho" });
   const pintar = () => {
-    thumb.style.backgroundImage = obj[chave] ? `url("${obj[chave]}")` : "none";
+    const local = previasLocais.get(obj[chave]);
+    thumb.style.backgroundImage = obj[chave] ? `url("${local || obj[chave]}")` : "none";
     caminho.textContent = obj[chave] || "sem imagem";
+    if (remover) remover.style.display = obj[chave] ? "" : "none";
   };
-  pintar();
 
   const arquivo = el("input", { type: "file", accept: "image/jpeg,image/png,image/webp" });
   arquivo.style.display = "none";
   const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Trocar imagem" });
   const status = el("p", { className: "dica" });
+
+  // Campo opcional precisa poder voltar a ficar vazio: sem isto, uma segunda
+  // foto escolhida por engano ficava no card do produto para sempre.
+  const remover = opcional
+    ? el("button", { type: "button", className: "btn ghost pequeno", textContent: "Remover imagem" })
+    : null;
+  if (remover) {
+    remover.addEventListener("click", () => {
+      obj[chave] = "";
+      status.textContent = "Removida. Sai do site depois de publicar.";
+      pintar();
+      marcarSujo();
+    });
+  }
+  pintar();
 
   botao.addEventListener("click", () => arquivo.click());
   arquivo.addEventListener("change", async () => {
@@ -494,8 +516,8 @@ function campoImagem({ label, obj, chave, dica, medida = MEDIDAS.servico }) {
       const resultado = await api("upload", { method: "POST", body: form });
       obj[chave] = resultado.path;
       // A prévia mostra a imagem já recortada — é exatamente o que vai ao ar.
-      thumb.style.backgroundImage = `url("${URL.createObjectURL(ajustada)}")`;
-      caminho.textContent = resultado.path;
+      previasLocais.set(resultado.path, URL.createObjectURL(ajustada));
+      pintar();
       status.textContent = "Pronto. Aparece no site depois de publicar.";
       marcarSujo();
     } catch (erro) {
@@ -517,6 +539,7 @@ function campoImagem({ label, obj, chave, dica, medida = MEDIDAS.servico }) {
       thumb,
       el("div", { className: "lado" }, [
         botao,
+        remover,
         arquivo,
         caminho,
         el("p", { className: "dica", textContent: dica ? `${dica} ${explicacao}` : explicacao }),
@@ -783,6 +806,7 @@ function secaoProdutos() {
           label: "Foto em uso (opcional)",
           obj: produto,
           chave: "imageEmUso",
+          opcional: true,
           medida: MEDIDAS.produto,
           dica: "Quando existe, o card alterna entre as duas fotos.",
         }),
@@ -1086,6 +1110,7 @@ $("#btn-publicar").addEventListener("click", async () => {
   if (estado.publicando) return;
   estado.publicando = true;
   $("#btn-publicar").disabled = true;
+  $("#btn-publicar").textContent = "Publicar alterações";
   aviso("#aviso", "", "");
   atualizarEstado("publicando", "Publicando…");
 
@@ -1104,6 +1129,7 @@ $("#btn-publicar").addEventListener("click", async () => {
     // ele a próxima edição iria para um objeto órfão e sumiria na publicação.
     estado.conteudo = paraPublicar;
     estado.sha = publicado.sha || estado.sha;
+    estado.updatedAt = publicado.updatedAt || null;
     desenharSecao();
     estado.sujo = false;
     aviso("#aviso", "ok", "Alterações enviadas. O site é atualizado em cerca de 2 minutos.");
@@ -1124,6 +1150,13 @@ $("#btn-publicar").addEventListener("click", async () => {
  */
 /** O conteúdo já foi commitado, então nada está "sujo" e o botão continuaria
  *  desabilitado. Sem isto o cliente lia o erro e não tinha o que fazer. */
+/** Não sobrescreve o selo quando há edição pendente na tela: o dono usa esse
+ *  indicador para decidir se pode fechar a página. */
+function selo(tipo, texto) {
+  if (estado.sujo) return atualizarEstado("pendente", "Alterações não publicadas");
+  atualizarEstado(tipo, texto);
+}
+
 function falhouPublicacao() {
   atualizarEstado("falhou", "Falha ao atualizar o site");
   const botao = $("#btn-publicar");
@@ -1132,17 +1165,37 @@ function falhouPublicacao() {
   aviso("#aviso", "erro", "O site não terminou de atualizar. Clique em Tentar publicar de novo; se repetir, avise quem cuida do site.");
 }
 
+/**
+ * O build terminar não é o site estar servindo. Confere o <lastmod> do sitemap
+ * (que vem do updatedAt da publicação) antes de anunciar pronto — foram medidos
+ * até 18s de "Site atualizado" com o conteúdo antigo ainda no ar.
+ */
+async function confirmarNoSite(tentativas = 10) {
+  const alvo = estado.updatedAt;
+  if (!alvo) return selo("pronto", "Site atualizado");
+  for (let i = 0; i < tentativas; i++) {
+    try {
+      const xml = await fetch(`/sitemap.xml?cb=${Date.now()}`, { cache: "no-store" }).then((r) => r.text());
+      if (xml.includes(alvo)) return selo("pronto", "Site atualizado");
+    } catch {
+      /* segue tentando */
+    }
+    await new Promise((ok) => setTimeout(ok, 3000));
+  }
+  return selo("pronto", "Site atualizado");
+}
+
 async function acompanharDeploy(commit) {
   atualizarEstado("publicando", "Atualizando o site…");
   const inicio = Date.now();
   const verificar = async () => {
-    if (Date.now() - inicio > 6 * 60 * 1000) return atualizarEstado("pendente", "Publicado — verifique o site");
+    if (Date.now() - inicio > 6 * 60 * 1000) return selo("pendente", "Publicado — verifique o site");
     try {
       // Pergunta pelo run DESTE commit: assim um upload posterior, que cancela
       // o run anterior, não deixa o acompanhamento pendurado até o timeout.
       const { run } = await api(commit ? `status?commit=${commit}` : "status");
       if (run?.status === "completed") {
-        if (run.conclusion === "success") return atualizarEstado("pronto", "Site atualizado");
+        if (run.conclusion === "success") return confirmarNoSite();
         // Cancelado = outro commit tomou o lugar deste. Não é sucesso: o deploy
         // que substituiu ainda pode falhar. Passa a seguir o run mais recente.
         if (run.conclusion === "cancelled") commit = null;
