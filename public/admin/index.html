@@ -208,6 +208,7 @@ const estado = {
   sha: null,
   updatedAt: null,
   versao: 0,
+  commitEmAndamento: null,
   sujo: false,
   publicando: false,
 };
@@ -275,6 +276,13 @@ $("#form-login").addEventListener("submit", async (evento) => {
     if (estado.conteudo) {
       $("#tela-login").style.display = "none";
       aviso("#aviso", "ok", "Você entrou de novo. Suas alterações continuam aqui — clique em Publicar.");
+      // Retoma o acompanhamento que o 401 interrompeu, senão o selo ficaria
+      // preso em "Atualizando o site…" e o cliente nunca veria uma falha.
+      if (estado.commitEmAndamento !== undefined && estado.commitEmAndamento !== null) {
+        const commit = estado.commitEmAndamento;
+        estado.commitEmAndamento = null;
+        acompanharDeploy(commit);
+      }
     } else {
       await iniciar();
     }
@@ -595,6 +603,40 @@ function campoLista({ label, lista, placeholder, max = 60 }) {
   ]);
 }
 
+/** Remoções que ainda podem ser desfeitas, da mais recente para a mais antiga. */
+const removidos = [];
+
+function pintarDesfazeres(aoMudar) {
+  const caixa = $("#aviso");
+  caixa.innerHTML = "";
+  if (!removidos.length) return;
+
+  const linhas = removidos
+    .slice()
+    .reverse()
+    .map((r) => {
+      const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Desfazer" });
+      botao.addEventListener("click", () => {
+        r.lista.splice(Math.min(r.indice, r.lista.length), 0, r.item);
+        removidos.splice(removidos.indexOf(r), 1);
+        marcarSujo();
+        aoMudar();
+        pintarDesfazeres(aoMudar);
+      });
+      return el("div", { style: "display:flex;align-items:center;gap:10px;margin-top:6px" }, [
+        el("span", { textContent: `"${r.titulo}" foi removido.` }),
+        botao,
+      ]);
+    });
+
+  caixa.append(
+    el("div", { className: "aviso info" }, [
+      el("span", { textContent: "Removidos nesta sessão. Só saem do site quando você publicar." }),
+      ...linhas,
+    ]),
+  );
+}
+
 /**
  * Remove pedindo confirmação e deixando um "Desfazer" na barra de avisos.
  * Sem isso a única recuperação era recarregar a página, perdendo todas as
@@ -606,22 +648,10 @@ function removerComDesfazer(lista, indice, titulo, aoMudar) {
 Você poderá desfazer logo depois, enquanto não publicar.`)) return false;
   const [removido] = lista.splice(indice, 1);
 
-  const desfazer = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Desfazer" });
-  desfazer.addEventListener("click", () => {
-    lista.splice(indice, 0, removido);
-    marcarSujo();
-    aoMudar();
-    aviso("#aviso", "ok", `"${titulo}" foi restaurado.`);
-  });
-
-  const caixa = $("#aviso");
-  caixa.innerHTML = "";
-  caixa.append(
-    el("div", { className: "aviso info" }, [
-      el("span", { textContent: `"${titulo}" foi removido. Só sai do site quando você publicar.` }),
-      el("span", { style: "margin-left:10px" }, [desfazer]),
-    ]),
-  );
+  // Empilha: sem isso a segunda remoção apagava o desfazer da primeira, e o
+  // confirm promete que dá para desfazer "enquanto não publicar".
+  removidos.push({ lista, indice, item: removido, titulo });
+  pintarDesfazeres(aoMudar);
 }
 
 /** Cabeçalho de item com mover para cima/baixo e remover. */
@@ -1168,6 +1198,7 @@ $("#btn-publicar").addEventListener("click", async () => {
     estado.sha = publicado.sha || estado.sha;
     estado.updatedAt = publicado.updatedAt || null;
     // Editou durante o envio? Continua pendente, para não perder o que ficou de fora.
+    removidos.length = 0;
     estado.sujo = estado.versao !== versaoEnviada;
     $("#btn-publicar").disabled = !estado.sujo;
     aviso(
@@ -1226,7 +1257,9 @@ async function confirmarNoSite(tentativas = 10) {
     }
     await new Promise((ok) => setTimeout(ok, 3000));
   }
-  return selo("pronto", "Site atualizado");
+  // Não deu para confirmar em 30s: dizer "atualizado" aqui seria exatamente a
+  // mentira que esta função existe para evitar.
+  return selo("pendente", "Publicado — verifique o site");
 }
 
 async function acompanharDeploy(commit) {
@@ -1247,8 +1280,11 @@ async function acompanharDeploy(commit) {
       }
     } catch (erro) {
       // 401 aqui já reabriu o login; continuar o polling limparia o campo de
-      // senha a cada 10 segundos, no meio da digitação.
-      if (erro?.status === 401) return;
+      // senha a cada 10 segundos. O commit fica guardado para retomar depois.
+      if (erro?.status === 401) {
+        estado.commitEmAndamento = commit || null;
+        return;
+      }
     }
     setTimeout(verificar, 10000);
   };

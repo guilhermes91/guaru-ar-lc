@@ -41,6 +41,12 @@ export const onRequestPost = rota(async ({ request, env }) => {
   const nextEmail = (email.trim() || user.email).toLowerCase();
   if (!EMAIL.test(nextEmail)) return bad("Informe um e-mail válido.");
 
+  // Recusas antes de qualquer envio: senha curta devolvia 400 sem gravar nada,
+  // mas o e-mail de confirmação já tinha saído anunciando a troca.
+  if (password && password.length < MIN_PASSWORD) {
+    return bad(`A nova senha precisa ter ao menos ${MIN_PASSWORD} caracteres.`);
+  }
+
   // Confirma que o endereço novo recebe ANTES de gravá-lo. É para ele que a
   // recuperação de senha passa a ir: se não entregar, o dono perde o painel
   // sem aviso e sem volta (o remetente de teste do Resend, por exemplo, só
