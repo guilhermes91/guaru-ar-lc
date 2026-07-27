@@ -13,6 +13,8 @@ function paginas(dir, achadas = []) {
 }
 
 const semTags = (t) => (t ? t.replace(/<[^>]+>/g, "").trim() : "");
+// O título da home contém "|", que fecharia a célula e deslocaria a tabela toda.
+const celula = (t) => semTags(t).replace(/\|/g, "\\|");
 const pega = (html, re) => semTags(html.match(re)?.[1] || "");
 
 const rotas = paginas("out")
@@ -22,8 +24,8 @@ const rotas = paginas("out")
     const html = readFileSync(p, "utf8");
     return {
       rota,
-      title: pega(html, /<title>([^<]*)<\/title>/),
-      h1: pega(html, /<h1[^>]*>([\s\S]*?)<\/h1>/),
+      title: celula(pega(html, /<title>([^<]*)<\/title>/)),
+      h1: celula(pega(html, /<h1[^>]*>([\s\S]*?)<\/h1>/)),
     };
   })
   .filter((r) => !r.rota.startsWith("/admin") && !r.rota.startsWith("/_not-found") && r.rota !== "/404/")

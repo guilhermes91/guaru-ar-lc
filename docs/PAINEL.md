@@ -16,7 +16,7 @@ consegue ler a sua. Por isso o e-mail traz uma senha nova, e não a antiga.
 ## Como funciona
 
 Você edita, revisa e clica em **Publicar alterações**. O site é reconstruído e
-fica no ar em cerca de 2 minutos. O indicador no topo mostra o andamento:
+fica no ar em cerca de 1 minuto. O indicador no topo mostra o andamento:
 
 | Indicador | Significa |
 | --- | --- |
@@ -26,6 +26,10 @@ fica no ar em cerca de 2 minutos. O indicador no topo mostra o andamento:
 | Site atualizado | Pronto, já está no ar |
 
 Enquanto não clicar em Publicar, nada muda no site. Pode editar com calma.
+
+**Uma exceção:** as imagens sobem na hora em que você escolhe o arquivo, antes
+de publicar. Elas só aparecem no site depois de publicar, mas já ficam
+guardadas — se você desistir da foto, basta escolher outra.
 
 ## O que dá para editar
 

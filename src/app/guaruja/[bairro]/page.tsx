@@ -36,7 +36,9 @@ export async function generateMetadata({ params }: { params: Promise<{ bairro: s
   if (!nome) return {};
   const { regiao } = contexto(nome);
   return metaDaPagina({
-    title: `Ar-condicionado, aquecedores e piscinas em ${nome}`,
+    // Curto de propósito: com o sufixo do site, o título inteiro fica abaixo
+    // dos ~65 caracteres que o Google mostra sem truncar.
+    title: `Ar-condicionado e aquecedores em ${nome}`,
     description: `Manutenção, limpeza, instalação e reparos em ${nome}${
       regiao ? ` (${regiao})` : ""
     }, Guarujá. Atendimento local Guaru Ar LC, com orçamento antes da execução.`,

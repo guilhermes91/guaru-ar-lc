@@ -1,4 +1,5 @@
 import { bad, commitFile, draft, fetchContent, json, requireSession, rota, toBase64 } from "../../lib/admin.js";
+import { validateContent } from "../../lib/validate.js";
 
 // Restaura o site para a base de fábrica (src/data/content.default.json).
 // Esse arquivo nunca é escrito pelo painel — é a referência imutável.
@@ -22,6 +23,13 @@ export const onRequestPost = rota(async ({ request, env }) => {
   } catch {
     return bad("A base de fábrica está corrompida.", 500);
   }
+
+  // Este é o último recurso do cliente quando algo quebra: publicar a base de
+  // fábrica sem conferir seria justamente o botão de socorro derrubando o build.
+  const erros = validateContent(content);
+  if (erros.length) {
+    return json({ error: "A base de fábrica está inválida e não foi publicada:", details: erros }, 500);
+  }
   content.updatedAt = new Date().toISOString();
   const text = JSON.stringify(content, null, 2) + "\n";
 
@@ -37,7 +45,7 @@ export const onRequestPost = rota(async ({ request, env }) => {
     });
     const commit = result.commit.sha.slice(0, 7);
     await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString(), commit });
-    return json({ ok: true, content, commit });
+    return json({ ok: true, content, commit, sha: result.content.sha });
   } catch (error) {
     return bad(`Não consegui restaurar: ${error.message}`, 502);
   }

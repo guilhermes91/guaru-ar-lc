@@ -203,6 +203,7 @@ const el = (tag, props = {}, filhos = []) => {
 const estado = {
   conteudo: null,
   secao: "config",
+  sha: null,
   sujo: false,
   publicando: false,
 };
@@ -570,7 +571,7 @@ function campoLista({ label, lista, placeholder, max = 60 }) {
 function removerComDesfazer(lista, indice, titulo, aoMudar) {
   if (!confirm(`Remover "${titulo}"?
 
-Você poderá desfazer logo depois, enquanto não publicar.`)) return;
+Você poderá desfazer logo depois, enquanto não publicar.`)) return false;
   const [removido] = lista.splice(indice, 1);
 
   const desfazer = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Desfazer" });
@@ -597,7 +598,9 @@ function cabecaItem({ titulo, lista, indice, minimo = 1, aoMudar }) {
     const botao = el("button", { type: "button", className: `icone ${classe}`, textContent: texto, title: dica });
     botao.disabled = !ativo;
     botao.addEventListener("click", () => {
-      fn();
+      // A remoção pode ser cancelada na confirmação: nesse caso nada mudou, e
+      // marcar como sujo habilitaria Publicar e barraria a saída da página à toa.
+      if (fn() === false) return;
       marcarSujo();
       aoMudar();
     });
@@ -745,10 +748,10 @@ function secaoServicos() {
       [
         ...itens,
         botaoAdicionar("Adicionar serviço", () => {
-          const titulo = "Novo serviço";
+          // Sem slug aqui de propósito: ele é gerado ao publicar, a partir do
+          // nome já preenchido. Gerar agora congelaria "novo-servico" na URL.
           lista.push({
-            slug: slugUnico(titulo, lista.map((x) => x.slug)),
-            title: titulo,
+            title: "Novo serviço",
             icon: "Wrench",
             short: "Resuma este serviço em uma linha.",
             description: "Descreva aqui o que está incluído neste serviço.",
@@ -785,10 +788,8 @@ function secaoProdutos() {
     bloco("Produtos", "Aparecem na vitrine da página Produtos. O botão de compra abre o WhatsApp.", [
       ...itens,
       botaoAdicionar("Adicionar produto", () => {
-        const nome = "Novo produto";
         lista.push({
-          id: slugUnico(nome, lista.map((x) => x.id)),
-          name: nome,
+          name: "Novo produto",
           price: 0,
           image: lista[0]?.image || "/images/products/ar-completo.webp",
         });
@@ -863,7 +864,7 @@ function secaoProvas() {
     bloco("Números", "Os três destaques na seção sobre a empresa.", [
       ...numeros.map((n, i) =>
         el("div", { className: "item" }, [
-          cabecaItem({ titulo: n.label || "Número", lista: numeros, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          cabecaItem({ titulo: n.label || "Número", lista: numeros, indice: i, aoMudar: desenharSecao }),
           el("div", { className: "grade" }, [
             campo({ label: "Valor", obj: n, chave: "value", max: 10, dica: "Ex.: +10, +2.000, 100%" }),
             campo({ label: "Descrição", obj: n, chave: "label", max: 40 }),
@@ -875,7 +876,7 @@ function secaoProvas() {
     bloco("Avaliações de clientes", "Depoimentos exibidos na home.", [
       ...avaliacoes.map((r, i) =>
         el("div", { className: "item" }, [
-          cabecaItem({ titulo: r.name || "Avaliação", lista: avaliacoes, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          cabecaItem({ titulo: r.name || "Avaliação", lista: avaliacoes, indice: i, aoMudar: desenharSecao }),
           campo({ label: "Depoimento", obj: r, chave: "text", max: 260, area: true }),
           el("div", { className: "grade" }, [
             campo({ label: "Nome do cliente", obj: r, chave: "name", max: 30 }),
@@ -896,7 +897,7 @@ function secaoProvas() {
     bloco("Perguntas frequentes", "Bloco de dúvidas no fim da home. Ajuda no Google.", [
       ...perguntas.map((f, i) =>
         el("div", { className: "item" }, [
-          cabecaItem({ titulo: f.q || "Pergunta", lista: perguntas, indice: i, minimo: 0, aoMudar: desenharSecao }),
+          cabecaItem({ titulo: f.q || "Pergunta", lista: perguntas, indice: i, aoMudar: desenharSecao }),
           campo({ label: "Pergunta", obj: f, chave: "q", max: 120 }),
           campo({ label: "Resposta", obj: f, chave: "a", max: 400, area: true }),
         ]),
@@ -1056,6 +1057,24 @@ function atualizarEstado(classe, texto) {
 
 // ---------------------------------------------------------------- Publicar
 
+/**
+ * Cria o endereço de páginas novas a partir do nome já preenchido. Rodar isto
+ * só na publicação é o que garante /servicos/limpeza-de-dutos/ em vez de
+ * /servicos/novo-servico/ — na criação o nome ainda é o texto de exemplo.
+ */
+function preencherIdentificadores(conteudo) {
+  const preencher = (lista, campoNome, campoId) => {
+    const usados = (lista || []).map((x) => x[campoId]).filter(Boolean);
+    (lista || []).forEach((item) => {
+      if (item[campoId]) return;
+      item[campoId] = slugUnico(item[campoNome], usados);
+      usados.push(item[campoId]);
+    });
+  };
+  preencher(conteudo.services, "title", "slug");
+  preencher(conteudo.products, "name", "id");
+}
+
 $("#btn-publicar").addEventListener("click", async () => {
   if (estado.publicando) return;
   estado.publicando = true;
@@ -1064,7 +1083,13 @@ $("#btn-publicar").addEventListener("click", async () => {
   atualizarEstado("publicando", "Publicando…");
 
   try {
-    const publicado = await api("content", { method: "POST", body: JSON.stringify({ content: estado.conteudo }) });
+    preencherIdentificadores(estado.conteudo);
+    // Manda o sha que carregamos: o servidor recusa se o site mudou desde então.
+    const publicado = await api("content", {
+      method: "POST",
+      body: JSON.stringify({ content: estado.conteudo, sha: estado.sha }),
+    });
+    estado.sha = publicado.sha || estado.sha;
     estado.sujo = false;
     aviso("#aviso", "ok", "Alterações enviadas. O site é atualizado em cerca de 2 minutos.");
     acompanharDeploy(publicado.commit);
@@ -1098,12 +1123,14 @@ async function acompanharDeploy(commit) {
   const verificar = async () => {
     if (Date.now() - inicio > 6 * 60 * 1000) return atualizarEstado("pendente", "Publicado — verifique o site");
     try {
-      const { run } = await api("status");
-      const eDesteCommit = !commit || (run?.headSha || "").startsWith(commit);
-      if (run?.status === "completed" && eDesteCommit) {
-        return run.conclusion === "success"
-          ? atualizarEstado("pronto", "Site atualizado")
-          : falhouPublicacao();
+      // Pergunta pelo run DESTE commit: assim um upload posterior, que cancela
+      // o run anterior, não deixa o acompanhamento pendurado até o timeout.
+      const { run } = await api(commit ? `status?commit=${commit}` : "status");
+      if (run?.status === "completed") {
+        if (run.conclusion === "success") return atualizarEstado("pronto", "Site atualizado");
+        // Cancelado = um deploy mais novo tomou o lugar deste. Não é falha.
+        if (run.conclusion === "cancelled") return atualizarEstado("pronto", "Site atualizado");
+        return falhouPublicacao();
       }
     } catch {
       /* segue tentando */
@@ -1124,6 +1151,7 @@ function restaurar() {
     async acao(valores) {
       if (valores.confirmacao.trim().toUpperCase() !== "RESTAURAR") throw new Error("Confirmação incorreta.");
       const resultado = await api("restore", { method: "POST" });
+      estado.sha = resultado.sha || null;
       estado.conteudo = resultado.content;
       estado.sujo = false;
       $("#btn-publicar").disabled = true;
@@ -1157,6 +1185,7 @@ async function iniciar() {
   try {
     const dados = await api("content");
     estado.conteudo = dados.content;
+    estado.sha = dados.sha;
     desenharSecao();
     if (dados.pending) {
       atualizarEstado("publicando", "Publicação em andamento");

@@ -17,7 +17,7 @@ Todo o conteúdo editável fica em um único arquivo: **`src/data/content.json`*
 3. O push dispara o GitHub Actions (`.github/workflows/deploy.yml`).
 4. O Actions builda o site e publica no Cloudflare Pages.
 
-Leva cerca de 2 minutos entre publicar e o site estar no ar. O painel acompanha
+Leva cerca de 1 minuto entre publicar e o site estar no ar. O painel acompanha
 o andamento e avisa quando termina.
 
 Imagens enviadas pelo painel vão para `public/images/uploads/`, também por commit.
@@ -78,7 +78,7 @@ GITHUB_REPO=guilhermes91/guaru-ar-lc
 GITHUB_BRANCH=main
 RESEND_API_KEY=...
 MAIL_FROM=Guaru Ar LC <onboarding@resend.dev>
-ADMIN_EMAIL=guaruar@softuria.com
+ADMIN_EMAIL=voce@exemplo.com
 ADMIN_PASSWORD=...
 ```
 

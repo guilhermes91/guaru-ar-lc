@@ -56,6 +56,20 @@ export const onRequestPost = rota(async ({ request, env }) => {
   const published = await fetchContent(env).catch((error) => ({ error }));
   if (published.error) return bad(`Não consegui falar com o repositório: ${published.error.message}`, 502);
 
+  // Trava otimista: o painel devolve o sha que recebeu no GET. Se o publicado
+  // mudou nesse meio-tempo, outra aba (ou outro aparelho) já publicou — e
+  // sobrescrever apagaria o trabalho dela sem ninguém perceber.
+  if (body.sha && body.sha !== published.sha) {
+    return json(
+      {
+        error:
+          "O site foi atualizado em outro lugar depois que você abriu esta página. Recarregue o painel para não apagar o que foi publicado — suas alterações desta tela serão perdidas.",
+        conflito: true,
+      },
+      409,
+    );
+  }
+
   // Carimba quando o conteúdo mudou de verdade: é isso que vira <lastmod> no
   // sitemap, em vez da data do build (que muda a cada deploy sem motivo).
   const conteudo = { ...limparConteudo(body.content), updatedAt: new Date().toISOString() };
@@ -70,8 +84,17 @@ export const onRequestPost = rota(async ({ request, env }) => {
     });
     const commit = result.commit.sha.slice(0, 7);
     await draft.put(env, { sha: result.content.sha, content: conteudo, at: new Date().toISOString(), commit });
-    return json({ ok: true, commit });
+    // Devolve o sha novo: sem isso a próxima publicação da mesma aba bateria na
+    // trava otimista contra o sha que ela mesma acabou de tornar obsoleto.
+    return json({ ok: true, commit, sha: result.content.sha });
   } catch (error) {
+    // 409 do GitHub = o arquivo mudou entre a leitura e o commit.
+    if (/409|does not match|is at [0-9a-f]{40}/i.test(error.message || "")) {
+      return json(
+        { error: "Alguém publicou no mesmo instante. Recarregue o painel e refaça a alteração.", conflito: true },
+        409,
+      );
+    }
     return bad(`Não consegui publicar: ${error.message}`, 502);
   }
 });

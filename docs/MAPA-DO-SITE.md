@@ -12,67 +12,67 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 
 | Rota | Título | H1 | Sitemap |
 | --- | --- | --- | --- |
-| `/` | Guaru Ar LC | Ar-condicionado, aquecedores e piscinas no Guarujá | Climatização, aquecimento e piscinas no Guarujá | sim |
-| `/assistencia-especializada/` | Assistência técnica especializada multimarcas | Guaru Ar LC | Especialistas nas principais marcas de ar-condicionado e aquecedores. | sim |
-| `/contato/` | Contato | Guaru Ar LC | Atendimento rápido, claro e sem enrolação. | sim |
-| `/produtos/` | Produtos — ar-condicionado, aquecedores e piscinas | Guaru Ar LC | Produtos | sim |
-| `/servicos/` | Serviços | Guaru Ar LC | Serviços Guaru Ar LC | sim |
-| `/sobre/` | Sobre nós | Guaru Ar LC | Guaru Ar LC | sim |
+| `/` | Guaru Ar LC \| Ar-condicionado, aquecedores e piscinas no Guarujá | Climatização, aquecimento e piscinas no Guarujá | sim |
+| `/assistencia-especializada/` | Assistência técnica especializada multimarcas \| Guaru Ar LC | Especialistas nas principais marcas de ar-condicionado e aquecedores. | sim |
+| `/contato/` | Contato \| Guaru Ar LC | Atendimento rápido, claro e sem enrolação. | sim |
+| `/produtos/` | Produtos — ar-condicionado, aquecedores e piscinas \| Guaru Ar LC | Produtos | sim |
+| `/servicos/` | Serviços \| Guaru Ar LC | Serviços Guaru Ar LC | sim |
+| `/sobre/` | Sobre nós \| Guaru Ar LC | Guaru Ar LC | sim |
 
 ## Serviço — 3 páginas
 
 | Rota | Título | H1 | Sitemap |
 | --- | --- | --- | --- |
-| `/servicos/aquecedores/` | Aquecedores no Guarujá | Guaru Ar LC | Aquecedores no Guarujá | sim |
-| `/servicos/ar-condicionado/` | Ar-condicionado no Guarujá | Guaru Ar LC | Ar-condicionado no Guarujá | sim |
-| `/servicos/piscinas/` | Piscinas no Guarujá | Guaru Ar LC | Piscinas no Guarujá | sim |
+| `/servicos/aquecedores/` | Aquecedores no Guarujá \| Guaru Ar LC | Aquecedores no Guarujá | sim |
+| `/servicos/ar-condicionado/` | Ar-condicionado no Guarujá \| Guaru Ar LC | Ar-condicionado no Guarujá | sim |
+| `/servicos/piscinas/` | Piscinas no Guarujá \| Guaru Ar LC | Piscinas no Guarujá | sim |
 
 ## Bairro — 42 páginas
 
 | Rota | Título | H1 | Sitemap |
 | --- | --- | --- | --- |
-| `/guaruja/` | Bairros atendidos no Guarujá | Guaru Ar LC | Bairros atendidos no Guarujá | sim |
-| `/guaruja/acapulco/` | Ar-condicionado, aquecedores e piscinas em Acapulco | Guaru Ar LC | Serviços Guaru Ar LC em Acapulco | sim |
-| `/guaruja/asturias/` | Ar-condicionado, aquecedores e piscinas em Astúrias | Guaru Ar LC | Serviços Guaru Ar LC em Astúrias | sim |
-| `/guaruja/barra-grande/` | Ar-condicionado, aquecedores e piscinas em Barra Grande | Guaru Ar LC | Serviços Guaru Ar LC em Barra Grande | sim |
-| `/guaruja/boa-esperanca/` | Ar-condicionado, aquecedores e piscinas em Boa Esperança | Guaru Ar LC | Serviços Guaru Ar LC em Boa Esperança | sim |
-| `/guaruja/bocaina/` | Ar-condicionado, aquecedores e piscinas em Bocaina | Guaru Ar LC | Serviços Guaru Ar LC em Bocaina | sim |
-| `/guaruja/cachoeira/` | Ar-condicionado, aquecedores e piscinas em Cachoeira | Guaru Ar LC | Serviços Guaru Ar LC em Cachoeira | sim |
-| `/guaruja/cidade-atlantica/` | Ar-condicionado, aquecedores e piscinas em Cidade Atlântica | Guaru Ar LC | Serviços Guaru Ar LC em Cidade Atlântica | sim |
-| `/guaruja/conceicaozinha/` | Ar-condicionado, aquecedores e piscinas em Conceiçãozinha | Guaru Ar LC | Serviços Guaru Ar LC em Conceiçãozinha | sim |
-| `/guaruja/enseada/` | Ar-condicionado, aquecedores e piscinas em Enseada | Guaru Ar LC | Serviços Guaru Ar LC em Enseada | sim |
-| `/guaruja/guaiuba/` | Ar-condicionado, aquecedores e piscinas em Guaiúba | Guaru Ar LC | Serviços Guaru Ar LC em Guaiúba | sim |
-| `/guaruja/guararu/` | Ar-condicionado, aquecedores e piscinas em Guararú | Guaru Ar LC | Serviços Guaru Ar LC em Guararú | sim |
-| `/guaruja/helena-maria/` | Ar-condicionado, aquecedores e piscinas em Helena Maria | Guaru Ar LC | Serviços Guaru Ar LC em Helena Maria | sim |
-| `/guaruja/itapema/` | Ar-condicionado, aquecedores e piscinas em Itapema | Guaru Ar LC | Serviços Guaru Ar LC em Itapema | sim |
-| `/guaruja/jardim-acapulco/` | Ar-condicionado, aquecedores e piscinas em Jardim Acapulco | Guaru Ar LC | Serviços Guaru Ar LC em Jardim Acapulco | sim |
-| `/guaruja/jardim-progresso/` | Ar-condicionado, aquecedores e piscinas em Jardim Progresso | Guaru Ar LC | Serviços Guaru Ar LC em Jardim Progresso | sim |
-| `/guaruja/las-palmas/` | Ar-condicionado, aquecedores e piscinas em Las Palmas | Guaru Ar LC | Serviços Guaru Ar LC em Las Palmas | sim |
-| `/guaruja/mar-e-ceu/` | Ar-condicionado, aquecedores e piscinas em Mar e Céu | Guaru Ar LC | Serviços Guaru Ar LC em Mar e Céu | sim |
-| `/guaruja/marinas/` | Ar-condicionado, aquecedores e piscinas em Marinas | Guaru Ar LC | Serviços Guaru Ar LC em Marinas | sim |
-| `/guaruja/morrinhos/` | Ar-condicionado, aquecedores e piscinas em Morrinhos | Guaru Ar LC | Serviços Guaru Ar LC em Morrinhos | sim |
-| `/guaruja/pae-cara/` | Ar-condicionado, aquecedores e piscinas em Pae Cará | Guaru Ar LC | Serviços Guaru Ar LC em Pae Cará | sim |
-| `/guaruja/parque-estuario/` | Ar-condicionado, aquecedores e piscinas em Parque Estuário | Guaru Ar LC | Serviços Guaru Ar LC em Parque Estuário | sim |
-| `/guaruja/pedreira/` | Ar-condicionado, aquecedores e piscinas em Pedreira | Guaru Ar LC | Serviços Guaru Ar LC em Pedreira | sim |
-| `/guaruja/peninsula/` | Ar-condicionado, aquecedores e piscinas em Península | Guaru Ar LC | Serviços Guaru Ar LC em Península | sim |
-| `/guaruja/pereque/` | Ar-condicionado, aquecedores e piscinas em Perequê | Guaru Ar LC | Serviços Guaru Ar LC em Perequê | sim |
-| `/guaruja/pernambuco/` | Ar-condicionado, aquecedores e piscinas em Pernambuco | Guaru Ar LC | Serviços Guaru Ar LC em Pernambuco | sim |
-| `/guaruja/pitangueiras/` | Ar-condicionado, aquecedores e piscinas em Pitangueiras | Guaru Ar LC | Serviços Guaru Ar LC em Pitangueiras | sim |
-| `/guaruja/porto-de-guaruja/` | Ar-condicionado, aquecedores e piscinas em Porto de Guarujá | Guaru Ar LC | Serviços Guaru Ar LC em Porto de Guarujá | sim |
-| `/guaruja/retroporto/` | Ar-condicionado, aquecedores e piscinas em Retroporto | Guaru Ar LC | Serviços Guaru Ar LC em Retroporto | sim |
-| `/guaruja/saco-do-funil/` | Ar-condicionado, aquecedores e piscinas em Saco do Funil | Guaru Ar LC | Serviços Guaru Ar LC em Saco do Funil | sim |
-| `/guaruja/santa-cruz/` | Ar-condicionado, aquecedores e piscinas em Santa Cruz | Guaru Ar LC | Serviços Guaru Ar LC em Santa Cruz | sim |
-| `/guaruja/santa-maria/` | Ar-condicionado, aquecedores e piscinas em Santa Maria | Guaru Ar LC | Serviços Guaru Ar LC em Santa Maria | sim |
-| `/guaruja/santa-rosa/` | Ar-condicionado, aquecedores e piscinas em Santa Rosa | Guaru Ar LC | Serviços Guaru Ar LC em Santa Rosa | sim |
-| `/guaruja/santo-amaro/` | Ar-condicionado, aquecedores e piscinas em Santo Amaro | Guaru Ar LC | Serviços Guaru Ar LC em Santo Amaro | sim |
-| `/guaruja/santo-antonio/` | Ar-condicionado, aquecedores e piscinas em Santo Antônio | Guaru Ar LC | Serviços Guaru Ar LC em Santo Antônio | sim |
-| `/guaruja/tombo/` | Ar-condicionado, aquecedores e piscinas em Tombo | Guaru Ar LC | Serviços Guaru Ar LC em Tombo | sim |
-| `/guaruja/vargem-grande/` | Ar-condicionado, aquecedores e piscinas em Vargem Grande | Guaru Ar LC | Serviços Guaru Ar LC em Vargem Grande | sim |
-| `/guaruja/vicente-de-carvalho/` | Ar-condicionado, aquecedores e piscinas em Vicente de Carvalho | Guaru Ar LC | Serviços Guaru Ar LC em Vicente de Carvalho | sim |
-| `/guaruja/vila-aurea/` | Ar-condicionado, aquecedores e piscinas em Vila Áurea | Guaru Ar LC | Serviços Guaru Ar LC em Vila Áurea | sim |
-| `/guaruja/vila-lygia/` | Ar-condicionado, aquecedores e piscinas em Vila Lygia | Guaru Ar LC | Serviços Guaru Ar LC em Vila Lygia | sim |
-| `/guaruja/vila-zilda/` | Ar-condicionado, aquecedores e piscinas em Vila Zilda | Guaru Ar LC | Serviços Guaru Ar LC em Vila Zilda | sim |
-| `/guaruja/virginia/` | Ar-condicionado, aquecedores e piscinas em Virgínia | Guaru Ar LC | Serviços Guaru Ar LC em Virgínia | sim |
+| `/guaruja/` | Bairros atendidos no Guarujá \| Guaru Ar LC | Bairros atendidos no Guarujá | sim |
+| `/guaruja/acapulco/` | Ar-condicionado e aquecedores em Acapulco \| Guaru Ar LC | Serviços Guaru Ar LC em Acapulco | sim |
+| `/guaruja/asturias/` | Ar-condicionado e aquecedores em Astúrias \| Guaru Ar LC | Serviços Guaru Ar LC em Astúrias | sim |
+| `/guaruja/barra-grande/` | Ar-condicionado e aquecedores em Barra Grande \| Guaru Ar LC | Serviços Guaru Ar LC em Barra Grande | sim |
+| `/guaruja/boa-esperanca/` | Ar-condicionado e aquecedores em Boa Esperança \| Guaru Ar LC | Serviços Guaru Ar LC em Boa Esperança | sim |
+| `/guaruja/bocaina/` | Ar-condicionado e aquecedores em Bocaina \| Guaru Ar LC | Serviços Guaru Ar LC em Bocaina | sim |
+| `/guaruja/cachoeira/` | Ar-condicionado e aquecedores em Cachoeira \| Guaru Ar LC | Serviços Guaru Ar LC em Cachoeira | sim |
+| `/guaruja/cidade-atlantica/` | Ar-condicionado e aquecedores em Cidade Atlântica \| Guaru Ar LC | Serviços Guaru Ar LC em Cidade Atlântica | sim |
+| `/guaruja/conceicaozinha/` | Ar-condicionado e aquecedores em Conceiçãozinha \| Guaru Ar LC | Serviços Guaru Ar LC em Conceiçãozinha | sim |
+| `/guaruja/enseada/` | Ar-condicionado e aquecedores em Enseada \| Guaru Ar LC | Serviços Guaru Ar LC em Enseada | sim |
+| `/guaruja/guaiuba/` | Ar-condicionado e aquecedores em Guaiúba \| Guaru Ar LC | Serviços Guaru Ar LC em Guaiúba | sim |
+| `/guaruja/guararu/` | Ar-condicionado e aquecedores em Guararú \| Guaru Ar LC | Serviços Guaru Ar LC em Guararú | sim |
+| `/guaruja/helena-maria/` | Ar-condicionado e aquecedores em Helena Maria \| Guaru Ar LC | Serviços Guaru Ar LC em Helena Maria | sim |
+| `/guaruja/itapema/` | Ar-condicionado e aquecedores em Itapema \| Guaru Ar LC | Serviços Guaru Ar LC em Itapema | sim |
+| `/guaruja/jardim-acapulco/` | Ar-condicionado e aquecedores em Jardim Acapulco \| Guaru Ar LC | Serviços Guaru Ar LC em Jardim Acapulco | sim |
+| `/guaruja/jardim-progresso/` | Ar-condicionado e aquecedores em Jardim Progresso \| Guaru Ar LC | Serviços Guaru Ar LC em Jardim Progresso | sim |
+| `/guaruja/las-palmas/` | Ar-condicionado e aquecedores em Las Palmas \| Guaru Ar LC | Serviços Guaru Ar LC em Las Palmas | sim |
+| `/guaruja/mar-e-ceu/` | Ar-condicionado e aquecedores em Mar e Céu \| Guaru Ar LC | Serviços Guaru Ar LC em Mar e Céu | sim |
+| `/guaruja/marinas/` | Ar-condicionado e aquecedores em Marinas \| Guaru Ar LC | Serviços Guaru Ar LC em Marinas | sim |
+| `/guaruja/morrinhos/` | Ar-condicionado e aquecedores em Morrinhos \| Guaru Ar LC | Serviços Guaru Ar LC em Morrinhos | sim |
+| `/guaruja/pae-cara/` | Ar-condicionado e aquecedores em Pae Cará \| Guaru Ar LC | Serviços Guaru Ar LC em Pae Cará | sim |
+| `/guaruja/parque-estuario/` | Ar-condicionado e aquecedores em Parque Estuário \| Guaru Ar LC | Serviços Guaru Ar LC em Parque Estuário | sim |
+| `/guaruja/pedreira/` | Ar-condicionado e aquecedores em Pedreira \| Guaru Ar LC | Serviços Guaru Ar LC em Pedreira | sim |
+| `/guaruja/peninsula/` | Ar-condicionado e aquecedores em Península \| Guaru Ar LC | Serviços Guaru Ar LC em Península | sim |
+| `/guaruja/pereque/` | Ar-condicionado e aquecedores em Perequê \| Guaru Ar LC | Serviços Guaru Ar LC em Perequê | sim |
+| `/guaruja/pernambuco/` | Ar-condicionado e aquecedores em Pernambuco \| Guaru Ar LC | Serviços Guaru Ar LC em Pernambuco | sim |
+| `/guaruja/pitangueiras/` | Ar-condicionado e aquecedores em Pitangueiras \| Guaru Ar LC | Serviços Guaru Ar LC em Pitangueiras | sim |
+| `/guaruja/porto-de-guaruja/` | Ar-condicionado e aquecedores em Porto de Guarujá \| Guaru Ar LC | Serviços Guaru Ar LC em Porto de Guarujá | sim |
+| `/guaruja/retroporto/` | Ar-condicionado e aquecedores em Retroporto \| Guaru Ar LC | Serviços Guaru Ar LC em Retroporto | sim |
+| `/guaruja/saco-do-funil/` | Ar-condicionado e aquecedores em Saco do Funil \| Guaru Ar LC | Serviços Guaru Ar LC em Saco do Funil | sim |
+| `/guaruja/santa-cruz/` | Ar-condicionado e aquecedores em Santa Cruz \| Guaru Ar LC | Serviços Guaru Ar LC em Santa Cruz | sim |
+| `/guaruja/santa-maria/` | Ar-condicionado e aquecedores em Santa Maria \| Guaru Ar LC | Serviços Guaru Ar LC em Santa Maria | sim |
+| `/guaruja/santa-rosa/` | Ar-condicionado e aquecedores em Santa Rosa \| Guaru Ar LC | Serviços Guaru Ar LC em Santa Rosa | sim |
+| `/guaruja/santo-amaro/` | Ar-condicionado e aquecedores em Santo Amaro \| Guaru Ar LC | Serviços Guaru Ar LC em Santo Amaro | sim |
+| `/guaruja/santo-antonio/` | Ar-condicionado e aquecedores em Santo Antônio \| Guaru Ar LC | Serviços Guaru Ar LC em Santo Antônio | sim |
+| `/guaruja/tombo/` | Ar-condicionado e aquecedores em Tombo \| Guaru Ar LC | Serviços Guaru Ar LC em Tombo | sim |
+| `/guaruja/vargem-grande/` | Ar-condicionado e aquecedores em Vargem Grande \| Guaru Ar LC | Serviços Guaru Ar LC em Vargem Grande | sim |
+| `/guaruja/vicente-de-carvalho/` | Ar-condicionado e aquecedores em Vicente de Carvalho \| Guaru Ar LC | Serviços Guaru Ar LC em Vicente de Carvalho | sim |
+| `/guaruja/vila-aurea/` | Ar-condicionado e aquecedores em Vila Áurea \| Guaru Ar LC | Serviços Guaru Ar LC em Vila Áurea | sim |
+| `/guaruja/vila-lygia/` | Ar-condicionado e aquecedores em Vila Lygia \| Guaru Ar LC | Serviços Guaru Ar LC em Vila Lygia | sim |
+| `/guaruja/vila-zilda/` | Ar-condicionado e aquecedores em Vila Zilda \| Guaru Ar LC | Serviços Guaru Ar LC em Vila Zilda | sim |
+| `/guaruja/virginia/` | Ar-condicionado e aquecedores em Virgínia \| Guaru Ar LC | Serviços Guaru Ar LC em Virgínia | sim |
 
 ## Fora do índice
 
