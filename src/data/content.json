@@ -21,7 +21,7 @@
     "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
     "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
     "footerDescription": "Climatização, aquecimento e piscinas no Guarujá com qualidade, segurança e atendimento que você confia.",
-    "ctaTitle": "Aba A publicou primeiro",
+    "ctaTitle": "Segunda publicacao durante o deploy",
     "ctaText": "Fale com a Guaru Ar LC e tenha mais conforto, segurança e tranquilidade."
   },
   "services": [
@@ -473,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T05:29:59.998Z"
+  "updatedAt": "2026-07-27T05:30:03.033Z"
 }
