@@ -135,6 +135,12 @@ mutante(
 );
 
 mutante(
+  "R10#1 smoke pega o desfazer fora de ordem que reordena item intocado",
+  "      botao.disabled = !ativo;\n      if (ativo) {",
+  "      botao.disabled = false;\n      if (true) {",
+);
+
+mutante(
   "R8#5 smoke pega o campo de lista que descarta o que foi digitado",
   '  entrada.addEventListener("blur", adicionar);',
   "  // correcao desfeita pelo teste de regressao",

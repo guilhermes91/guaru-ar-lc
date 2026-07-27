@@ -27,7 +27,7 @@ sem achado. Um achado só conta se for alcançável por quem usa de verdade (o d
 pelo painel, ou um visitante pelo navegador), tiver consequência visível e vier
 com prova reproduzível.
 
-Placar: rodada 4 = 8 achados · 5 = 5 · 6 = 7 · 7 = 7 · 8 = 9 · 9 = 5.
+Placar: rodada 4 = 8 achados · 5 = 5 · 6 = 7 · 7 = 7 · 8 = 9 · 9 = 5 · 10 = 1.
 
 ---
 
@@ -173,3 +173,35 @@ zona). Refazer `node scripts/teste-cache-borda.mjs` nessa hora para confirmar.
 
 Enquanto isso, as URLs de teste que as auditorias deixaram cacheadas seguem
 respondendo 200 até expirarem.
+
+---
+
+## Rodada 10
+
+Dois dos três agentes voltaram `SEM ACHADOS` — o de painel+backend, que conferiu
+que os 139 campos editáveis chegam no payload, e o de site+build, que mediu 51
+páginas, 95 assets, contraste, teclado e 320px sem uma falha. O terceiro achou
+um defeito.
+
+### 1. Desfazer fora de ordem reordenava um item que ninguém tocou
+`public/admin/index.html`, `pintarDesfazeres()`. Cada entrada da fila guarda o
+índice da posição **no momento daquela remoção**. Desfazendo fora da ordem
+inversa, esse índice já não vale: removendo "Ar-condicionado" e depois
+"Piscinas" e clicando primeiro no desfazer mais antigo, a lista voltava como
+`Ar-condicionado | Piscinas | Aquecedores` — "Aquecedores" descia para último na
+home, em `/servicos/`, no menu e no rodapé, e ia assim para o site. O painel
+oferece o desfazer como a volta segura do "×" e não avisava nada.
+
+Corrigido tornando o desfazer **LIFO**, como qualquer Ctrl+Z: só o mais recente
+fica ativo, os outros aparecem desabilitados com a dica "Desfaça primeiro a
+remoção mais recente", e a caixa passa a dizer "para desfazer, comece pelo mais
+recente" quando há mais de um.
+
+> Por que não "corrigir os índices": ajustar as entradas restantes conserta o
+> caso acima e **quebra** outro que hoje funciona — remover B, depois A, e
+> desfazer A primeiro. Na ordem inversa cada desfazer é o inverso exato do
+> `splice` que removeu, então a lista volta idêntica sempre, sem caso especial.
+
+**Trava:** `R10#1` — mutante, reabilita todos os botões e exige que o smoke
+reprove; e o smoke remove dois itens de uma lista de três, desfaz os dois e
+compara a ordem com a original.

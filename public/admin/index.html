@@ -621,18 +621,33 @@ function pintarDesfazeres(aoMudar) {
   caixa.innerHTML = "";
   if (!removidos.length) return;
 
+  // Só o desfazer mais recente fica ativo, como em qualquer Ctrl+Z. O índice
+  // guardado em cada entrada é a posição no momento daquela remoção; desfazendo
+  // fora de ordem ele já não vale, e um item que ninguém tocou mudava de lugar
+  // — indo assim para o site, sem aviso nenhum. Na ordem inversa, cada desfazer
+  // é o inverso exato do splice que o removeu, e a lista volta idêntica.
+  const maisRecente = removidos[removidos.length - 1];
   const linhas = removidos
     .slice()
     .reverse()
     .map((r) => {
-      const botao = el("button", { type: "button", className: "btn ghost pequeno", textContent: "Desfazer" });
-      botao.addEventListener("click", () => {
-        r.lista.splice(Math.min(r.indice, r.lista.length), 0, r.item);
-        removidos.splice(removidos.indexOf(r), 1);
-        marcarSujo();
-        aoMudar();
-        pintarDesfazeres(aoMudar);
+      const ativo = r === maisRecente;
+      const botao = el("button", {
+        type: "button",
+        className: "btn ghost pequeno",
+        textContent: "Desfazer",
+        title: ativo ? "" : "Desfaça primeiro a remoção mais recente.",
       });
+      botao.disabled = !ativo;
+      if (ativo) {
+        botao.addEventListener("click", () => {
+          r.lista.splice(Math.min(r.indice, r.lista.length), 0, r.item);
+          removidos.splice(removidos.indexOf(r), 1);
+          marcarSujo();
+          aoMudar();
+          pintarDesfazeres(aoMudar);
+        });
+      }
       return el("div", { style: "display:flex;align-items:center;gap:10px;margin-top:6px" }, [
         el("span", { textContent: `"${r.titulo}" foi removido.` }),
         botao,
@@ -641,7 +656,12 @@ function pintarDesfazeres(aoMudar) {
 
   caixa.append(
     el("div", { className: "aviso info" }, [
-      el("span", { textContent: "Removidos nesta sessão. Só saem do site quando você publicar." }),
+      el("span", {
+        textContent:
+          removidos.length > 1
+            ? "Removidos nesta sessão. Só saem do site quando você publicar. Para desfazer, comece pelo mais recente."
+            : "Removidos nesta sessão. Só saem do site quando você publicar.",
+      }),
       ...linhas,
     ]),
   );

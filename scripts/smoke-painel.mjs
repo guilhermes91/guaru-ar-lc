@@ -227,7 +227,51 @@ async function rodar(nome, conteudo, { estrito }) {
     }
     return null;
   };
-  const contarDesfazeres = () => desfazer.todos("button").filter((b) => b.textContent === "Desfazer").length;
+  const botoesDesfazer = () => desfazer.todos("button").filter((b) => b.textContent === "Desfazer");
+  const contarDesfazeres = () => botoesDesfazer().length;
+  const removiveis = () => {
+    const saida = [];
+    percorrer(secao, (no) => {
+      if (no.tag === "button" && no.title === "Remover" && !no.disabled) saida.push(no);
+    });
+    return saida;
+  };
+  const titulosDaSecao = () => {
+    const saida = [];
+    percorrer(secao, (no) => {
+      if (no.className === "cabeca" && no.filhos[0]) saida.push(no.filhos[0].textContent);
+    });
+    return saida;
+  };
+
+  // Desfazer é LIFO. O índice guardado em cada remoção é a posição de quando
+  // ela aconteceu; desfazendo fora de ordem ele já não vale, e um item que
+  // ninguém tocou trocava de lugar — e ia assim para o site. Só o mais recente
+  // pode estar ativo, e desfazer os dois tem que devolver a ordem original.
+  const paraOrdem = irParaSecaoComRemoviveis(3);
+  checar(Boolean(paraOrdem), "não achei seção com três itens removíveis para o teste de ordem do desfazer");
+  if (paraOrdem) {
+    const ordemOriginal = titulosDaSecao();
+    removiveis()[0].disparar("click");
+    const restantes = removiveis();
+    restantes[restantes.length - 1].disparar("click");
+    const ativos = botoesDesfazer().filter((b) => !b.disabled);
+    checar(
+      ativos.length === 1,
+      `com duas remoções pendentes só o desfazer mais recente pode estar ativo, há ${ativos.length} ativos: desfazer fora de ordem reordena item que ninguém tocou`,
+    );
+    // Duas voltas: a segunda entrada só fica clicável depois da primeira sair.
+    for (let volta = 0; volta < 2; volta += 1) {
+      const ativo = botoesDesfazer().find((b) => !b.disabled);
+      if (ativo) ativo.disparar("click");
+    }
+    const ordemDepois = titulosDaSecao();
+    checar(
+      ordemDepois.join(" | ") === ordemOriginal.join(" | "),
+      `desfazer as duas remoções não devolveu a ordem original:\n      antes:  ${ordemOriginal.join(" | ")}\n      depois: ${ordemDepois.join(" | ")}`,
+    );
+    checar(contarDesfazeres() === 0, "sobrou desfazer pendente depois de desfazer os dois");
+  }
 
   // Remoção feita DURANTE o envio não foi publicada: o desfazer dela tem que
   // sobreviver. Zerar a fila inteira apagava a única volta de um "×" clicado
