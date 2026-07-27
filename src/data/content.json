@@ -56,7 +56,7 @@
       "name": "Ar-condicionado completo",
       "price": 1899,
       "image": "/images/products/ar-completo.webp",
-      "imageEmUso": "/images/products/ar-completo-emuso.webp"
+      "imageEmUso": ""
     },
     {
       "id": "condensadora",
@@ -473,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T05:30:03.033Z"
+  "updatedAt": "2026-07-27T05:33:08.935Z"
 }
