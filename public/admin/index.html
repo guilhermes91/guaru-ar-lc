@@ -93,7 +93,9 @@
   .contador{font-size:12px;color:#8a97a6;text-align:right;margin-top:3px}
   .contador.perto{color:var(--aviso)}
 
-  .modal{position:fixed;inset:0;background:rgba(12,25,40,.55);display:grid;place-items:center;padding:20px;z-index:20}
+  /* Acima da tela de login (z-index 30): ela é opaca e cobre a viewport, e o
+     modal de recuperar senha só é aberto de dentro dela. */
+  .modal{position:fixed;inset:0;background:rgba(12,25,40,.55);display:grid;place-items:center;padding:20px;z-index:40}
   .modal[hidden]{display:none}
   .modal .card{max-width:440px}
 
@@ -1073,6 +1075,23 @@ function desenharMenu() {
 }
 
 function desenharSecao() {
+  // Sem conteúdo carregado (ex.: 502 do GitHub), qualquer seção quebraria em
+  // `estado.conteudo.services` e deixaria a tela em branco, sem explicação.
+  if (!estado.conteudo && estado.secao !== "usuario") {
+    $("#titulo-secao").textContent = SECOES[estado.secao]?.titulo || "Painel";
+    const area = $("#secao");
+    area.innerHTML = "";
+    area.append(
+      el("div", { className: "aviso erro" }, [
+        el("span", {
+          textContent:
+            "Não consegui carregar o conteúdo do site. Recarregue a página; se continuar, avise quem cuida do site.",
+        }),
+      ]),
+    );
+    return;
+  }
+
   const { titulo, desenhar } = SECOES[estado.secao];
   $("#titulo-secao").textContent = titulo;
   const area = $("#secao");
@@ -1093,30 +1112,34 @@ function atualizarEstado(classe, texto) {
  * só na publicação é o que garante /servicos/limpeza-de-dutos/ em vez de
  * /servicos/novo-servico/ — na criação o nome ainda é o texto de exemplo.
  */
-/** Devolve para a árvore viva só os ids que a publicação gerou. */
-function aplicarIdentificadores(vivo, publicado) {
-  const aplicar = (a, b, campoId) => {
-    (a || []).forEach((item, i) => {
-      if (!item[campoId] && b?.[i]?.[campoId]) item[campoId] = b[i][campoId];
-    });
-  };
-  aplicar(vivo.services, publicado.services, "slug");
-  aplicar(vivo.products, publicado.products, "id");
+/**
+ * Devolve para a árvore viva só os ids que a publicação gerou, casando por
+ * REFERÊNCIA do objeto. Por índice, remover um item durante o envio fazia o
+ * seguinte herdar o identificador de outro — e dois itens com o mesmo slug
+ * travam toda publicação futura.
+ */
+function aplicarIdentificadores(paresPorItem) {
+  for (const [item, gerado] of paresPorItem) {
+    if (gerado.campoId && !item[gerado.campoId]) item[gerado.campoId] = gerado.valor;
+  }
 }
 
 function comIdentificadores(conteudo) {
   const copia = JSON.parse(JSON.stringify(conteudo));
-  const preencher = (lista, campoNome, campoId) => {
+  const pares = new Map();
+  const preencher = (lista, campoNome, campoId, originais) => {
     const usados = (lista || []).map((x) => x[campoId]).filter(Boolean);
-    (lista || []).forEach((item) => {
+    (lista || []).forEach((item, i) => {
       if (item[campoId]) return;
       item[campoId] = slugUnico(item[campoNome], usados);
       usados.push(item[campoId]);
+      // Guarda a referência do objeto vivo, não o índice.
+      if (originais?.[i]) pares.set(originais[i], { campoId, valor: item[campoId] });
     });
   };
-  preencher(copia.services, "title", "slug");
-  preencher(copia.products, "name", "id");
-  return copia;
+  preencher(copia.services, "title", "slug", conteudo.services);
+  preencher(copia.products, "name", "id", conteudo.products);
+  return { copia, pares };
 }
 
 $("#btn-publicar").addEventListener("click", async () => {
@@ -1132,7 +1155,7 @@ $("#btn-publicar").addEventListener("click", async () => {
     // (os textos de exemplo são barrados), e persistir o slug aqui congelaria
     // /servicos/novo-servico/ mesmo depois de o cliente corrigir o nome.
     const versaoEnviada = estado.versao;
-    const paraPublicar = comIdentificadores(estado.conteudo);
+    const { copia: paraPublicar, pares } = comIdentificadores(estado.conteudo);
     // Manda o sha que carregamos: o servidor recusa se o site mudou desde então.
     const publicado = await api("content", {
       method: "POST",
@@ -1141,7 +1164,7 @@ $("#btn-publicar").addEventListener("click", async () => {
     // A árvore viva NÃO é substituída: os campos na tela apontam para ela, e
     // trocá-la descartaria tudo que o cliente digitou durante o envio — sem
     // erro e sem aviso, porque o `sujo` era zerado logo abaixo.
-    aplicarIdentificadores(estado.conteudo, paraPublicar);
+    aplicarIdentificadores(pares);
     estado.sha = publicado.sha || estado.sha;
     estado.updatedAt = publicado.updatedAt || null;
     // Editou durante o envio? Continua pendente, para não perder o que ficou de fora.
@@ -1222,8 +1245,10 @@ async function acompanharDeploy(commit) {
         if (run.conclusion === "cancelled") commit = null;
         else return falhouPublicacao();
       }
-    } catch {
-      /* segue tentando */
+    } catch (erro) {
+      // 401 aqui já reabriu o login; continuar o polling limparia o campo de
+      // senha a cada 10 segundos, no meio da digitação.
+      if (erro?.status === 401) return;
     }
     setTimeout(verificar, 10000);
   };
