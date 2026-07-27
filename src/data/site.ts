@@ -5,6 +5,9 @@ import { guarujaNeighborhoods } from "./brands";
 // arquivo via commit no GitHub, e o deploy automático republica o site.
 export const site = {
   ...content.site,
+  // Normalizado na fonte: o campo aceita barra final (é o que o navegador
+  // copia da barra de endereço) e ela virava "//" no robots.txt e no JSON-LD.
+  url: content.site.url.replace(/\/+$/, ""),
   whatsapp(message = content.site.whatsappMessage) {
     return `https://wa.me/${this.phone}?text=${encodeURIComponent(message)}`;
   },

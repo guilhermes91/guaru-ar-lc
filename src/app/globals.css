@@ -20,6 +20,12 @@
    junto. Sem isto, quem navega por Tab perde o cursor de vista. */
 .ba-slider:has(.ba-range:focus-visible){outline:3px solid var(--aqua-txt);outline-offset:3px;border-radius:14px}
 .btn:focus-visible,.svc:focus-visible,.area-card:focus-visible,.prod-card:focus-visible,.contact-card:focus-visible,.drop-menu a:focus-visible,.navlinks a:focus-visible{outline:3px solid var(--aqua-txt);outline-offset:3px}
+/* --aqua-txt foi calibrado sobre BRANCO. Nos blocos escuros ele fica em 1,2-2,5:1
+   contra o fundo, abaixo do minimo de 3:1 para indicador de foco — e o rodape,
+   presente nas 51 paginas, nem tinha regra. Branco resolve nos dois. */
+.page-hero .btn:focus-visible,.contact-hero .btn:focus-visible,.brands-hero .btn:focus-visible,
+.final-cta .btn:focus-visible,.brand-disclaimer-box .btn:focus-visible,.area-bar a:focus-visible,
+footer a:focus-visible,footer .btn:focus-visible,.socials a:focus-visible{outline:3px solid #fff;outline-offset:3px}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 html{scroll-behavior:smooth}

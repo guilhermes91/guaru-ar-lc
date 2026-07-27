@@ -151,6 +151,7 @@
     </header>
     <div class="conteudo">
       <div id="aviso"></div>
+      <div id="desfazer"></div>
       <div id="secao"></div>
     </div>
   </main>
@@ -278,8 +279,8 @@ $("#form-login").addEventListener("submit", async (evento) => {
       aviso("#aviso", "ok", "Você entrou de novo. Suas alterações continuam aqui — clique em Publicar.");
       // Retoma o acompanhamento que o 401 interrompeu, senão o selo ficaria
       // preso em "Atualizando o site…" e o cliente nunca veria uma falha.
-      if (estado.commitEmAndamento !== undefined && estado.commitEmAndamento !== null) {
-        const commit = estado.commitEmAndamento;
+      if (estado.commitEmAndamento) {
+        const { commit } = estado.commitEmAndamento;
         estado.commitEmAndamento = null;
         acompanharDeploy(commit);
       }
@@ -529,7 +530,10 @@ function campoImagem({ label, obj, chave, dica, opcional, medida = MEDIDAS.servi
       obj[chave] = resultado.path;
       // A prévia mostra a imagem já recortada — é exatamente o que vai ao ar.
       previasLocais.set(resultado.path, URL.createObjectURL(ajustada));
-      pintar();
+      // Redesenha a seção inteira: se algo tiver redesenhado durante o upload,
+      // `pintar()` repintaria um nó já descartado e a tela ficaria com a foto
+      // antiga enquanto a publicação mandaria a nova.
+      desenharSecao();
       status.textContent = "Pronto. Aparece no site depois de publicar.";
       marcarSujo();
     } catch (erro) {
@@ -607,7 +611,9 @@ function campoLista({ label, lista, placeholder, max = 60 }) {
 const removidos = [];
 
 function pintarDesfazeres(aoMudar) {
-  const caixa = $("#aviso");
+  // Container próprio: dividir o #aviso com as mensagens fazia a publicação
+  // recusada apagar o desfazer, e a remoção apagar a lista de correções.
+  const caixa = $("#desfazer");
   caixa.innerHTML = "";
   if (!removidos.length) return;
 
@@ -1005,8 +1011,13 @@ function secaoUsuario() {
     retorno.innerHTML = "";
     // Trocar o e-mail sem conferir tranca o acesso: a recuperação de senha
     // passa a ser enviada para o endereço novo, e não há como voltar atrás.
-    const trocouEmail = email.value.trim().toLowerCase() !== (estado.email || "").toLowerCase();
-    if (trocouEmail && email.value.trim().toLowerCase() !== emailConfirma.value.trim().toLowerCase()) {
+    const atualLower = (estado.email || "").toLowerCase();
+    const novo = email.value.trim().toLowerCase();
+    const repetido = emailConfirma.value.trim().toLowerCase();
+    // Preencher só a confirmação também conta como tentativa de troca: sem
+    // isto o servidor recebia o e-mail antigo e respondia "atualizado".
+    const trocouEmail = novo !== atualLower || (repetido && repetido !== atualLower);
+    if (trocouEmail && novo !== repetido) {
       retorno.append(el("div", { className: "aviso erro", textContent: "Os dois e-mails não são iguais. Confira: é para este endereço que a recuperação de senha vai." }));
       return;
     }
@@ -1282,7 +1293,7 @@ async function acompanharDeploy(commit) {
       // 401 aqui já reabriu o login; continuar o polling limparia o campo de
       // senha a cada 10 segundos. O commit fica guardado para retomar depois.
       if (erro?.status === 401) {
-        estado.commitEmAndamento = commit || null;
+        estado.commitEmAndamento = { commit };
         return;
       }
     }
@@ -1305,6 +1316,11 @@ function restaurar() {
       estado.sha = resultado.sha || null;
       estado.updatedAt = resultado.updatedAt || resultado.content?.updatedAt || null;
       estado.conteudo = resultado.content;
+      // As remoções pendentes apontam para os arrays que acabaram de ser
+      // descartados: desfazer depois disso mexia no lixo e mentia que voltou.
+      removidos.length = 0;
+      previasLocais.clear();
+      pintarDesfazeres(desenharSecao);
       estado.sujo = false;
       $("#btn-publicar").disabled = true;
       desenharSecao();
