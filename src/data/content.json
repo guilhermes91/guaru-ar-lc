@@ -4,7 +4,7 @@
     "legalName": "Guaru Ar LC",
     "url": "https://guaruarguaruja.com.br",
     "phoneDisplay": "(13) 97410-4466",
-    "phone": 5513974104466,
+    "phone": "5513974104466",
     "email": "contato@guaruarguaruja.com.br",
     "address": "Av. Rio Amazonas, 397 - Perequê, Guarujá - SP, 11446-131",
     "hours": "Segunda a Sábado, das 8h às 18h",
@@ -55,9 +55,7 @@
       "id": "ar-completo",
       "name": "Ar-condicionado completo",
       "price": 1899,
-      "image": [
-        "/images/products/ar-completo.webp"
-      ],
+      "image": "/images/products/ar-completo.webp",
       "imageEmUso": "/images/products/ar-completo-emuso.webp"
     },
     {
@@ -210,8 +208,7 @@
         "Helena Maria",
         "Pitangueiras",
         "Santo Antônio",
-        "Cachoeira",
-        "Bairro X"
+        "Cachoeira"
       ],
       "seoText": "Na faixa das praias urbanizadas, os equipamentos convivem com maresia constante e uso intenso na temporada. Limpeza periódica e checagem de vedação evitam a corrosão que aparece primeiro nas serpentinas."
     },
@@ -476,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T05:25:23.496Z"
+  "updatedAt": "2026-07-27T05:27:00.029Z"
 }
