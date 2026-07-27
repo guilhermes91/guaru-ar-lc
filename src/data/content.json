@@ -55,7 +55,9 @@
       "id": "ar-completo",
       "name": "Ar-condicionado completo",
       "price": 1899,
-      "image": "/images/products/ar-completo.webp",
+      "image": [
+        "/images/products/ar-completo.webp"
+      ],
       "imageEmUso": "/images/products/ar-completo-emuso.webp"
     },
     {
@@ -474,5 +476,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T05:24:07.150Z"
+  "updatedAt": "2026-07-27T05:25:23.496Z"
 }
