@@ -205,6 +205,7 @@ const estado = {
   secao: "config",
   sha: null,
   updatedAt: null,
+  versao: 0,
   sujo: false,
   publicando: false,
 };
@@ -351,6 +352,7 @@ $("#modal-confirmar").addEventListener("click", async () => {
 
 function marcarSujo() {
   estado.sujo = true;
+  estado.versao += 1;
   $("#btn-publicar").disabled = false;
   atualizarEstado("pendente", "Alterações não publicadas");
 }
@@ -1091,6 +1093,17 @@ function atualizarEstado(classe, texto) {
  * só na publicação é o que garante /servicos/limpeza-de-dutos/ em vez de
  * /servicos/novo-servico/ — na criação o nome ainda é o texto de exemplo.
  */
+/** Devolve para a árvore viva só os ids que a publicação gerou. */
+function aplicarIdentificadores(vivo, publicado) {
+  const aplicar = (a, b, campoId) => {
+    (a || []).forEach((item, i) => {
+      if (!item[campoId] && b?.[i]?.[campoId]) item[campoId] = b[i][campoId];
+    });
+  };
+  aplicar(vivo.services, publicado.services, "slug");
+  aplicar(vivo.products, publicado.products, "id");
+}
+
 function comIdentificadores(conteudo) {
   const copia = JSON.parse(JSON.stringify(conteudo));
   const preencher = (lista, campoNome, campoId) => {
@@ -1118,21 +1131,29 @@ $("#btn-publicar").addEventListener("click", async () => {
     // Sobre uma cópia: a primeira publicação de um item novo é sempre recusada
     // (os textos de exemplo são barrados), e persistir o slug aqui congelaria
     // /servicos/novo-servico/ mesmo depois de o cliente corrigir o nome.
+    const versaoEnviada = estado.versao;
     const paraPublicar = comIdentificadores(estado.conteudo);
     // Manda o sha que carregamos: o servidor recusa se o site mudou desde então.
     const publicado = await api("content", {
       method: "POST",
       body: JSON.stringify({ content: paraPublicar, sha: estado.sha }),
     });
-    // Só agora os identificadores viram definitivos. O redesenho é obrigatório:
-    // os campos na tela guardam referência aos objetos da cópia anterior, e sem
-    // ele a próxima edição iria para um objeto órfão e sumiria na publicação.
-    estado.conteudo = paraPublicar;
+    // A árvore viva NÃO é substituída: os campos na tela apontam para ela, e
+    // trocá-la descartaria tudo que o cliente digitou durante o envio — sem
+    // erro e sem aviso, porque o `sujo` era zerado logo abaixo.
+    aplicarIdentificadores(estado.conteudo, paraPublicar);
     estado.sha = publicado.sha || estado.sha;
     estado.updatedAt = publicado.updatedAt || null;
-    desenharSecao();
-    estado.sujo = false;
-    aviso("#aviso", "ok", "Alterações enviadas. O site é atualizado em cerca de 2 minutos.");
+    // Editou durante o envio? Continua pendente, para não perder o que ficou de fora.
+    estado.sujo = estado.versao !== versaoEnviada;
+    $("#btn-publicar").disabled = !estado.sujo;
+    aviso(
+      "#aviso",
+      "ok",
+      estado.sujo
+        ? "Alterações enviadas. O que você digitou depois ainda não foi — clique em Publicar de novo."
+        : "Alterações enviadas. O site é atualizado em cerca de 1 minuto.",
+    );
     acompanharDeploy(publicado.commit);
   } catch (erro) {
     aviso("#aviso", "erro", erro.message, erro.detalhes);
@@ -1221,6 +1242,7 @@ function restaurar() {
       if (valores.confirmacao.trim().toUpperCase() !== "RESTAURAR") throw new Error("Confirmação incorreta.");
       const resultado = await api("restore", { method: "POST" });
       estado.sha = resultado.sha || null;
+      estado.updatedAt = resultado.updatedAt || resultado.content?.updatedAt || null;
       estado.conteudo = resultado.content;
       estado.sujo = false;
       $("#btn-publicar").disabled = true;
@@ -1255,6 +1277,7 @@ async function iniciar() {
     const dados = await api("content");
     estado.conteudo = dados.content;
     estado.sha = dados.sha;
+    estado.updatedAt = dados.content?.updatedAt || null;
     desenharSecao();
     if (dados.pending) {
       atualizarEstado("publicando", "Publicação em andamento");

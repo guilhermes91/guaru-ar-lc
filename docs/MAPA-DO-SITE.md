@@ -86,7 +86,7 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 
 | Rota | Método | Sessão | O que faz |
 | --- | --- | --- | --- |
-| `/api/login` | POST | não | Autentica e emite o cookie de sessão. 8 tentativas por IP a cada 10 min. |
+| `/api/login` | POST | não | Autentica e emite o cookie de sessão. 10 tentativas por IP a cada 5 min. |
 | `/api/logout` | POST | não | Apaga a sessão no KV e limpa o cookie. |
 | `/api/me` | GET | sim | Devolve o e-mail de quem está logado. |
 | `/api/content` | GET | sim | Lê o conteúdo publicado, ou o rascunho enquanto o deploy roda. |
@@ -94,7 +94,7 @@ Gerado do build de produção por `node scripts/gerar-mapa.mjs`.
 | `/api/upload` | POST | sim | Recebe imagem (JPG/PNG/WebP até 3 MB, conferida por magic bytes) e commita. |
 | `/api/restore` | POST | sim | Copia content.default.json por cima do content.json. |
 | `/api/status` | GET | sim | Estado do último deploy no GitHub Actions, com o headSha. |
-| `/api/recover` | POST | não | Envia senha provisória de 30 min por e-mail. 1 envio por IP a cada 15 min. |
+| `/api/recover` | POST | não | Envia senha provisória de 30 min por e-mail. 3 pedidos por IP a cada 15 min. |
 
 ## Onde cada coisa é editada no painel
 

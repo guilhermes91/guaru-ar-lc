@@ -9,7 +9,7 @@
   commit no GitHub, com deploy automático (~50s do clique ao ar).
 - Cloudflare Pages Functions em `functions/api/` com sessão em KV, senha em
   hash PBKDF2, recuperação por senha provisória e restauração de fábrica.
-- Página de assistência especializada multimarcas, com 48 logos.
+- Página de assistência especializada multimarcas, com 44 logos.
 - Hub `/guaruja/` e página própria para cada um dos 41 bairros atendidos.
 - Open Graph e canonical por página; `docs/MAPA-DO-SITE.md` gerado do build.
 - `scripts/checar-painel.mjs`: valida a sintaxe do script do painel no build.

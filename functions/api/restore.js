@@ -45,7 +45,7 @@ export const onRequestPost = rota(async ({ request, env }) => {
     });
     const commit = result.commit.sha;
     await draft.put(env, { sha: result.content.sha, content, at: new Date().toISOString(), commit });
-    return json({ ok: true, content, commit, sha: result.content.sha });
+    return json({ ok: true, content, commit, sha: result.content.sha, updatedAt: content.updatedAt });
   } catch (error) {
     return bad(`Não consegui restaurar: ${error.message}`, 502);
   }

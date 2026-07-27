@@ -465,6 +465,11 @@ footer{background:var(--navy);color:#fff;padding:64px 0 22px}
 
 /* ============ PHONE ============ */
 @media(max-width:560px){
+  /* Em 2 colunas o segundo selo estoura o container abaixo de 366px e a home
+     inteira ganha scroll lateral — 360px é a largura mais comum de Android. */
+  .trust-inner{grid-template-columns:1fr}
+  /* E-mail e endereço são tokens longos que não quebram sozinhos. */
+  .contact-note,.contact-social-box,.contact-card{overflow-wrap:anywhere}
   .hero h1{font-size:32px}
   .trust-inner{border-radius:14px}
   .trust-inner>div{padding:18px 14px;gap:10px}

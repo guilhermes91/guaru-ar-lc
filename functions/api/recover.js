@@ -1,6 +1,7 @@
 import { bad, getUser, guardarSenhaProvisoria, json, rota, sendMail } from "../../lib/admin.js";
 
-const WINDOW = 60 * 15; // 15 minutos entre envios, por IP
+const WINDOW = 60 * 15; // janela de 15 minutos, por IP
+const MAX_TENTATIVAS = 3; // erro de digitação no e-mail não pode queimar a janela
 
 // Alfabeto sem 0/O e 1/l/I: a senha vai ser lida de um e-mail e digitada à mão.
 const ALFABETO = "abcdefghijkmnopqrstuvwxyz23456789";
@@ -18,12 +19,13 @@ export const onRequestPost = rota(async ({ request, env }) => {
 
   const ip = request.headers.get("cf-connecting-ip") || "desconhecido";
   const key = `recover:${ip}`;
-  if (await env.ADMIN_KV.get(key)) {
-    return bad("Já enviamos um e-mail recentemente. Aguarde alguns minutos.", 429);
+  const tentativas = Number((await env.ADMIN_KV.get(key)) || 0);
+  if (tentativas >= MAX_TENTATIVAS) {
+    return bad("Já pedimos a senha algumas vezes agora há pouco. Aguarde 15 minutos e tente de novo.", 429);
   }
-  // Grava a janela ANTES de olhar o e-mail. Se só gravasse quando acerta, o 429
-  // seguinte diria "esse e-mail existe" — um oráculo de enumeração gratuito.
-  await env.ADMIN_KV.put(key, "1", { expirationTtl: WINDOW });
+  // Conta ANTES de olhar o e-mail. Se só contasse quando acerta, o 429 seguinte
+  // diria "esse e-mail existe" — um oráculo de enumeração gratuito.
+  await env.ADMIN_KV.put(key, String(tentativas + 1), { expirationTtl: WINDOW });
 
   const user = await getUser(env);
 
