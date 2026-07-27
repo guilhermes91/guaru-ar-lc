@@ -6,7 +6,7 @@ import { ArrowRight, Flame, Snowflake, Waves, Wrench } from "lucide-react";
 const icons = { Snowflake, Flame, Waves, Wrench };
 const accent = { Snowflake: "ac", Flame: "heat", Waves: "pool", Wrench: "tool" } as const;
 
-export function ServiceCard({ service }: { service: { slug: string; title: string; icon: string; short: string; image: string; price: number } }) {
+export function ServiceCard({ service }: { service: { slug: string; title: string; icon: string; short: string; image: string } }) {
   const Icon = icons[service.icon as keyof typeof icons] ?? Wrench;
   const cor = accent[service.icon as keyof typeof accent] ?? "tool";
   return (
@@ -17,9 +17,6 @@ export function ServiceCard({ service }: { service: { slug: string; title: strin
       <div className="svc-info">
         <h3>{service.title}</h3>
         <p>{service.short}</p>
-        {service.price > 0 && (
-          <p className="svc-preco">a partir de <b>R$ {service.price.toLocaleString("pt-BR")}</b></p>
-        )}
       </div>
       <span className="svc-go"><ArrowRight /></span>
     </Link>

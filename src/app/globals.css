@@ -33,9 +33,7 @@ main{min-height:60vh}
 /* ---------- logo ---------- */
 .logo{display:inline-flex;align-items:center;line-height:0;position:relative}
 .logo-img{display:block;width:154px;height:68px;object-fit:contain;object-position:left center;filter:drop-shadow(0 4px 10px #0a2b5220)}
-.logo-name{display:inline-flex;align-items:center;height:28px;margin-left:-16px;margin-bottom:8px;padding:0 9px;border:1px solid #cceaf2;border-radius:999px;background:#f4fbff;color:var(--navy);font-size:11px;font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:.45px;box-shadow:0 8px 18px #0a2b5212}
 footer .logo-img{width:172px;height:92px;filter:drop-shadow(0 6px 14px #00000040)}
-footer .logo-name{background:#ffffff18;border-color:#ffffff2b;color:#fff;box-shadow:none}
 
 /* ---------- header ---------- */
 .header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid #eef2f5}
@@ -98,10 +96,6 @@ footer .logo-name{background:#ffffff18;border-color:#ffffff2b;color:#fff;box-sha
 .svc-info{padding:46px 24px 30px}
 .svc-info h3{font-size:23px;margin:0 0 8px;color:#0c2c4e}
 .svc-info p{color:var(--muted);margin:0;font-size:15px}
-.svc-preco{margin-top:12px !important;font-size:14px;color:var(--muted)}
-.svc-preco b{color:var(--ink);font-size:17px}
-.page-hero .svc-preco{color:#cfe9f7;margin:0 0 22px}
-.page-hero .svc-preco b{color:#fff}
 .svc-go{display:none}
 
 /* ---------- area bar ---------- */
@@ -377,7 +371,6 @@ footer{background:var(--navy);color:#fff;padding:64px 0 22px}
 @media(max-width:960px){
   .container{width:min(100% - 32px,1180px)}
   .logo-img{width:132px;height:58px}
-  .logo-name{font-size:10px;height:25px;margin-left:-14px;margin-bottom:6px;padding:0 8px}
   .navlinks,.nav-cta{display:none}
   .nav-mobile{display:flex}
   .nav{height:70px}
@@ -453,7 +446,6 @@ footer{background:var(--navy);color:#fff;padding:64px 0 22px}
 /* ============ PHONE ============ */
 @media(max-width:560px){
   .hero h1{font-size:32px}
-  .logo-name{display:none}
   .trust-inner{border-radius:14px}
   .trust-inner>div{padding:18px 14px;gap:10px}
   .trust-ic{width:40px;height:40px}

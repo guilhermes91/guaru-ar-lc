@@ -672,7 +672,6 @@ function secaoServicos() {
       cabecaItem({ titulo: servico.title || "Serviço", lista, indice: i, aoMudar: desenharSecao }),
       el("div", { className: "grade" }, [
         campo({ label: "Nome do serviço", obj: servico, chave: "title", max: 40 }),
-        campoPreco({ label: "Preço a partir de (R$)", obj: servico, chave: "price" }),
         campoOpcao({
           label: "Ícone do card",
           obj: servico,
@@ -701,7 +700,6 @@ function secaoServicos() {
             short: "Manutenção, limpeza, instalação e reparos",
             description: "Descreva aqui o que está incluído neste serviço.",
             image: lista[0]?.image || "/images/home-generated/card-ar-condicionado.webp",
-            price: 0,
           });
         }),
       ],

@@ -34,7 +34,7 @@ escreve nesse arquivo.** O botão *Restaurar padrão* copia ele por cima de
 | --- | --- |
 | Configurações | Nome, telefone, WhatsApp, e-mail, endereço, horário, redes sociais |
 | Textos do site | Título e frase do topo, bloco "sobre", chamada final, rodapé |
-| Serviços | Nome, resumo, descrição, preço e imagem de cada serviço |
+| Serviços | Nome, resumo, descrição, ícone e imagem de cada serviço |
 | Produtos | Nome, preço e fotos dos produtos |
 | Bairros e regiões | Bairros em destaque (com foto), todos os bairros e as cidades atendidas |
 | Números, avaliações e FAQ | Provas sociais e perguntas frequentes |

@@ -35,8 +35,9 @@ horário de atendimento e redes sociais. Muda em todo o site de uma vez.
 **Textos do site** — o título grande da página inicial, a frase de apoio, o
 texto "sobre a empresa" e a chamada final.
 
-**Serviços** — nome, resumo, descrição, preço, ícone e imagem de cada serviço.
-O preço aparece no card da página inicial e na página do serviço.
+**Serviços** — nome, resumo, descrição, ícone e imagem de cada serviço.
+Serviço não tem preço: o valor depende de avaliação, e o cliente pede orçamento
+pelo WhatsApp. Preço só existe em Produtos.
 
 **Produtos** — nome, preço e fotos. Cada produto pode ter uma foto de estúdio
 e uma foto em uso; quando as duas existem, o card alterna entre elas. A foto de

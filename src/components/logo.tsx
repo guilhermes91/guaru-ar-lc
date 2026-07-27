@@ -20,7 +20,6 @@ export function Logo() {
           filter: "drop-shadow(0 4px 10px rgba(10, 43, 82, .14))",
         }}
       />
-      <span className="logo-name">{site.name}</span>
     </Link>
   );
 }

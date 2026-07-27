@@ -93,7 +93,7 @@ L.push("| --- | --- | --- |");
 for (const [s, o, onde] of [
   ["Configurações", "Nome, razão social, endereço do site, telefone, WhatsApp, e-mail, endereço, horário, redes sociais", "Todas as páginas: cabeçalho, rodapé, botões de WhatsApp e dados estruturados"],
   ["Textos do site", "Título e frase do topo, bloco sobre, chamada final, descrição do rodapé", "Página inicial, /sobre/ e rodapé de todas"],
-  ["Serviços", "Nome, resumo, descrição, preço, ícone e imagem de cada serviço", "Cards da home, /servicos/ e a página de cada serviço"],
+  ["Serviços", "Nome, resumo, descrição, ícone e imagem de cada serviço (sem preço)", "Cards da home, /servicos/ e a página de cada serviço"],
   ["Produtos", "Nome, preço e as duas fotos de cada produto", "/produtos/"],
   ["Bairros e regiões", "Bairros em destaque com foto, regiões, texto de cada região, bairros e cidades atendidas", "Home, as páginas de bairro, rodapé e /assistencia-autorizada/"],
   ["Números, avaliações e FAQ", "Três números de destaque, depoimentos com foto e perguntas frequentes", "Página inicial"],

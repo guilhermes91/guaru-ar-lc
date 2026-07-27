@@ -30,9 +30,6 @@ export default async function Service({ params }: { params: Promise<{ slug: stri
           <div className="breadcrumbs">Início / Serviços / {s.title}</div>
           <h1>{s.title} no Guarujá</h1>
           <p>{s.description}</p>
-          {s.price > 0 && (
-            <p className="svc-preco">a partir de <b>R$ {s.price.toLocaleString("pt-BR")}</b></p>
-          )}
           <a
             className="btn whatsapp"
             href={site.whatsapp(`Olá! Preciso de orçamento para ${s.title}.`)}

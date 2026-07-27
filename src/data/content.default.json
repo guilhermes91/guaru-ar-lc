@@ -31,8 +31,7 @@
       "icon": "Snowflake",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
-      "image": "/images/home-generated/card-ar-condicionado.webp",
-      "price": 149
+      "image": "/images/home-generated/card-ar-condicionado.webp"
     },
     {
       "slug": "aquecedores",
@@ -40,8 +39,7 @@
       "icon": "Flame",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Instalação, revisão e reparo de aquecedores a gás, elétricos e sistemas de água quente.",
-      "image": "/images/home-generated/card-aquecedor.webp",
-      "price": 179
+      "image": "/images/home-generated/card-aquecedor.webp"
     },
     {
       "slug": "piscinas",
@@ -49,8 +47,7 @@
       "icon": "Waves",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Limpeza, tratamento, manutenção de equipamentos e recuperação da qualidade da água.",
-      "image": "/images/home-generated/card-piscina.webp",
-      "price": 120
+      "image": "/images/home-generated/card-piscina.webp"
     }
   ],
   "stats": [
