@@ -15,8 +15,8 @@
     }
   },
   "texts": {
-    "heroTitle": "Climatização, aquecimento e piscinas no Guarujá",
-    "heroHighlight": "Guarujá",
+    "heroTitle": "Ar & clima: \"conforto\" que dura o ano todo no Guarujá — instalação e reparo",
+    "heroHighlight": "conforto",
     "heroSubtitle": "Conforto, segurança e cuidado em todos os ambientes. QA1",
     "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
     "aboutText": "A Guaru Ar LC é referência no Guarujá em serviços de climatização, aquecimento e manutenção de piscinas. Trabalhamos com equipamentos de qualidade, técnicas atualizadas e uma equipe comprometida com a sua satisfação.",
@@ -26,14 +26,6 @@
   },
   "services": [
     {
-      "slug": "ar-condicionado",
-      "title": "Ar-condicionado",
-      "short": "Manutenção, limpeza, instalação e reparos",
-      "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
-      "image": "/images/home-generated/card-ar-condicionado.webp",
-      "icon": "Snowflake"
-    },
-    {
       "slug": "aquecedores",
       "title": "Aquecedores",
       "short": "Manutenção, limpeza, instalação e reparos",
@@ -42,12 +34,28 @@
       "icon": "Flame"
     },
     {
+      "slug": "ar-condicionado",
+      "title": "Ar-condicionado",
+      "short": "Manutenção, limpeza, instalação e reparos",
+      "description": "Instalação, higienização, manutenção preventiva e corretiva para ambientes residenciais e comerciais.",
+      "image": "/images/home-generated/card-ar-condicionado.webp",
+      "icon": "Snowflake"
+    },
+    {
       "slug": "piscinas",
       "title": "Piscinas",
       "short": "Manutenção, limpeza, instalação e reparos",
       "description": "Limpeza, tratamento, manutenção de equipamentos e recuperação da qualidade da água.",
       "image": "/images/home-generated/card-piscina.webp",
       "icon": "Waves"
+    },
+    {
+      "slug": "limpeza-de-dutos-filtros",
+      "title": "Limpeza de Dutos & Filtros",
+      "short": "Higienização completa de dutos e filtros.",
+      "description": "Remoção de fungos e poeira acumulada em dutos, com troca de filtros e teste de vazão ao final.",
+      "image": "/images/home-generated/card-ar-condicionado.webp",
+      "icon": "Wrench"
     }
   ],
   "products": [
@@ -103,7 +111,7 @@
   ],
   "stats": [
     {
-      "value": "+10",
+      "value": "+2.000",
       "label": "anos de experiência"
     },
     {
@@ -119,7 +127,7 @@
     {
       "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
       "name": "Mariana S.",
-      "area": "Pitangueiras",
+      "area": "Jardim Virgínia Bairro Longo",
       "avatar": "/images/avatars/ms.webp"
     },
     {
@@ -138,7 +146,7 @@
   "faqs": [
     {
       "q": "Vocês cobram visita técnica?",
-      "a": "A visita pode ser incluída no orçamento conforme o tipo de serviço. Muitos casos já resolvemos com informações e fotos pelo WhatsApp, sem custo inicial."
+      "a": "Sim. O orçamento é gratuito & sem compromisso.\nTrabalhamos com \"visita técnica\" agendada. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no litoral. Detalhe do atendimento no lito"
     },
     {
       "q": "Quais marcas de equipamentos vocês trabalham?",
@@ -208,7 +216,8 @@
         "Helena Maria",
         "Pitangueiras",
         "Santo Antônio",
-        "Cachoeira"
+        "Cachoeira",
+        "Jardim São João D'Água Vermelha - Ext. Litoral Norte Guaruj"
       ],
       "seoText": "Na faixa das praias urbanizadas, os equipamentos convivem com maresia constante e uso intenso na temporada. Limpeza periódica e checagem de vedação evitam a corrosão que aparece primeiro nas serpentinas."
     },
@@ -473,5 +482,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T14:16:52.149Z"
+  "updatedAt": "2026-07-27T14:24:40.494Z"
 }
