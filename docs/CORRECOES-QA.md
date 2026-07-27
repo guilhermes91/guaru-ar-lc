@@ -141,17 +141,35 @@ enquanto o menu está aberto, e o foco entra no menu ao abrir. Medido no Chrome:
 > a chamada final como `<section>` irmã de `<footer>`, fora do `<main>`. Só
 > apareceu porque foi medido. Por isso a regra virou "tudo que não é o cabeçalho".
 
-### 5. Página removida continuava no ar por até 7 dias
+### 5. Página removida continua no ar — **EM ABERTO, a correção não resolveu**
 `public/_headers`. Removido um serviço ou bairro, a rota sai do deploy e a origem
-responde 404 — mas o Cloudflare seguia servindo a cópia guardada com **200 e a
-página inteira** (`CF-Cache-Status: HIT`, `s-maxage=604800`), inclusive para o
-Google, sem nenhum aviso no painel. `/servicos/*` e `/guaruja/*` — as únicas
-rotas que o painel cria e remove — passaram a ter TTL curto de borda
-(`s-maxage=60`).
+responde 404 — mas o Cloudflare segue servindo a cópia guardada com **200 e a
+página inteira** (`CF-Cache-Status: HIT`), inclusive para o Google, sem nenhum
+aviso no painel.
 
-> **Verificação pendente:** está provado que o cabeçalho é aplicado nessas rotas.
-> Não está provado de ponta a ponta que a página órfã cai do cache em 60s — isso
-> exige um ciclo criar → cachear → remover em produção. As duas URLs de teste
-> que a auditoria deixou cacheadas (`/servicos/limpeza-de-dutos-filtros/` e um
-> bairro) seguem respondendo 200 até expirarem, porque foram guardadas com a
-> política antiga e `pages.dev` não é zona nossa para purgar.
+Tentativa: dar TTL curto de borda (`s-maxage=60`) a `/servicos/*` e `/guaruja/*`,
+as únicas rotas que o painel cria e remove.
+
+**Medido de ponta a ponta e reprovado** (`scripts/teste-cache-borda.mjs`, ciclo
+criar → aquecer o cache → remover → cronometrar, em 27/07/2026):
+
+```
++46s  -> 200 | cf=HIT age=45  | public, max-age=0, must-revalidate, s-maxage=60
++302s -> 200 | cf=HIT age=302 | public, max-age=0, must-revalidate, s-maxage=60
++589s -> 200 | cf=HIT age=588 | public, max-age=0, must-revalidate, s-maxage=60
+RESULTADO: apos 10 min a pagina removida AINDA responde 200 do cache de borda.
+```
+
+O cabeçalho **é** aplicado — aparece na resposta. O Cloudflare simplesmente não
+revalida: o `Age` passa de 60 e continua crescendo, servindo a cópia velha
+enquanto a origem já responde 404. A regra ficou no `_headers` porque 60s é uma
+intenção mais correta que os 7 dias anteriores, mas **não** conserta o defeito.
+
+**Caminho real da correção:** purgar o cache depois do deploy, pela API do
+Cloudflare. Isso exige uma zona nossa — `pages.dev` é zona da Cloudflare e não dá
+para purgar. Ou seja: **isto se resolve quando o domínio próprio entrar**, com um
+passo de `purge_cache` no `.github/workflows/deploy.yml` (ou uma Cache Rule na
+zona). Refazer `node scripts/teste-cache-borda.mjs` nessa hora para confirmar.
+
+Enquanto isso, as URLs de teste que as auditorias deixaram cacheadas seguem
+respondendo 200 até expirarem.
