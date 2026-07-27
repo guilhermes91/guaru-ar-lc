@@ -195,7 +195,7 @@
     {
       "region": "Região I",
       "neighborhoods": [
-        "Bairro",
+        "Barra Grande",
         "Santa Cruz",
         "Marinas",
         "Guaiúba",
@@ -473,5 +473,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T02:10:54.000Z"
+  "updatedAt": "2026-07-27T02:11:38.517Z"
 }
