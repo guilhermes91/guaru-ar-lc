@@ -660,7 +660,9 @@ Você poderá desfazer logo depois, enquanto não publicar.`)) return false;
 
   // Empilha: sem isso a segunda remoção apagava o desfazer da primeira, e o
   // confirm promete que dá para desfazer "enquanto não publicar".
-  removidos.push({ lista, indice, item: removido, titulo });
+  // A versão diz de qual "safra" é esta remoção: a publicação em voo só pode
+  // limpar o que estava na tela quando ela partiu (ver o handler de publicar).
+  removidos.push({ lista, indice, item: removido, titulo, versao: estado.versao });
   pintarDesfazeres(aoMudar);
 }
 
@@ -1212,10 +1214,14 @@ $("#btn-publicar").addEventListener("click", async () => {
     aplicarIdentificadores(pares);
     estado.sha = publicado.sha || estado.sha;
     estado.updatedAt = publicado.updatedAt || null;
-    // A fila de desfazer some junto com a publicação: sem repintar, a caixa
-    // continuava na tela dizendo "só saem do site quando você publicar" sobre
-    // itens que acabaram de sair, e o botão ressuscitava o item em silêncio.
+    // Some da fila só o que foi publicado de verdade. Zerar tudo apagava o
+    // desfazer de uma remoção feita DURANTE o envio — que não entrou no
+    // payload, continua no site, e o confirm tinha prometido poder desfazer.
+    // Sem repintar, a caixa ainda ficava na tela dizendo "só saem do site
+    // quando você publicar" sobre itens que já tinham saído.
+    const aindaNaoPublicados = removidos.filter((r) => r.versao >= versaoEnviada);
     removidos.length = 0;
+    removidos.push(...aindaNaoPublicados);
     pintarDesfazeres(desenharSecao);
     // Editou durante o envio? Continua pendente, para não perder o que ficou de fora.
     estado.sujo = estado.versao !== versaoEnviada;

@@ -13,6 +13,17 @@
 /images/*
   Cache-Control: public, max-age=604800
 
+# As únicas páginas que o painel cria e remove. Quando o dono remove um serviço
+# ou um bairro, a rota some do deploy e a origem passa a responder 404 — mas o
+# Cloudflare continuava servindo a cópia guardada, com 200 e a página inteira,
+# por até 7 dias (s-maxage=604800), inclusive para o Google. TTL curto de borda
+# faz a página órfã cair em segundos.
+/servicos/*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=60
+
+/guaruja/*
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=60
+
 /logo-guaruar.png
   Cache-Control: public, max-age=604800
 

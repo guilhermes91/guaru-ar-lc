@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/checar-painel.mjs && node scripts/smoke-painel.mjs && next build && node scripts/pos-build.mjs",
+    "build": "node scripts/checar-painel.mjs && node scripts/smoke-painel.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/regressoes.mjs && next build && node scripts/pos-build.mjs",
     "start": "next start",
     "lint": "eslint",
     "check:painel": "node scripts/checar-painel.mjs",
-    "smoke": "node scripts/smoke-painel.mjs"
+    "smoke": "node scripts/smoke-painel.mjs",
+    "regressoes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/regressoes.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.23.0",

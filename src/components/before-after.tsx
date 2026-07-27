@@ -8,7 +8,11 @@ export function BeforeAfter({ before, after, label }: { before: string; after: s
     <div className="ba">
       <div className="ba-slider">
         <div className="ba-layer ba-before" style={{ backgroundImage: `url(${before})` }} />
-        <div className="ba-layer ba-after" style={{ backgroundImage: `url(${after})`, clipPath: `inset(0 ${100 - pos}% 0 0)` }} />
+        {/* Recorta pela ESQUERDA: a camada "depois" tem que ficar do lado direito,
+            que é onde está o selo "Depois". Recortando pela direita ela aparecia
+            sob o selo "Antes", e os três cards da home anunciavam o equipamento
+            sujo como sendo o resultado do serviço. */}
+        <div className="ba-layer ba-after" style={{ backgroundImage: `url(${after})`, clipPath: `inset(0 0 0 ${pos}%)` }} />
         <span className="ba-tag b">Antes</span>
         <span className="ba-tag a">Depois</span>
         <div className="ba-handle" style={{ left: `${pos}%` }} />
