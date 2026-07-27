@@ -2,7 +2,7 @@
   "site": {
     "name": "Guaru Ar LC",
     "legalName": "Guaru Ar LC",
-    "url": "https://guaruarguaruja.com.br",
+    "url": "https://guaruarguaruja.com.br/",
     "phoneDisplay": "(13) 97410-4466",
     "phone": "5513974104466",
     "email": "contato@guaruarguaruja.com.br",
@@ -15,7 +15,7 @@
     }
   },
   "texts": {
-    "heroTitle": "Climatização, aquecimento e piscinas no Guarujá",
+    "heroTitle": "Ar-condicionado e aquecedores no Guaruja",
     "heroHighlight": "Guarujá",
     "heroSubtitle": "QA7-CICLO-MARCADOR — instalacao, manutencao e limpeza com atendimento no Guaruja.",
     "aboutTitle": "Especialistas em conforto e bem-estar desde o início.",
@@ -54,7 +54,7 @@
     {
       "id": "ar-completo",
       "name": "Ar-condicionado completo",
-      "price": 1899,
+      "price": 1e+308,
       "image": "/images/products/ar-completo.webp",
       "imageEmUso": "/images/products/ar-completo-emuso.webp"
     },
@@ -62,8 +62,7 @@
       "id": "condensadora",
       "name": "Condensadora",
       "price": 1290,
-      "image": "/images/products/condensadora.webp",
-      "imageEmUso": "/images/products/condensadora-emuso.webp"
+      "image": "/images/products/condensadora.webp"
     },
     {
       "id": "evaporadora",
@@ -119,14 +118,14 @@
     {
       "text": "Excelente atendimento e serviço de qualidade! Resolveram o problema do meu ar-condicionado rapidamente.",
       "name": "Mariana S.",
-      "area": "Pitangueiras",
+      "area": "",
       "avatar": "/images/avatars/ms.webp"
     },
     {
       "text": "Minha piscina ficou impecável! Equipe atenciosa, pontual e muito profissional. Super recomendo a Guaru Ar LC.",
       "name": "Carlos A.",
       "area": "Jardim Acapulco",
-      "avatar": "/images/avatars/ca.webp"
+      "avatar": "/images/avatars/nao-existe-qa7.webp"
     },
     {
       "text": "Instalaram meu aquecedor com perfeição e ainda deram várias dicas de uso. Serviço de confiança!",
@@ -189,6 +188,10 @@
     {
       "name": "Vicente de Carvalho",
       "image": "/images/home-generated/area-vicente-de-carvalho.webp"
+    },
+    {
+      "name": "Asturias",
+      "image": "/images/home-generated/area-asturias.webp"
     }
   ],
   "neighborhoodGroups": [
@@ -208,7 +211,10 @@
         "Helena Maria",
         "Pitangueiras",
         "Santo Antônio",
-        "Cachoeira"
+        "Cachoeira",
+        "404",
+        "Index",
+        "Abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
       ],
       "seoText": "Na faixa das praias urbanizadas, os equipamentos convivem com maresia constante e uso intenso na temporada. Limpeza periódica e checagem de vedação evitam a corrosão que aparece primeiro nas serpentinas."
     },
@@ -225,8 +231,7 @@
         "Conceiçãozinha",
         "Bocaina",
         "Vicente de Carvalho"
-      ],
-      "seoText": "Na parte continental do Guarujá, o atendimento costuma envolver casas e comércios de uso o ano inteiro, com prioridade para manutenção preventiva e reparo rápido, sem depender da temporada."
+      ]
     },
     {
       "region": "Região III",
@@ -473,5 +478,5 @@
       }
     ]
   },
-  "updatedAt": "2026-07-27T06:19:59.801Z"
+  "updatedAt": "2026-07-27T06:21:58.421Z"
 }
