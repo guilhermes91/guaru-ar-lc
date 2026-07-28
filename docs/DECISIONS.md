@@ -8,7 +8,7 @@
 - Vitrine sem checkout: o CTA abre o WhatsApp oficial com mensagem contextual.
 - SEO local com páginas pré-renderizadas por bairro, evitando páginas vazias ou geradas apenas para palavras-chave.
 - Dados de contato recuperados da versão pública indexada do site antigo; devem ser confirmados pelo cliente antes da publicação.
-- Imagens geradas por IA para o projeto e hospedadas localmente; o cliente confirmou que são de uso próprio (27/07/2026).
+- Imagens produzidas para o projeto e hospedadas localmente; o cliente confirmou que são de uso próprio (27/07/2026).
 
 ## Continuidade
 
