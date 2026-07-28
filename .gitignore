@@ -27,6 +27,11 @@
 # imagens-fonte originais (PNG pesados) - só os WebP otimizados vão pro site
 /_source-images
 
+# documentação: fica só na máquina, o repositório é só código
+/docs
+/README.md
+/CHANGELOG.md
+
 # debug
 npm-debug.log*
 yarn-debug.log*

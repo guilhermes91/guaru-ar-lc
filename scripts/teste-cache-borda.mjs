@@ -8,7 +8,7 @@
 // Em 27/07/2026 este teste REPROVOU: a página seguiu em 200 por mais de 10 min,
 // com `Age` passando de 588s contra um `s-maxage=60` presente na resposta — o
 // Cloudflare não revalida quando a origem passa a responder 404. Ver o achado
-// R9#5 em docs/CORRECOES-QA.md. Refazer quando o domínio próprio entrar, junto
+// R9#5. Refazer quando o domínio próprio entrar, junto
 // com um passo de purge no deploy: aí sim há uma zona nossa para purgar.
 //
 // Uso (as credenciais NÃO ficam no repositório, que é público):
