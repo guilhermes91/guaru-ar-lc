@@ -1,6 +1,6 @@
 # Imagens dos produtos (vitrine "chamariz")
 
-Peça ao Codex para gerar **7 imagens** de produto, estilo **foto de e-commerce realista**:
+Especificação das **7 imagens** de produto, estilo **foto de e-commerce realista**:
 fundo branco/neutro de estúdio, produto centralizado e em destaque, sombra suave,
 iluminação limpa, alta nitidez, aparência de marca brasileira top de mercado.
 
@@ -41,5 +41,5 @@ Me avise. Eu:
 2. Troco o campo `image` de cada produto em `src/data/site.ts` de placeholder (Unsplash)
    para `/images/products/<id>.webp`.
 
-Obs.: modelos de IA nem sempre reproduzem o logo exato da marca — o objetivo é a
-**aparência realista** do tipo de produto daquela marca, não a logomarca perfeita.
+Obs.: o objetivo é a **aparência realista** do tipo de produto daquela marca, não
+a reprodução exata da logomarca.
